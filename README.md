@@ -1,3 +1,9 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RICK | Cyber Security Researcher</title>
     
     <!-- خطوط جوجل - خط Cairo الاحترافي -->
@@ -5,8 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <!-- مكتبة Font Awesome للأيقونات عبر الـ CDN (متوافقة 100% مع جيث هاب) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- مكتبة Font Awesome للأيقونات - نسخة مستقرة ومحدثة -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
@@ -68,20 +74,38 @@
         nav ul {
             display: flex;
             list-style: none;
+            align-items: center;
         }
 
         nav ul li {
-            margin-left: 25px; /* متوافق مع الاتجاه من اليمين لليسار */
+            margin-left: 25px; /* مسافة متناسقة للغة العربية */
+        }
+
+        nav ul li:last-child {
+            margin-left: 0;
         }
 
         nav ul li a {
             color: var(--text-color);
             text-decoration: none;
             font-size: 16px;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
         nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* زر القائمة للموبايل */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: var(--text-bright);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .menu-toggle:hover {
             color: var(--accent-color);
         }
 
@@ -267,17 +291,46 @@
             background-color: var(--card-bg);
         }
 
-        /* التجاوب مع الهواتف */
+        /* التجاوب مع الهواتف والشاشات الصغيرة */
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: block; /* إظهار زر القائمة في الجوال */
+            }
+
+            nav ul {
+                display: none; /* إخفاء القائمة الافتراضية */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--card-bg);
+                border-bottom: 1px solid var(--border-color);
+                padding: 20px;
+                gap: 15px;
+            }
+
+            nav ul.active {
+                display: flex; /* إظهارها عند الضغط على الزر */
+            }
+
+            nav ul li {
+                margin-left: 0;
+                text-align: center;
+                width: 100%;
+            }
+
             .about-grid {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
+
             .hero-content h1 {
-                font-size: 2.5rem;
+                font-size: 2.3rem;
             }
-            nav ul {
-                display: none; /* إخفاء القائمة في الشاشات الصغيرة لتجنب المشاكل بدون جافاسكريبت معقد */
+
+            .hero-content p {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -288,8 +341,11 @@
     <header>
         <div class="nav-container">
             <div class="logo"><span>[</span> RICK <span>]</span></div>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
             <nav>
-                <ul>
+                <ul id="nav-list">
                     <li><a href="#home">الرئيسية</a></li>
                     <li><a href="#about">من أنا</a></li>
                     <li><a href="#services">الخدمات</a></li>
@@ -323,7 +379,7 @@
                     أنا <strong>RICK</strong>، باحث متخصص في الأمن السيبراني واختبار الاختراق. أعمل على مساعدة الشركات والمطورين في تأمين بنيتهم التحتية الرقمية، وتطبيقاتهم، وحمايتها من التهديدات السيبرانية المتقدمة.
                 </p>
                 <p>
-                    شغفي يكمن في تحليل البروتوكولات الشبكية، ومراجعة الأكواد البرمجية، واكتشاف الثغرات الأمنية الحرجة. أهدافي دائماً تتمحور حول خلق بيئة رقمية أكثر أماناً.
+                    شغفي يكمن في تحليل البروتوكولات الشبكية، ومراجعة الأكواد البرمجية، واكتشاف الثغرات الأمنية الحرجة. أهدافي دائماً تتمحور حول خلق بيئة رقمية أكثر أماناً ومقاومة للهجمات.
                 </p>
             </div>
         </div>
@@ -336,7 +392,7 @@
             <div class="card">
                 <i class="fa-solid fa-network-wired"></i>
                 <h3>اختبار اختراق الشبكات</h3>
-                <p>فحص شامل للشبكات الداخلية والخارجية للمؤسسات، واكتشاف منافذ الضعف والقصور في إعدادات السيرفرات.</p>
+                <p>فحص شامل للشبكات الداخلية والخارجية للمؤسسات، واكتشاف منافذ الضعف والقصور في إعدادات السيرفرات والأجهزة.</p>
             </div>
             <div class="card">
                 <i class="fa-solid fa-code-bug"></i>
@@ -390,7 +446,7 @@
             <p>هل تريد تأمين مشروعك أو لديك استفسار أمني؟ لا تتردد في مراسلتي مباشرة عبر المنصات التالية:</p>
             
             <div class="social-links">
-                <!-- أضف روابط حساباتك هنا -->
+                <!-- استبدل العلامة # بروابطك الحقيقية لاحقاً -->
                 <a href="#" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
                 <a href="#" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                 <a href="mailto:rick@example.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
@@ -400,8 +456,26 @@
 
     <!-- الفوتر -->
     <footer>
-        <p>&copy; 2026 RICK. جميع الحقوق محفوظة | مستضاف على GitHub Pages</p>
+        <p>&copy; 2026 RICK. جميع الحقوق محفوظة | مستضاف بأمان على GitHub Pages</p>
     </footer>
 
+    <!-- كود جافا سكريبت لإصلاح وتفعيل قائمة الجوال التفاعلية -->
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        // فتح وإغلاق القائمة عند الضغط على الزر في الجوال
+        mobileMenu.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        // إغلاق القائمة تلقائياً عند الضغط على أي رابط لتسهيل التنقل
+        const navLinks = document.querySelectorAll('#nav-list a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
