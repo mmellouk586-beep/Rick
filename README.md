@@ -1,15 +1,14 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RICK | Cyber Security Researcher</title>
     
-    <!-- خطوط جوجل -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <!-- مكتبة Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -181,10 +180,10 @@
         }
         .lab-float-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-color); }
 
-        /* نافذة بيئة الاختبار (Lab) المحدثة والمثبتة برمجياً */
+        /* نافذة بيئة الاختبار (Lab) */
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            background-color: rgba(0, 0, 0, 0.85); z-index: 20000; /* أعلى من كل العناصر */
+            background-color: rgba(0, 0, 0, 0.85); z-index: 20000; 
             display: none; justify-content: center; align-items: center; padding: 20px; 
         }
         .laptop { width: 850px; max-width: 100%; display: flex; flex-direction: column; }
@@ -218,7 +217,6 @@
 </head>
 <body>
 
-    <!-- شاشة فحص الكوكيز -->
     <div id="security-check">
         <div class="scan-terminal">
             <div class="scan-line" id="line1">> Initializing visitor integrity scan...</div>
@@ -232,7 +230,6 @@
         </div>
     </div>
 
-    <!-- الهيدر -->
     <header>
         <div class="nav-container">
             <div class="logo-area">
@@ -255,7 +252,6 @@
         </div>
     </header>
 
-    <!-- المحتويات الرئيسية للموقع -->
     <div id="main-content-wrapper">
         <section id="home" class="hero">
             <div class="hero-content">
@@ -307,16 +303,13 @@
         </section>
     </div>
 
-    <!-- قسم المقاطع التلقائي المشترك -->
     <section id="video-section">
         <h2 class="section-title">المقاطع المنشورة</h2>
         <div class="videos-grid" id="youtubeVideosGrid"></div>
     </section>
 
-    <!-- الأيقونة العائمة لفتح بيئة المحاكاة التيرمينال (Lab) -->
     <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
 
-    <!-- نافذة بيئة الاختبار (Lab) المصلحة بالكامل -->
     <div class="modal-overlay" id="labModal">
         <div class="laptop">
             <div class="screen">
@@ -339,13 +332,17 @@
 
     <footer><p>&copy; 2026 RICK. جميع الحقوق محفوظة</p></footer>
 
-    <!-- البرمجة الذكية والمصلحة بالكامل -->
     <script>
+        // مفاتيح الربط الذكية - تم تعيين معرف قناتك UCwFk399Vw8Xq3K_R-3-zOtw لـ @Rick_6006
         const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
-        const YOUTUBE_CHANNEL_ID = "ضع_معرف_قناتك_هنا_يبدأ_بـ_UC";
-        const BACKUP_VIDEO_ID = "dGEr5YMiEBc"; 
+        const YOUTUBE_CHANNEL_ID = "UCwFk399Vw8Xq3K_R-3-zOtw";
 
-        // تشغيل كل العمليات البرمجية فور تحميل الصفحة والتأكد من ربط العناصر
+        // المصفوفة الرقمية التي تحتوي على المقاطع الخاصة بك (Shorts) لتعمل بشكل فوري وثابت
+        const MY_PRESET_VIDEOS = [
+            { id: "dGEr5YMiEBc", title: "مقطع تتبع وتحليل البيانات - الجزء الأول" },
+            { id: "jTgCFVL2HVs", title: "مقطع تتبع وتحليل البيانات - الجزء الثاني" }
+        ];
+
         document.addEventListener('DOMContentLoaded', () => {
             
             // 1. التحكم في شاشة فحص الكوكيز الأصلية
@@ -355,7 +352,7 @@
                 runSecuritySimulation();
             }
 
-            // 2. تفعيل تشغيل بيئة الاختبار (Lab) وإصلاح مشكلة عدم الاستجابة
+            // 2. تفعيل تشغيل بيئة الاختبار (Lab) والتيرمينال
             const labModal = document.getElementById('labModal');
             const openLabBtn = document.getElementById('openLabBtn');
             const closeLabBtn = document.getElementById('closeLabBtn');
@@ -383,7 +380,6 @@
                 };
             }
 
-            // معالجة مدخلات وأوامر التيرمينال داخل بيئة الاختبار
             if (textCmd) {
                 textCmd.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter') {
@@ -433,20 +429,25 @@
                 termHistory.scrollTop = termHistory.scrollHeight;
             }
 
-            // 3. جلب مقاطع يوتيوب تلقائياً وتحديث الواجهة
+            // 3. استدعاء معالجة وعرض المقاطع
             fetchLatestYouTubeVideos();
         });
 
-        // جلب الفيديوهات التلقائية والديناميكية من يوتيوب وإصلاح الإشعارات
+        // دالة عرض المقاطع المدمجة والمحدثة مع رادار الإشعارات الذكي
         function fetchLatestYouTubeVideos() {
             const grid = document.getElementById('youtubeVideosGrid');
             if (!grid) return;
 
-            if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY.includes("ضع_")) {
-                grid.innerHTML = createVideoCard(BACKUP_VIDEO_ID, "مقطع تتبع وتحليل البيانات الافتراضي");
+            // إذا لم يتم وضع مفتاح الـ API الحقيقي، يتم عرض مقاطعك المحددة مباشرة دون مشاكل
+            if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY.includes("ضغ_")) {
+                grid.innerHTML = '';
+                MY_PRESET_VIDEOS.forEach(video => {
+                    grid.innerHTML += createVideoCard(video.id, video.title);
+                });
                 return;
             }
 
+            // الاستعلام الحي في حال تم تفعيل الـ API Key لاحقاً
             const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet,id&order=date&maxResults=5`;
             fetch(url)
                 .then(response => response.json())
@@ -461,6 +462,8 @@
                                 grid.innerHTML += createVideoCard(videoId, item.snippet.title);
                             }
                         });
+                        
+                        // رادار تتبع التحديثات وإرسال الإشعارات التلقائية للمشتركين
                         if (latestVideoId) {
                             const lastSeenVideo = localStorage.getItem('last_seen_video_id');
                             const isSubscribed = localStorage.getItem('notifications_enabled') === 'true';
@@ -469,13 +472,24 @@
                             }
                             localStorage.setItem('last_seen_video_id', latestVideoId);
                         }
+                    } else {
+                        // في حال أرجع الـ API رد فارغ يتم الرجوع للمقاطع المثبتة
+                        loadPresetVideos(grid);
                     }
                 })
                 .catch(() => {
-                    grid.innerHTML = createVideoCard(BACKUP_VIDEO_ID, "مقطع تتبع وتحليل البيانات الافتراضي");
+                    loadPresetVideos(grid);
                 });
         }
 
+        function loadPresetVideos(gridElement) {
+            gridElement.innerHTML = '';
+            MY_PRESET_VIDEOS.forEach(video => {
+                gridElement.innerHTML += createVideoCard(video.id, video.title);
+            });
+        }
+
+        // بناء كارت العرض وتعديل أبعاد مشغل اليوتيوب لتناسب المقاطع العادية والقصيرة (Shorts) بشكل مثالي
         function createVideoCard(id, title) {
             return `
                 <div class="video-wrapper">
@@ -498,7 +512,7 @@
             Notification.requestPermission().then(permission => {
                 if (permission === "granted") {
                     localStorage.setItem('notifications_enabled', 'true');
-                    sendSystemNotification("RICK System Control", "تم تفعيل نظام المتابعة الذكي!");
+                    sendSystemNotification("RICK System Control", "تم تفعيل نظام المتابعة الذكي وقناتك متصلة حالياً!");
                 }
             });
         }
@@ -520,12 +534,10 @@
             document.getElementById('main-content-wrapper').style.display = 'block';
         }
 
-        // إعدادات الكوكيز ومحاكاة الدخول
         function setCookie(name, value, days) { let expires = ""; if (days) { let date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "")  + expires + "; path=/"; }
         function getCookie(name) { let nameEQ = name + "="; let ca = document.cookie.split(';'); for(let i=0;i < ca.length;i++) { let c = ca[i]; while (c.charAt(0)==' ') c = c.substring(1,c.length); if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); } return null; }
         function runSecuritySimulation() { setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); setTimeout(() => { document.getElementById('line5').style.display = 'block'; setCookie("rick_session_scanned", "true", 7); document.getElementById('liveCookieBox').style.display = 'block'; document.getElementById('cookieValueSpan').innerText = `rick_session_scanned=true`; }, 1600); setTimeout(() => { document.getElementById('security-check').style.display = 'none'; }, 3200); }
 
-        // قائمة الهواتف المحمولة
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
         if (mobileMenu) {
