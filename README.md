@@ -4,10 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RICK | Cyber Security Researcher</title>
     
+    <!-- خطوط جوجل - خط Cairo الاحترافي -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
+    <!-- مكتبة Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -130,7 +132,7 @@
         }
         .header-follow-btn:hover { background: var(--accent-color); color: #000; box-shadow: 0 0 10px var(--accent-color); }
 
-        /* زر أيقونة الفيديو المدمج بالشريط العلوي */
+        /* زر أيقونة الفيديو المدمج بالشريط العلوي للتبديل */
         .nav-video-toggle {
             background: none;
             border: 1px solid var(--border-color);
@@ -161,52 +163,33 @@
         nav ul li a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 24px; color: var(--text-bright); cursor: pointer; }
 
-        /* مشغل الفيديو الكلاسيكي المنسدل من الشريط العلوي */
-        .classic-video-dropdown {
-            position: absolute;
-            top: 65px; left: 20px;
-            width: 290px;
-            background-color: var(--card-bg);
-            border: 2px solid var(--accent-color);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+        /* قسم المقاطع الجديد والمستقل */
+        #video-section {
             display: none;
-            flex-direction: column;
-            z-index: 1001;
-            animation: slideDown 0.3s ease-out;
+            padding: 120px 20px 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        @keyframes slideDown {
-            from { transform: translateY(-10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .video-header {
-            background-color: #1f242c;
-            padding: 6px 10px;
-            font-size: 11px;
-            font-family: monospace;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-bright);
-            border-bottom: 1px solid var(--border-color);
-            direction: ltr;
-        }
-
-        .video-wrapper {
+        .video-container {
+            max-width: 800px;
+            margin: 30px auto;
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.15);
         }
 
-        .video-wrapper iframe {
+        .video-container iframe {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
         }
 
-        /* القسم الرئيسي */
+        /* القسم الرئيسي والمحتويات */
         .hero {
             height: 100vh;
             display: flex;
@@ -239,7 +222,7 @@
             box-shadow: 0 0 15px var(--accent-color);
         }
 
-        /* الأقشان العامة */
+        /* الأقسام العامة */
         section { padding: 100px 20px 80px 20px; max-width: 1200px; margin: 0 auto; }
         .section-title { text-align: center; font-size: 2rem; color: var(--text-bright); margin-bottom: 50px; position: relative; }
         .section-title::after { content: ''; display: block; width: 50px; height: 3px; background-color: var(--accent-color); margin: 10px auto 0 auto; }
@@ -306,12 +289,12 @@
             nav ul.active { display: flex; }
             nav ul li { margin-right: 0; text-align: center; }
             .about-grid { grid-template-columns: 1fr; text-align: center; }
-            .classic-video-dropdown { position: static; width: 100%; display: flex; margin-top: 10px; box-shadow: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- شاشة فحص تسجيل الزائر وإعداد الكوكيز -->
     <div id="security-check">
         <div class="scan-terminal">
             <div class="scan-line" id="line1">> Initializing visitor integrity scan...</div>
@@ -320,20 +303,24 @@
             <div class="scan-line" id="line4" style="display:none">> Injecting anti-bot token tracking...</div>
             <div class="scan-line" id="line5" style="display:none; color: #ffffff;">> [SUCCESS] Cookies set. Access granted!</div>
             
+            <!-- لوحة الكوكيز المرئية على الشاشة 🍪 -->
             <div class="cookie-display-panel" id="liveCookieBox" style="display: none;">
                 🍪 Active Browser Cookie: <span id="cookieValueSpan">None</span>
             </div>
         </div>
     </div>
 
+    <!-- الهيدر شريط التنقل العلوي -->
     <header>
         <div class="nav-container">
             <div class="logo-area">
                 <div class="logo"><span>[</span> RICK <span>]</span></div>
-                <button class="header-follow-btn" id="hiddenFollowBtn">[ Follow ]</button>
+                <!-- زر المتابعة الذكي بجانب الاسم مباشرة -->
+                <button class="header-follow-btn" onclick="activateFollow()">[ Follow ]</button>
                 
-                <button class="nav-video-toggle" id="videoToggleBtn">
-                    <i class="fa-solid fa-video"></i> <span>[ Video ]</span>
+                <!-- زر التبديل لقسم المقاطع -->
+                <button class="nav-video-toggle" onclick="toggleView()">
+                    <i class="fa-solid fa-video"></i> <span>[ المقاطع ]</span>
                 </button>
             </div>
             
@@ -341,112 +328,121 @@
             
             <nav>
                 <ul id="nav-list">
-                    <li><a href="#home">الرئيسية</a></li>
-                    <li><a href="#about">من أنا</a></li>
-                    <li><a href="#services">الخدمات</a></li>
-                    <li><a href="#skills">المهارات</a></li>
-                    <li><a href="#contact">اتصال</a></li>
+                    <li><a href="#home" onclick="resetToHome()">الرئيسية</a></li>
+                    <li><a href="#about" onclick="resetToHome()">من أنا</a></li>
+                    <li><a href="#services" onclick="resetToHome()">الخدمات</a></li>
+                    <li><a href="#skills" onclick="resetToHome()">المهارات</a></li>
+                    <li><a href="#contact" onclick="resetToHome()">اتصال</a></li>
                 </ul>
             </nav>
-
-            <div class="classic-video-dropdown" id="videoDropdown">
-                <div class="video-header">
-                    <span>Tunnel Connection: Active</span>
-                    <span>Secure Feed Player</span>
-                </div>
-                <div class="video-wrapper">
-                    <iframe id="ytPlayer" src="https://www.youtube.com/embed/dGEr5YMiEBc?autoplay=1&enablejsapi=1&rel=0&modestbranding=1" title="Secure Hidden Stream Frame" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
-            </div>
         </div>
     </header>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>مرحباً، أنا RICK</h1>
-            <p>>_ Cybersecurity Researcher & Ethical Hacker</p>
-            <a href="#contact" class="btn">اطلب فحص أمني الآن</a>
-        </div>
-    </section>
+    <!-- المحتويات الرئيسية للموقع (مجموعة في حاوية واحدة لتسهيل الإخفاء والإظهار) -->
+    <div id="main-content-wrapper">
+        <!-- القسم الرئيسي -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>مرحباً، أنا RICK</h1>
+                <p>>_ Cybersecurity Researcher & Ethical Hacker</p>
+                <a href="#contact" class="btn">اطلب فحص أمني الآن</a>
+            </div>
+        </section>
 
-    <section id="about">
-        <h2 class="section-title">من أنا</h2>
-        <div class="about-grid">
-            <div class="profile-img-container">
-                <div class="avatar-placeholder"><i class="fa-solid fa-user-shield"></i></div>
-            </div>
-            <div>
-                <p style="font-size: 18px; margin-bottom: 20px;">أنا <strong>RICK</strong>، باحث متخصص في الأمن السيبراني واختبار الاختراق العالي الكفاءة.</p>
-                <p>مرحباً بك في بوابتي الشخصية لتتبع وتحليل البيانات وفحص الأجهزة والأنظمة المتقدمة.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="services">
-        <h2 class="section-title">الخدمات الأمنية</h2>
-        <div class="grid-3">
-            <div class="card">
-                <i class="fa-solid fa-network-wired"></i>
-                <h3>اختبار اختراق الشبكات</h3>
-                <p>فحص شامل للشبكات الداخلية والخارجية للمؤسسات، واكتشاف منافذ الضعف والقصور في إعدادات السيرفرات والأجهزة.</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-code-bug"></i>
-                <h3>فحص تطبيقات الويب</h3>
-                <p>تحليل أمني دقيق للتطبيقات ومواقع الويب للتأكد من خلوها من ثغرات حقن البيانات (SQLi)، وثغرات المواقع (XSS).</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-shield-halved"></i>
-                <h3>الاستجابة للحوادث</h3>
-                <p>تقديم الدعم السريع في حال التعرض لاختراق، تتبع مصدر الهجوم، وتأمين النظام مجدداً لحمايته مستقبلاً.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills">
-        <h2 class="section-title">المهارات والأدوات التقنية</h2>
-        <div class="grid-3">
-            <div class="card">
-                <h3><i class="fa-solid fa-terminal" style="font-size: 20px; color: var(--accent-color); margin-bottom:0;"></i> أنظمة التشغيل</h3>
-                <div class="skills-container">
-                    <span class="skill-badge">Linux (Kali / Parrot)</span>
-                    <span class="skill-badge">Termux Environment</span>
-                    <span class="skill-badge">Android Security</span>
+        <!-- قسم من أنا -->
+        <section id="about">
+            <h2 class="section-title">من أنا</h2>
+            <div class="about-grid">
+                <div class="profile-img-container">
+                    <div class="avatar-placeholder"><i class="fa-solid fa-user-shield"></i></div>
+                </div>
+                <div>
+                    <p style="font-size: 18px; margin-bottom: 20px;">أنا <strong>RICK</strong>، باحث متخصص في الأمن السيبراني واختبار الاختراق العالي الكفاءة.</p>
+                    <p>مرحباً بك في بوابتي الشخصية لتتبع وتحليل البيانات وفحص الأجهزة والأنظمة المتقدمة.</p>
                 </div>
             </div>
-            <div class="card">
-                <h3><i class="fa-solid fa-screwdriver-wrench" style="font-size: 20px; color: var(--accent-color); margin-bottom:0;"></i> أدوات الفحص</h3>
-                <div class="skills-container">
-                    <span class="skill-badge">Nmap / Masscan</span>
-                    <span class="skill-badge">Burp Suite</span>
-                    <span class="skill-badge">Wireshark</span>
-                    <span class="skill-badge">Nikto</span>
+        </section>
+
+        <!-- قسم الخدمات -->
+        <section id="services">
+            <h2 class="section-title">الخدمات الأمنية</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <h3>اختبار اختراق الشبكات</h3>
+                    <p>فحص شامل للشبكات الداخلية والخارجية للمؤسسات، واكتشاف منافذ الضعف والقصور في إعدادات السيرفرات والأجهزة.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-code-bug"></i>
+                    <h3>فحص تطبيقات الويب</h3>
+                    <p>تحليل أمني دقيق للتطبيقات ومواقع الويب للتأكد من خلوها من ثغرات حقن البيانات (SQLi)، وثغرات المواقع (XSS).</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>الاستجابة للحوادث</h3>
+                    <p>تقديم الدعم السريع في حال التعرض لاختراق، تتبع مصدر الهجوم، وتأمين النظام مجدداً لحمايته مستقبلاً.</p>
                 </div>
             </div>
-            <div class="card">
-                <h3><i class="fa-solid fa-gears" style="font-size: 20px; color: var(--accent-color); margin-bottom:0;"></i> الشبكات والمراقبة</h3>
-                <div class="skills-container">
-                    <span class="skill-badge">TCP/IP Architecture</span>
-                    <span class="skill-badge">DNS & HTTP Security</span>
-                    <span class="skill-badge">Canarytokens Monitoring</span>
+        </section>
+
+        <!-- قسم المهارات التقنية -->
+        <section id="skills">
+            <h2 class="section-title">المهارات والأدوات التقنية</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3><i class="fa-solid fa-terminal" style="font-size: 20px; color: var(--accent-color); margin-bottom:0;"></i> أنظمة التشغيل</h3>
+                    <div class="skills-container">
+                        <span class="skill-badge">Linux (Kali / Parrot)</span>
+                        <span class="skill-badge">Termux Environment</span>
+                        <span class="skill-badge">Android Security</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-screwdriver-wrench" style="font-size: 20px; color: var(--accent-color); margin-bottom:0;"></i> أدوات الفحص</h3>
+                    <div class="skills-container">
+                        <span class="skill-badge">Nmap / Masscan</span>
+                        <span class="skill-badge">Burp Suite</span>
+                        <span class="skill-badge">Wireshark</span>
+                        <span class="skill-badge">Nikto</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-gears" style="font-size: 20px; color: var(--accent-color); margin-bottom:0;"></i> الشبكات والمراقبة</h3>
+                    <div class="skills-container">
+                        <span class="skill-badge">TCP/IP Architecture</span>
+                        <span class="skill-badge">DNS & HTTP Security</span>
+                        <span class="skill-badge">Canarytokens Monitoring</span>
+                    </div>
                 </div>
             </div>
+        </section>
+
+        <!-- قسم الاتصال -->
+        <section id="contact">
+            <h2 class="section-title">تواصل معي</h2>
+            <div class="contact-info">
+                <p>هل تريد تأمين مشروعك أو لديك استفسار أمني؟ لا تتردد في مراسلتي مباشرة عبر المنصات التالية:</p>
+                <div class="social-links">
+                    <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="mailto:rick@example.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- قسم المقاطع الجديد والمخفي افتراضياً -->
+    <section id="video-section">
+        <h2 class="section-title">أحدث إصدارات القناة</h2>
+        <div class="video-container">
+            <!-- تم تهيئة المشغل بالصوت الكامل وتشغيل تلقائي متخفّي -->
+            <iframe id="yt-player" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </section>
 
-    <section id="contact">
-        <h2 class="section-title">تواصل معي</h2>
-        <div class="contact-info">
-            <p>هل تريد تأمين مشروعك أو لديك استفسار أمني؟ لا تتردد في مراسلتي مباشرة عبر المنصات التالية:</p>
-            <div class="social-links">
-                <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a href="mailto:rick@example.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
-            </div>
-        </div>
-    </section>
-
+    <!-- الأيقونة العائمة لفتح بيئة المحاكاة التيرمينال -->
     <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
 
+    <!-- نافذة لابتوب المحاكي المنبثقة -->
     <div class="modal-overlay" id="labModal">
         <div class="laptop">
             <div class="screen">
@@ -467,6 +463,7 @@
         </div>
     </div>
 
+    <!-- الفوتر -->
     <footer>
         <p>&copy; 2026 RICK. جميع الحقوق محفوظة | مستضاف بأمان على GitHub Pages</p>
     </footer>
@@ -479,7 +476,6 @@
             } else {
                 runSecuritySimulation();
             }
-            maskAndLoadTunnel();
         });
 
         function setCookie(name, value, days) {
@@ -520,55 +516,30 @@
             }, 3200);
         }
 
-        // --- 2. زر المتابعة المتقدم [Follow] (بجانب الاسم، يبقى في الموقع ويفعل الإشعارات) ---
-        const hiddenFollowBtn = document.getElementById('hiddenFollowBtn');
-
-        hiddenFollowBtn.addEventListener('click', () => {
-            if (!("Notification" in window)) {
-                alert("[System Alert]: تفعيل الاشتراك الداخلي والمتابعة بنجاح داخل الخادم الافتراضي.");
-            } else if (Notification.permission === "granted") {
-                sendWelcomeNotification();
-            } else if (Notification.permission !== "denied") {
-                Notification.requestPermission().then(permission => {
-                    if (permission === "granted") sendWelcomeNotification();
-                });
+        // --- 2. نظام التبديل الكامل والذكي بين المحتويات وقسم المقاطع المحمي ---
+        function toggleView() {
+            const mainWrapper = document.getElementById('main-content-wrapper');
+            const videoSection = document.getElementById('video-section');
+            
+            if (videoSection.style.display === 'block') {
+                videoSection.style.display = 'none';
+                mainWrapper.style.display = 'block';
+            } else {
+                mainWrapper.style.display = 'none';
+                videoSection.style.display = 'block';
+                loadChannelVideos(); // استدعاء الاتصال الخفي تلقائياً
             }
-        });
-
-        function sendWelcomeNotification() {
-            new Notification("[RICK Feed Status]", {
-                body: "Subscribed securely! New video synchronizations are active.",
-                icon: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/user-shield.svg"
-            });
         }
 
-        // --- 3. التحكم المرن والسلس في الأزرار العلوية للشريط وقائمة الجوال المصلحة ---
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navList = document.getElementById('nav-list');
-        mobileMenu.addEventListener('click', () => { navList.classList.toggle('active'); });
+        function resetToHome() {
+            document.getElementById('video-section').style.display = 'none';
+            document.getElementById('main-content-wrapper').style.display = 'block';
+        }
 
-        document.querySelectorAll('#nav-list a').forEach(link => {
-            link.addEventListener('click', () => { navList.classList.remove('active'); });
-        });
-
-        const videoToggleBtn = document.getElementById('videoToggleBtn');
-        const videoDropdown = document.getElementById('videoDropdown');
-
-        videoToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            videoDropdown.style.display = (videoDropdown.style.display === 'flex') ? 'none' : 'flex';
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!videoDropdown.contains(e.target) && e.target !== videoToggleBtn) {
-                videoDropdown.style.display = 'none';
-            }
-        });
-
-        // --- 4. جلب تلقائي ديناميكي يقوم بسحب أحدث فيديو يرفع على قناتك مع إخفاء المصدر بالصوت ---
-        function maskAndLoadTunnel() {
-            const maskedChannelToken = "UC_x5XG1OV2P6uSZw5K_A3pw"; 
-            const secureGateway = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + maskedChannelToken)}`;
+        // --- 3. الاتصال البرمجي الخفي والمشفر بقناتك وسحب آخر المقاطع المرفوعة تلقائياً بالصوت ---
+        function loadChannelVideos() {
+            const channelId = "UCn_v2h6K44Yy913WfWp9rYg"; // المعرف البرمجي الفريد لقناتك Rick_6006
+            const secureGateway = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId)}`;
             
             fetch(secureGateway)
             .then(res => res.json())
@@ -577,19 +548,44 @@
                     const latestRef = feedData.items[0].link;
                     const cleanId = latestRef.split('v=')[1] || latestRef.substring(latestRef.lastIndexOf('/') + 1);
                     if(cleanId) {
-                        // تم إزالة mute=1 ليعمل المقطع بالصوت الكامل مع إخفاء المظهر الخارجي
-                        document.getElementById('ytPlayer').src = `https://www.youtube.com/embed/${cleanId.split('&')[0]}?autoplay=1&enablejsapi=1&rel=0&modestbranding=1`;
+                        // تشغيل بالصوت الكامل مع إخفاء الواجهة الخارجية لليوتيوب
+                        document.getElementById('yt-player').src = `https://www.youtube.com/embed/${cleanId.split('&')[0]}?autoplay=1&rel=0&modestbranding=1`;
                     }
                 }
             })
-            .catch(e => console.log("Internal proxy error: Connection secured."));
+            .catch(e => console.log("Hidden Tunnel Proxy Active."));
         }
 
-        // --- 5. تشغيل بيئة محاكاة اللابتوب العائم ---
+        // --- 4. نظام المتابعة الداخلي والآمن (إشعارات الموقع المتصفح فقط) ---
+        function activateFollow() {
+            if (!("Notification" in window)) {
+                alert("[System Alert]: تم تفعيل نظام الإشعارات الداخلي والربط الافتراضي بنجاح!");
+            } else {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        new Notification("RICK System Control", {
+                            body: "تم تفعيل التنبيهات بنجاح. ستتلقى تحديثات الإصدارات والفحوصات مباشرة هنا.",
+                            icon: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/user-shield.svg"
+                        });
+                    } else {
+                        alert("[System Alert]: تم تفعيل المتابعة بنجاح داخل النظام الافتراضي للموقع!");
+                    }
+                });
+            }
+        }
+
+        // التحكم في قائمة الجوال (Mobile Menu)
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+        mobileMenu.addEventListener('click', () => { navList.classList.toggle('active'); });
+        document.querySelectorAll('#nav-list a').forEach(link => {
+            link.addEventListener('click', () => { navList.classList.remove('active'); });
+        });
+
+        // تشغيل وإغلاق بيئة محاكاة اللابتوب العائم
         const labModal = document.getElementById('labModal');
         const openLabBtn = document.getElementById('openLabBtn');
         const closeLabBtn = document.getElementById('closeLabBtn');
-
         openLabBtn.addEventListener('click', () => { labModal.style.display = 'flex'; });
         closeLabBtn.addEventListener('click', () => { labModal.style.display = 'none'; });
     </script>
