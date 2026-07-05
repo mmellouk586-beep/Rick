@@ -125,6 +125,10 @@
             padding: 10px;
             width: 320px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: border-color 0.3s;
+        }
+        .video-wrapper:hover {
+            border-color: var(--accent-color);
         }
 
         .video-container {
@@ -333,26 +337,36 @@
     <footer><p>&copy; 2026 RICK. جميع الحقوق محفوظة</p></footer>
 
     <script>
-        // مفاتيح الربط الذكية - تم تعيين معرف قناتك UCwFk399Vw8Xq3K_R-3-zOtw لـ @Rick_6006
+        // مفاتيح الربط الذكية
         const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
         const YOUTUBE_CHANNEL_ID = "UCwFk399Vw8Xq3K_R-3-zOtw";
 
-        // المصفوفة الرقمية التي تحتوي على المقاطع الخاصة بك (Shorts) لتعمل بشكل فوري وثابت
+        // المصفوفة الرقمية التي تحتوي على المقاطع الخاصة بك (Shorts)
         const MY_PRESET_VIDEOS = [
             { id: "dGEr5YMiEBc", title: "مقطع تتبع وتحليل البيانات - الجزء الأول" },
             { id: "jTgCFVL2HVs", title: "مقطع تتبع وتحليل البيانات - الجزء الثاني" }
         ];
 
+        // منظومة تحويل النص إلى كلام الذكية (TTS)
+        function speakVideoTitle(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // إيقاف أي كلام مسبق متداخل
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';       // تعيين جودة النطق للغة العربية
+                utterance.rate = 0.95;          // سرعة سرد متزنة ومناسبة
+                utterance.pitch = 1.0;          // مستوى نبرة الصوت الافتراضي
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. التحكم في شاشة فحص الكوكيز الأصلية
             if (getCookie("rick_session_scanned") === "true") {
                 document.getElementById('security-check').style.display = 'none';
             } else {
                 runSecuritySimulation();
             }
 
-            // 2. تفعيل تشغيل بيئة الاختبار (Lab) والتيرمينال
             const labModal = document.getElementById('labModal');
             const openLabBtn = document.getElementById('openLabBtn');
             const closeLabBtn = document.getElementById('closeLabBtn');
@@ -429,25 +443,18 @@
                 termHistory.scrollTop = termHistory.scrollHeight;
             }
 
-            // 3. استدعاء معالجة وعرض المقاطع
             fetchLatestYouTubeVideos();
         });
 
-        // دالة عرض المقاطع المدمجة والمحدثة مع رادار الإشعارات الذكي
         function fetchLatestYouTubeVideos() {
             const grid = document.getElementById('youtubeVideosGrid');
             if (!grid) return;
 
-            // إذا لم يتم وضع مفتاح الـ API الحقيقي، يتم عرض مقاطعك المحددة مباشرة دون مشاكل
             if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY.includes("ضغ_")) {
-                grid.innerHTML = '';
-                MY_PRESET_VIDEOS.forEach(video => {
-                    grid.innerHTML += createVideoCard(video.id, video.title);
-                });
+                loadPresetVideos(grid);
                 return;
             }
 
-            // الاستعلام الحي في حال تم تفعيل الـ API Key لاحقاً
             const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet,id&order=date&maxResults=5`;
             fetch(url)
                 .then(response => response.json())
@@ -463,7 +470,6 @@
                             }
                         });
                         
-                        // رادار تتبع التحديثات وإرسال الإشعارات التلقائية للمشتركين
                         if (latestVideoId) {
                             const lastSeenVideo = localStorage.getItem('last_seen_video_id');
                             const isSubscribed = localStorage.getItem('notifications_enabled') === 'true';
@@ -473,7 +479,6 @@
                             localStorage.setItem('last_seen_video_id', latestVideoId);
                         }
                     } else {
-                        // في حال أرجع الـ API رد فارغ يتم الرجوع للمقاطع المثبتة
                         loadPresetVideos(grid);
                     }
                 })
@@ -489,10 +494,12 @@
             });
         }
 
-        // بناء كارت العرض وتعديل أبعاد مشغل اليوتيوب لتناسب المقاطع العادية والقصيرة (Shorts) بشكل مثالي
+        // بناء الكارت مع دمج حدث تمرير الفأرة (onmouseenter) لقراءة عنوان الفيديو تلقائياً
         function createVideoCard(id, title) {
+            // تنظيف العنوان من الرموز التي قد تكسر سكريبت السلسلة النصية
+            const cleanTitle = title.replace(/['"\\]/g, "");
             return `
-                <div class="video-wrapper">
+                <div class="video-wrapper" onmouseenter="speakVideoTitle('${cleanTitle}')">
                     <div class="video-container">
                         <iframe src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
@@ -517,21 +524,26 @@
             });
         }
 
+        // تحديث دالة التبديل لتنطق جملة الترحيب المخصصة للمركز عند الفتح، وإلغاء الصوت عند الإغلاق
         function toggleView() {
             const mainWrapper = document.getElementById('main-content-wrapper');
             const videoSection = document.getElementById('video-section');
             if (videoSection.style.display === 'block') {
                 videoSection.style.display = 'none';
                 mainWrapper.style.display = 'block';
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             } else {
                 mainWrapper.style.display = 'none';
                 videoSection.style.display = 'block';
+                // التحدث التلقائي الصوتي الفوري عند فتح لوحة المقاطع
+                speakVideoTitle("مرحباً بك في مركز العمليات، جاري عرض أحدث المقاطع الأمنية.");
             }
         }
 
         function resetToHome() {
             document.getElementById('video-section').style.display = 'none';
             document.getElementById('main-content-wrapper').style.display = 'block';
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
         function setCookie(name, value, days) { let expires = ""; if (days) { let date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "")  + expires + "; path=/"; }
