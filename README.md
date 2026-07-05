@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -171,20 +172,21 @@
         }
 
         .video-container {
-            max-width: 450px; /* أبعاد مناسبة لـ Shorts */
+            max-width: 360px; /* أبعاد مثالية لعرض مقاطع الـ Shorts الطولية */
+            width: 100%;
+            height: 640px;
             margin: 30px auto;
-            position: relative;
-            padding-bottom: 100%; /* نسبة مربعة أو طولية تناسب الشورتس */
-            height: 0;
             border: 2px solid var(--accent-color);
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 0 25px rgba(0, 255, 102, 0.15);
+            background: #000;
         }
 
         .video-container iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         /* القسم الرئيسي والمحتويات */
@@ -425,9 +427,8 @@
 
     <section id="video-section">
         <h2 class="section-title">عرض مرئي مخفي</h2>
-        <div class="video-container">
-            <iframe id="yt-player" src="https://www.youtube.com/embed/dGEr5YMiEBc?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
+        <div class="video-container" id="videoContainerBox">
+            </div>
     </section>
 
     <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
@@ -440,7 +441,7 @@
                     <div class="title-bar-text">Termux-SecLab v3.1</div>
                 </div>
                 <div class="simulator-content">
-                    <div class="terminal-box" onclick="document.getElementById('termCmd').focus()">
+                    <div class="terminal-box" onclick="document.getElementById('textCmd').focus()">
                         <div id="termHistory" class="history-container"><span class="system-msg">Welcome to Termux-SecLab. Type 'help' to see available commands.</span></div>
                         <div class="input-line">
                             <span class="prompt">rick@seclab:~$</span>
@@ -504,23 +505,29 @@
             }, 3200);
         }
 
-        // --- 2. نظام التبديل الكامل والذكي بين المحتويات وقسم المقاطع المحمي ---
+        // --- 2. نظام التبديل الكامل والذكي وحقن مشغل الـ Shorts الحقيقي بالصوت ---
         function toggleView() {
             const mainWrapper = document.getElementById('main-content-wrapper');
             const videoSection = document.getElementById('video-section');
+            const containerBox = document.getElementById('videoContainerBox');
             
             if (videoSection.style.display === 'block') {
                 videoSection.style.display = 'none';
                 mainWrapper.style.display = 'block';
+                containerBox.innerHTML = ''; // تدمير المشغل عند الخروج لإيقاف الصوت
             } else {
                 mainWrapper.style.display = 'none';
                 videoSection.style.display = 'block';
+                
+                // حقن مباشر ونظيف لمقطع Shorts للتغلب على قيود الكتم والأبعاد البرمجية
+                containerBox.innerHTML = `<iframe src="https://www.youtube.com/embed/dGEr5YMiEBc?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             }
         }
 
         function resetToHome() {
             document.getElementById('video-section').style.display = 'none';
             document.getElementById('main-content-wrapper').style.display = 'block';
+            document.getElementById('videoContainerBox').innerHTML = '';
         }
 
         // --- 3. نظام المتابعة الداخلي والآمن (إشعارات الموقع المتصفح فقط) ---
