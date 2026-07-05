@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -121,8 +122,8 @@
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 10px;
-            width: 320px;
+            padding: 15px;
+            width: 340px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: border-color 0.3s;
         }
@@ -132,7 +133,7 @@
 
         .video-container {
             width: 100%;
-            height: 500px;
+            height: 450px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             overflow: hidden;
@@ -140,7 +141,23 @@
         }
 
         .video-container iframe { width: 100%; height: 100%; border: none; }
-        .video-title { font-size: 14px; color: var(--text-bright); margin-top: 10px; text-align: right; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .video-title { font-size: 15px; font-weight: bold; color: var(--text-bright); margin-top: 10px; text-align: right; }
+        
+        /* صندوق الترجمة المضافة تحت الفيديو */
+        .video-translation {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #8b949e;
+            text-align: right;
+            max-height: 120px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+        .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 13px; }
 
         /* الأقسام العامة */
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); }
@@ -344,9 +361,13 @@
         const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
         const YOUTUBE_CHANNEL_ID = "UCwFk399Vw8Xq3K_R-3-zOtw";
 
+        // تم استبدال وتخصيص هذا القسم لعرض فيديو الشورتس المطلوب مع ترجمته العربية المرافقة
         const MY_PRESET_VIDEOS = [
-            { id: "dGEr5YMiEBc", title: "مقطع تتبع وتحليل البيانات - الجزء الأول" },
-            { id: "jTgCFVL2HVs", title: "مقطع تتبع وتحليل البيانات - الجزء الثاني" }
+            { 
+                id: "wAzR14CknzU", 
+                title: "The story of Noah's Ark (قصة سفينة نوح)",
+                translation: "منذ زمن طويل، دعا الله نوحاً، وهو رجل صالح، لبناء سفينة - ملاذ للخلاص. ورغم سخرية العالم، أطاع نوح دون تردد، واثقاً في الوعد الإلهي بالحماية. من كل ركن من أركان الأرض، سارت المخلوقات كبيرة وصغيرة إلى السفينة؛ الأسود والحملان مشوا جنباً إلى جنب، مستجيبين لنداء صامت للحفظ. وعندما تراجعت المياه، قدم نوح الامتنان لله، ورداً على ذلك، امتد قوس قزح في السماء كعهد أبدي بين الله والبشرية، واعداً بعدم غمر الأرض بالفيضان مرة أخرى."
+            }
         ];
 
         function speakVideoTitle(text) {
@@ -450,52 +471,18 @@
             const grid = document.getElementById('youtubeVideosGrid');
             if (!grid) return;
 
-            if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY.includes("ضغ_")) {
-                loadPresetVideos(grid);
-                return;
-            }
-
-            const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet,id&order=date&maxResults=5`;
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.items && data.items.length > 0) {
-                        grid.innerHTML = '';
-                        let latestVideoId = '';
-                        data.items.forEach((item, index) => {
-                            let videoId = item.id.videoId;
-                            if(videoId) {
-                                if(index === 0) latestVideoId = videoId;
-                                grid.innerHTML += createVideoCard(videoId, item.snippet.title);
-                            }
-                        });
-                        
-                        if (latestVideoId) {
-                            const lastSeenVideo = localStorage.getItem('last_seen_video_id');
-                            const isSubscribed = localStorage.getItem('notifications_enabled') === 'true';
-                            if (lastSeenVideo && lastSeenVideo !== latestVideoId && isSubscribed) {
-                                sendSystemNotification("فيديو جديد متاح!", "قام RICK بنشر مقطع جديد على يوتيوب.");
-                            }
-                            localStorage.setItem('last_seen_video_id', latestVideoId);
-                        }
-                    } else {
-                        loadPresetVideos(grid);
-                    }
-                })
-                .catch(() => {
-                    loadPresetVideos(grid);
-                });
+            // الاعتماد المباشر على مصفوفة الفيديوهات المحددة لضمان بقاء الفيديو المخصص مترجماً ومستقراً
+            loadPresetVideos(grid);
         }
 
         function loadPresetVideos(gridElement) {
             gridElement.innerHTML = '';
             MY_PRESET_VIDEOS.forEach(video => {
-                gridElement.innerHTML += createVideoCard(video.id, video.title);
+                gridElement.innerHTML += createVideoCard(video.id, video.title, video.translation);
             });
         }
 
-        // تم تفعيل تدوير وتشغيل الفيديو تلقائياً وبكامل طاقة الصوت بالاعتماد على ميزات الأوتوبلاي غير المكتومة
-        function createVideoCard(id, title) {
+        function createVideoCard(id, title, translation) {
             const cleanTitle = title.replace(/['"\\]/g, "");
             return `
                 <div class="video-wrapper" onmouseenter="speakVideoTitle('${cleanTitle}')">
@@ -503,6 +490,10 @@
                         <iframe src="https://www.youtube.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="video-title">${title}</div>
+                    <div class="video-translation">
+                        <strong><i class="fa-solid fa-language"></i> الترجمة الفورية للعربية:</strong>
+                        ${translation}
+                    </div>
                 </div>
             `;
         }
