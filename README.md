@@ -4,12 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RICK | Cyber Security Researcher</title>
     
-    <!-- خطوط جوجل - خط Cairo الاحترافي -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <!-- مكتبة Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -117,7 +115,7 @@
 
         .logo span { color: var(--accent-color); }
 
-        /* زر المتابعة الجديد بجانب الاسم مباشرة */
+        /* زر المتابعة الذكي بجانب الاسم مباشرة */
         .header-follow-btn {
             background: #21262d;
             border: 1px solid var(--accent-color);
@@ -173,10 +171,10 @@
         }
 
         .video-container {
-            max-width: 800px;
+            max-width: 450px; /* أبعاد مناسبة لـ Shorts */
             margin: 30px auto;
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 100%; /* نسبة مربعة أو طولية تناسب الشورتس */
             height: 0;
             border: 2px solid var(--accent-color);
             border-radius: 8px;
@@ -230,18 +228,22 @@
         /* من أنا */
         .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; }
         .profile-img-container { display: flex; justify-content: center; }
+        
+        /* تصغير أيقونة الدرع الشخصي */
         .avatar-placeholder {
-            width: 200px; height: 200px; border-radius: 50%;
+            width: 180px; height: 180px; border-radius: 50%;
             background-color: var(--card-bg); border: 3px solid var(--accent-color);
             display: flex; align-items: center; justify-content: center;
-            font-size: 80px; color: var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+            font-size: 65px; color: var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
         }
 
         /* الخدمات والبطاقات */
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card { background-color: var(--card-bg); border: 1px solid var(--border-color); padding: 30px; border-radius: 8px; transition: transform 0.3s, border-color 0.3s; }
         .card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
-        .card i { font-size: 40px; color: var(--accent-color); margin-bottom: 20px; }
+        
+        /* تصغير حجم أيقونات الخدمات المتنوعة */
+        .card i { font-size: 32px; color: var(--accent-color); margin-bottom: 20px; }
         .card h3 { color: var(--text-bright); margin-bottom: 15px; }
 
         /* المهارات */
@@ -251,8 +253,10 @@
 
         /* تواصل معي */
         .contact-info { text-align: center; max-width: 600px; margin: 0 auto; }
+        
+        /* تصغير أيقونات روابط التواصل الاجتماعي */
         .social-links { margin-top: 30px; display: flex; justify-content: center; gap: 25px; }
-        .social-links a { color: var(--text-color); font-size: 30px; transition: color 0.3s, transform 0.3s; }
+        .social-links a { color: var(--text-color); font-size: 24px; transition: color 0.3s, transform 0.3s; }
         .social-links a:hover { color: var(--accent-color); transform: scale(1.2); }
 
         /* الفوتر */
@@ -294,7 +298,6 @@
 </head>
 <body>
 
-    <!-- شاشة فحص تسجيل الزائر وإعداد الكوكيز -->
     <div id="security-check">
         <div class="scan-terminal">
             <div class="scan-line" id="line1">> Initializing visitor integrity scan...</div>
@@ -303,22 +306,18 @@
             <div class="scan-line" id="line4" style="display:none">> Injecting anti-bot token tracking...</div>
             <div class="scan-line" id="line5" style="display:none; color: #ffffff;">> [SUCCESS] Cookies set. Access granted!</div>
             
-            <!-- لوحة الكوكيز المرئية على الشاشة 🍪 -->
             <div class="cookie-display-panel" id="liveCookieBox" style="display: none;">
                 🍪 Active Browser Cookie: <span id="cookieValueSpan">None</span>
             </div>
         </div>
     </div>
 
-    <!-- الهيدر شريط التنقل العلوي -->
     <header>
         <div class="nav-container">
             <div class="logo-area">
                 <div class="logo"><span>[</span> RICK <span>]</span></div>
-                <!-- زر المتابعة الذكي بجانب الاسم مباشرة -->
                 <button class="header-follow-btn" onclick="activateFollow()">[ Follow ]</button>
                 
-                <!-- زر التبديل لقسم المقاطع -->
                 <button class="nav-video-toggle" onclick="toggleView()">
                     <i class="fa-solid fa-video"></i> <span>[ المقاطع ]</span>
                 </button>
@@ -338,9 +337,7 @@
         </div>
     </header>
 
-    <!-- المحتويات الرئيسية للموقع (مجموعة في حاوية واحدة لتسهيل الإخفاء والإظهار) -->
     <div id="main-content-wrapper">
-        <!-- القسم الرئيسي -->
         <section id="home" class="hero">
             <div class="hero-content">
                 <h1>مرحباً، أنا RICK</h1>
@@ -349,7 +346,6 @@
             </div>
         </section>
 
-        <!-- قسم من أنا -->
         <section id="about">
             <h2 class="section-title">من أنا</h2>
             <div class="about-grid">
@@ -363,7 +359,6 @@
             </div>
         </section>
 
-        <!-- قسم الخدمات -->
         <section id="services">
             <h2 class="section-title">الخدمات الأمنية</h2>
             <div class="grid-3">
@@ -385,12 +380,11 @@
             </div>
         </section>
 
-        <!-- قسم المهارات التقنية -->
         <section id="skills">
             <h2 class="section-title">المهارات والأدوات التقنية</h2>
             <div class="grid-3">
                 <div class="card">
-                    <h3><i class="fa-solid fa-terminal" style="font-size: 20px; color: var(--accent-color); margin-bottom:0;"></i> أنظمة التشغيل</h3>
+                    <h3><i class="fa-solid fa-terminal" style="font-size: 16px; color: var(--accent-color); margin-bottom:0;"></i> أنظمة التشغيل</h3>
                     <div class="skills-container">
                         <span class="skill-badge">Linux (Kali / Parrot)</span>
                         <span class="skill-badge">Termux Environment</span>
@@ -398,7 +392,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <h3><i class="fa-solid fa-screwdriver-wrench" style="font-size: 20px; color: var(--accent-color); margin-bottom:0;"></i> أدوات الفحص</h3>
+                    <h3><i class="fa-solid fa-screwdriver-wrench" style="font-size: 16px; color: var(--accent-color); margin-bottom:0;"></i> أدوات الفحص</h3>
                     <div class="skills-container">
                         <span class="skill-badge">Nmap / Masscan</span>
                         <span class="skill-badge">Burp Suite</span>
@@ -407,7 +401,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <h3><i class="fa-solid fa-gears" style="font-size: 20px; color: var(--accent-color); margin-bottom:0;"></i> الشبكات والمراقبة</h3>
+                    <h3><i class="fa-solid fa-gears" style="font-size: 16px; color: var(--accent-color); margin-bottom:0;"></i> الشبكات والمراقبة</h3>
                     <div class="skills-container">
                         <span class="skill-badge">TCP/IP Architecture</span>
                         <span class="skill-badge">DNS & HTTP Security</span>
@@ -417,7 +411,6 @@
             </div>
         </section>
 
-        <!-- قسم الاتصال -->
         <section id="contact">
             <h2 class="section-title">تواصل معي</h2>
             <div class="contact-info">
@@ -430,19 +423,15 @@
         </section>
     </div>
 
-    <!-- قسم المقاطع الجديد والمخفي افتراضياً -->
     <section id="video-section">
-        <h2 class="section-title">أحدث إصدارات القناة</h2>
+        <h2 class="section-title">عرض مرئي مخفي</h2>
         <div class="video-container">
-            <!-- تم تهيئة المشغل بالصوت الكامل وتشغيل تلقائي متخفّي -->
-            <iframe id="yt-player" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe id="yt-player" src="https://www.youtube.com/embed/dGEr5YMiEBc?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </section>
 
-    <!-- الأيقونة العائمة لفتح بيئة المحاكاة التيرمينال -->
     <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
 
-    <!-- نافذة لابتوب المحاكي المنبثقة -->
     <div class="modal-overlay" id="labModal">
         <div class="laptop">
             <div class="screen">
@@ -463,7 +452,6 @@
         </div>
     </div>
 
-    <!-- الفوتر -->
     <footer>
         <p>&copy; 2026 RICK. جميع الحقوق محفوظة | مستضاف بأمان على GitHub Pages</p>
     </footer>
@@ -527,7 +515,6 @@
             } else {
                 mainWrapper.style.display = 'none';
                 videoSection.style.display = 'block';
-                loadChannelVideos(); // استدعاء الاتصال الخفي تلقائياً
             }
         }
 
@@ -536,27 +523,7 @@
             document.getElementById('main-content-wrapper').style.display = 'block';
         }
 
-        // --- 3. الاتصال البرمجي الخفي والمشفر بقناتك وسحب آخر المقاطع المرفوعة تلقائياً بالصوت ---
-        function loadChannelVideos() {
-            const channelId = "UCn_v2h6K44Yy913WfWp9rYg"; // المعرف البرمجي الفريد لقناتك Rick_6006
-            const secureGateway = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId)}`;
-            
-            fetch(secureGateway)
-            .then(res => res.json())
-            .then(feedData => {
-                if (feedData.status === 'ok' && feedData.items.length > 0) {
-                    const latestRef = feedData.items[0].link;
-                    const cleanId = latestRef.split('v=')[1] || latestRef.substring(latestRef.lastIndexOf('/') + 1);
-                    if(cleanId) {
-                        // تشغيل بالصوت الكامل مع إخفاء الواجهة الخارجية لليوتيوب
-                        document.getElementById('yt-player').src = `https://www.youtube.com/embed/${cleanId.split('&')[0]}?autoplay=1&rel=0&modestbranding=1`;
-                    }
-                }
-            })
-            .catch(e => console.log("Hidden Tunnel Proxy Active."));
-        }
-
-        // --- 4. نظام المتابعة الداخلي والآمن (إشعارات الموقع المتصفح فقط) ---
+        // --- 3. نظام المتابعة الداخلي والآمن (إشعارات الموقع المتصفح فقط) ---
         function activateFollow() {
             if (!("Notification" in window)) {
                 alert("[System Alert]: تم تفعيل نظام الإشعارات الداخلي والربط الافتراضي بنجاح!");
