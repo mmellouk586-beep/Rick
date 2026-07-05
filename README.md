@@ -1,14 +1,15 @@
-<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RICK | Cyber Security Researcher</title>
     
+    <!-- خطوط جوجل -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
+    <!-- مكتبة Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -36,7 +37,7 @@
             overflow-x: hidden;
         }
 
-        /* شاشة الفحص الأمني */
+        /* شاشة الفحص الأمني عند الدخول */
         #security-check {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -101,7 +102,7 @@
         nav ul li a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 24px; color: var(--text-bright); cursor: pointer; }
 
-        /* قسم المقاطع */
+        /* قسم المقاطع اليوتيوب الديناميكية */
         #video-section {
             display: none;
             padding: 120px 20px 80px 20px;
@@ -171,12 +172,21 @@
 
         footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-size: 14px; background-color: var(--card-bg); }
 
-        /* الأيقونة العائمة للمحاكي */
-        .lab-float-btn { position: fixed; bottom: 30px; left: 30px; background-color: var(--card-bg); border: 2px solid var(--accent-color); color: var(--accent-color); padding: 12px 20px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3); z-index: 999; display: flex; align-items: center; gap: 10px; transition: transform 0.3s; }
+        /* الأيقونة العائمة للمحاكي (Lab) */
+        .lab-float-btn { 
+            position: fixed; bottom: 30px; left: 30px; background-color: var(--card-bg); 
+            border: 2px solid var(--accent-color); color: var(--accent-color); padding: 12px 20px; 
+            border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; 
+            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3); z-index: 9999; display: flex; align-items: center; gap: 10px; transition: transform 0.3s; 
+        }
         .lab-float-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-color); }
 
-        /* شاشات اللابتوب والمحاكي النظيف والمصلح */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); z-index: 10000; display: none; justify-content: center; align-items: center; padding: 20px; }
+        /* نافذة بيئة الاختبار (Lab) المحدثة والمثبتة برمجياً */
+        .modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            background-color: rgba(0, 0, 0, 0.85); z-index: 20000; /* أعلى من كل العناصر */
+            display: none; justify-content: center; align-items: center; padding: 20px; 
+        }
         .laptop { width: 850px; max-width: 100%; display: flex; flex-direction: column; }
         .screen { background-color: #1a1a1a; border: 14px solid #1f242c; border-radius: 12px 12px 0 0; height: 480px; display: flex; flex-direction: column; overflow: hidden; }
         .title-bar { background-color: #2d333b; color: #adbac7; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; direction: ltr; }
@@ -208,6 +218,7 @@
 </head>
 <body>
 
+    <!-- شاشة فحص الكوكيز -->
     <div id="security-check">
         <div class="scan-terminal">
             <div class="scan-line" id="line1">> Initializing visitor integrity scan...</div>
@@ -221,6 +232,7 @@
         </div>
     </div>
 
+    <!-- الهيدر -->
     <header>
         <div class="nav-container">
             <div class="logo-area">
@@ -243,6 +255,7 @@
         </div>
     </header>
 
+    <!-- المحتويات الرئيسية للموقع -->
     <div id="main-content-wrapper">
         <section id="home" class="hero">
             <div class="hero-content">
@@ -294,13 +307,16 @@
         </section>
     </div>
 
+    <!-- قسم المقاطع التلقائي المشترك -->
     <section id="video-section">
         <h2 class="section-title">المقاطع المنشورة</h2>
         <div class="videos-grid" id="youtubeVideosGrid"></div>
     </section>
 
+    <!-- الأيقونة العائمة لفتح بيئة المحاكاة التيرمينال (Lab) -->
     <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
 
+    <!-- نافذة بيئة الاختبار (Lab) المصلحة بالكامل -->
     <div class="modal-overlay" id="labModal">
         <div class="laptop">
             <div class="screen">
@@ -309,7 +325,7 @@
                     <div class="title-bar-text">Termux-SecLab v3.1</div>
                 </div>
                 <div class="simulator-content">
-                    <div class="terminal-box" onclick="document.getElementById('textCmd').focus()">
+                    <div class="terminal-box" id="terminalBoxContainer">
                         <div id="termHistory" class="history-container"><span class="system-msg">Welcome to Termux-SecLab. Type 'help' to see available commands.</span></div>
                         <div class="input-line">
                             <span class="prompt">rick@seclab:~$</span>
@@ -323,85 +339,109 @@
 
     <footer><p>&copy; 2026 RICK. جميع الحقوق محفوظة</p></footer>
 
+    <!-- البرمجة الذكية والمصلحة بالكامل -->
     <script>
-        // التكوين الأساسي ليوتيوب
         const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
         const YOUTUBE_CHANNEL_ID = "ضع_معرف_قناتك_هنا_يبدأ_بـ_UC";
         const BACKUP_VIDEO_ID = "dGEr5YMiEBc"; 
 
-        window.addEventListener('DOMContentLoaded', () => {
+        // تشغيل كل العمليات البرمجية فور تحميل الصفحة والتأكد من ربط العناصر
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. التحكم في شاشة فحص الكوكيز الأصلية
             if (getCookie("rick_session_scanned") === "true") {
                 document.getElementById('security-check').style.display = 'none';
             } else {
                 runSecuritySimulation();
             }
+
+            // 2. تفعيل تشغيل بيئة الاختبار (Lab) وإصلاح مشكلة عدم الاستجابة
+            const labModal = document.getElementById('labModal');
+            const openLabBtn = document.getElementById('openLabBtn');
+            const closeLabBtn = document.getElementById('closeLabBtn');
+            const textCmd = document.getElementById('textCmd');
+            const termHistory = document.getElementById('termHistory');
+            const terminalBoxContainer = document.getElementById('terminalBoxContainer');
+
+            if (openLabBtn) {
+                openLabBtn.onclick = function(e) {
+                    e.preventDefault();
+                    labModal.style.display = 'flex';
+                    if(textCmd) textCmd.focus();
+                };
+            }
+
+            if (closeLabBtn) {
+                closeLabBtn.onclick = function() {
+                    labModal.style.display = 'none';
+                };
+            }
+
+            if (terminalBoxContainer && textCmd) {
+                terminalBoxContainer.onclick = function() {
+                    textCmd.focus();
+                };
+            }
+
+            // معالجة مدخلات وأوامر التيرمينال داخل بيئة الاختبار
+            if (textCmd) {
+                textCmd.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        const command = textCmd.value.trim();
+                        if (command.length > 0) {
+                            executeCommand(command);
+                        }
+                        textCmd.value = '';
+                    }
+                });
+            }
+
+            function executeCommand(cmd) {
+                termHistory.innerHTML += `<div><span class="prompt">rick@seclab:~$</span> <span style="color: #fff">${cmd}</span></div>`;
+                let output = '';
+                const lowerCmd = cmd.toLowerCase();
+
+                if (lowerCmd === 'help') {
+                    output = `<span class="cmd-output">Available Commands:<br>
+                    - <b>tools</b> : List cybersecurity research tools deployed.<br>
+                    - <b>scan</b>  : Run a demo network integrity check.<br>
+                    - <b>clear</b> : Clear the terminal interface.<br>
+                    - <b>about</b> : Show researcher credential file.</span>`;
+                } else if (lowerCmd === 'tools') {
+                    output = `<span class="cmd-output">[+] Deployed Tools Inside Termux:<br>
+                    - nmap v7.92 (Network Mapper)<br>
+                    - hping3 (Packet Generator)<br>
+                    - sqlmap v1.6 (Automation Exploit)</span>`;
+                } else if (lowerCmd === 'scan') {
+                    output = `<span class="cmd-output success-msg">[*] Scanning target loopback...<br>
+                    [+] Host 127.0.0.1 is UP.<br>
+                    [+] Port 80/tcp OPEN (http)<br>
+                    [+] Port 443/tcp OPEN (https)<br>
+                    [+] Scan finished. No vulnerability found on current interface.</span>`;
+                } else if (lowerCmd === 'about') {
+                    output = `<span class="cmd-output">File: rick_credentials.txt<br>
+                    Role: Cyber Security Researcher / Bug Bounty Hunter.<br>
+                    Specialty: Web Apps Security & Network Auditing.</span>`;
+                } else if (lowerCmd === 'clear') {
+                    termHistory.innerHTML = '';
+                    return;
+                } else {
+                    output = `<span class="cmd-output" style="color: #ff5f56">Command '${cmd}' not found. Type 'help' for options.</span>`;
+                }
+
+                termHistory.innerHTML += output;
+                termHistory.scrollTop = termHistory.scrollHeight;
+            }
+
+            // 3. جلب مقاطع يوتيوب تلقائياً وتحديث الواجهة
             fetchLatestYouTubeVideos();
         });
 
-        // تشغيل برمجية التيرمينال والمحاكي والتحكم بالأزرار بالكامل 🖥️
-        const labModal = document.getElementById('labModal');
-        const openLabBtn = document.getElementById('openLabBtn');
-        const closeLabBtn = document.getElementById('closeLabBtn');
-        const textCmd = document.getElementById('textCmd');
-        const termHistory = document.getElementById('termHistory');
-
-        // أزرار الفتح والإغلاق
-        openLabBtn.addEventListener('click', () => { labModal.style.display = 'flex'; textCmd.focus(); });
-        closeLabBtn.addEventListener('click', () => { labModal.style.display = 'none'; });
-
-        // معالجة الأوامر داخل التيرمينال
-        textCmd.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const command = textCmd.value.trim();
-                if (command.length > 0) {
-                    executeCommand(command);
-                }
-                textCmd.value = '';
-            }
-        });
-
-        function executeCommand(cmd) {
-            // إضافة الأمر المكتوب للتاريخ
-            termHistory.innerHTML += `<div><span class="prompt">rick@seclab:~$</span> <span style="color: #fff">${cmd}</span></div>`;
-            
-            let output = '';
-            const lowerCmd = cmd.toLowerCase();
-
-            if (lowerCmd === 'help') {
-                output = `<span class="cmd-output">Available Commands:<br>
-                - <b>tools</b> : List cybersecurity research tools deployed.<br>
-                - <b>scan</b>  : Run a demo network integrity check.<br>
-                - <b>clear</b> : Clear the terminal interface.<br>
-                - <b>about</b> : Show researcher credential file.</span>`;
-            } else if (lowerCmd === 'tools') {
-                output = `<span class="cmd-output">[+] Deployed Tools Inside Termux:<br>
-                - nmap v7.92 (Network Mapper)<br>
-                - hping3 (Packet Generator)<br>
-                - sqlmap v1.6 (Automation Exploit)</span>`;
-            } else if (lowerCmd === 'scan') {
-                output = `<span class="cmd-output success-msg">[*] Scanning target loopback...<br>
-                [+] Host 127.0.0.1 is UP.<br>
-                [+] Port 80/tcp OPEN (http)<br>
-                [+] Port 443/tcp OPEN (https)<br>
-                [+] Scan finished. No vulnerability found on current interface.</span>`;
-            } else if (lowerCmd === 'about') {
-                output = `<span class="cmd-output">File: rick_credentials.txt<br>
-                Role: Cyber Security Researcher / Bug Bounty Hunter.<br>
-                Specialty: Web Apps Security & Network Auditing.</span>`;
-            } else if (lowerCmd === 'clear') {
-                termHistory.innerHTML = '';
-                return;
-            } else {
-                output = `<span class="cmd-output" style="color: #ff5f56">Command '${cmd}' not found. Type 'help' for options.</span>`;
-            }
-
-            termHistory.innerHTML += output;
-            termHistory.scrollTop = termHistory.scrollHeight; // النزول التلقائي لأسفل التيرمينال
-        }
-
-        // جلب فيديوهات يوتيوب
+        // جلب الفيديوهات التلقائية والديناميكية من يوتيوب وإصلاح الإشعارات
         function fetchLatestYouTubeVideos() {
             const grid = document.getElementById('youtubeVideosGrid');
+            if (!grid) return;
+
             if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY.includes("ضع_")) {
                 grid.innerHTML = createVideoCard(BACKUP_VIDEO_ID, "مقطع تتبع وتحليل البيانات الافتراضي");
                 return;
@@ -480,13 +520,17 @@
             document.getElementById('main-content-wrapper').style.display = 'block';
         }
 
+        // إعدادات الكوكيز ومحاكاة الدخول
         function setCookie(name, value, days) { let expires = ""; if (days) { let date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "")  + expires + "; path=/"; }
         function getCookie(name) { let nameEQ = name + "="; let ca = document.cookie.split(';'); for(let i=0;i < ca.length;i++) { let c = ca[i]; while (c.charAt(0)==' ') c = c.substring(1,c.length); if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); } return null; }
         function runSecuritySimulation() { setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); setTimeout(() => { document.getElementById('line5').style.display = 'block'; setCookie("rick_session_scanned", "true", 7); document.getElementById('liveCookieBox').style.display = 'block'; document.getElementById('cookieValueSpan').innerText = `rick_session_scanned=true`; }, 1600); setTimeout(() => { document.getElementById('security-check').style.display = 'none'; }, 3200); }
 
+        // قائمة الهواتف المحمولة
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
-        mobileMenu.addEventListener('click', () => { navList.classList.toggle('active'); });
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', () => { navList.classList.toggle('active'); });
+        }
     </script>
 </body>
 </html>
