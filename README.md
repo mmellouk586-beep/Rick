@@ -68,6 +68,18 @@
             font-size: 14px;
         }
 
+        /* لوحة عرض الكوكيز المحقونة على الشاشة */
+        .cookie-display-panel {
+            margin-top: 15px;
+            background: #161b22;
+            border: 1px dashed var(--accent-color);
+            padding: 10px;
+            border-radius: 4px;
+            width: 100%;
+            font-size: 12px;
+            color: #ffcc00;
+        }
+
         /* الهيدر وقائمة التنقل */
         header {
             background-color: rgba(22, 27, 34, 0.95);
@@ -91,7 +103,7 @@
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .logo {
@@ -102,6 +114,21 @@
         }
 
         .logo span { color: var(--accent-color); }
+
+        /* زر المتابعة الجديد بجانب الاسم مباشرة */
+        .header-follow-btn {
+            background: #21262d;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+            margin-left: 10px;
+        }
+        .header-follow-btn:hover { background: var(--accent-color); color: #000; box-shadow: 0 0 10px var(--accent-color); }
 
         /* زر أيقونة الفيديو المدمج بالشريط العلوي */
         .nav-video-toggle {
@@ -168,21 +195,6 @@
             direction: ltr;
         }
 
-        /* زر المتابعة الذكي - مخفي ومحمي داخلياً */
-        .follow-mini-btn {
-            background: #21262d;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-
-        .follow-mini-btn:hover { background: var(--accent-color); color: #000; }
-
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%;
@@ -227,7 +239,7 @@
             box-shadow: 0 0 15px var(--accent-color);
         }
 
-        /* الأقسام العامة */
+        /* الأقشان العامة */
         section { padding: 100px 20px 80px 20px; max-width: 1200px; margin: 0 auto; }
         .section-title { text-align: center; font-size: 2rem; color: var(--text-bright); margin-bottom: 50px; position: relative; }
         .section-title::after { content: ''; display: block; width: 50px; height: 3px; background-color: var(--accent-color); margin: 10px auto 0 auto; }
@@ -307,6 +319,10 @@
             <div class="scan-line" id="line3" style="display:none">> IP Routing Protocol: 172.217.16.14 verified.</div>
             <div class="scan-line" id="line4" style="display:none">> Injecting anti-bot token tracking...</div>
             <div class="scan-line" id="line5" style="display:none; color: #ffffff;">> [SUCCESS] Cookies set. Access granted!</div>
+            
+            <div class="cookie-display-panel" id="liveCookieBox" style="display: none;">
+                🍪 Active Browser Cookie: <span id="cookieValueSpan">None</span>
+            </div>
         </div>
     </div>
 
@@ -314,6 +330,8 @@
         <div class="nav-container">
             <div class="logo-area">
                 <div class="logo"><span>[</span> RICK <span>]</span></div>
+                <button class="header-follow-btn" id="hiddenFollowBtn">[ Follow ]</button>
+                
                 <button class="nav-video-toggle" id="videoToggleBtn">
                     <i class="fa-solid fa-video"></i> <span>[ Video ]</span>
                 </button>
@@ -333,11 +351,11 @@
 
             <div class="classic-video-dropdown" id="videoDropdown">
                 <div class="video-header">
-                    <button class="follow-mini-btn" id="hiddenFollowBtn">[ Follow ]</button>
-                    <span>Stream Connection: Active</span>
+                    <span>Tunnel Connection: Active</span>
+                    <span>Secure Feed Player</span>
                 </div>
                 <div class="video-wrapper">
-                    <iframe id="ytPlayer" src="https://www.youtube.com/embed/dGEr5YMiEBc?autoplay=1&mute=1&enablejsapi=1&rel=0&modestbranding=1" title="Secure Video Frame" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe id="ytPlayer" src="https://www.youtube.com/embed/dGEr5YMiEBc?autoplay=1&enablejsapi=1&rel=0&modestbranding=1" title="Secure Hidden Stream Frame" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -358,7 +376,7 @@
                 <div class="avatar-placeholder"><i class="fa-solid fa-user-shield"></i></div>
             </div>
             <div>
-                <p style="font-size: 18px; margin-bottom: 20px;">أنا <strong>RICK</strong>، باحث متخصص في الأمن السيبراني وااختبار الاختراق العالي الكفاءة.</p>
+                <p style="font-size: 18px; margin-bottom: 20px;">أنا <strong>RICK</strong>، باحث متخصص في الأمن السيبراني واختبار الاختراق العالي الكفاءة.</p>
                 <p>مرحباً بك في بوابتي الشخصية لتتبع وتحليل البيانات وفحص الأجهزة والأنظمة المتقدمة.</p>
             </div>
         </div>
@@ -454,7 +472,7 @@
     </footer>
 
     <script>
-        // --- 1. نظام كوكيز الحماية وجدار الفحص البيومتري المربوط افتراضياً ببروتوكولات يوتيوب وسيرفرات جوجل 172.217.16.14 ---
+        // --- 1. إدارة كوكيز الحماية وعرضها علناً على شاشة الفحص السوداء 🍪 ---
         window.addEventListener('DOMContentLoaded', () => {
             if (getCookie("rick_session_scanned") === "true") {
                 document.getElementById('security-check').style.display = 'none';
@@ -486,25 +504,28 @@
         }
 
         function runSecuritySimulation() {
-            setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 500);
-            setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 1000);
-            setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1500);
+            setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400);
+            setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800);
+            setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200);
             setTimeout(() => { 
                 document.getElementById('line5').style.display = 'block';
                 setCookie("rick_session_scanned", "true", 7);
-            }, 2000);
+                
+                // عرض الكوكيز على الشاشة علناً 🍪
+                document.getElementById('liveCookieBox').style.display = 'block';
+                document.getElementById('cookieValueSpan').innerText = `rick_session_scanned=true (Expires in 7 Days)`;
+            }, 1600);
             setTimeout(() => {
                 document.getElementById('security-check').style.display = 'none';
-            }, 2800);
+            }, 3200);
         }
 
-        // --- 2. نظام الإشعارات الداخلي وحظر خروج الزائر عند ضغط زر المتابعة [Follow] ---
+        // --- 2. زر المتابعة المتقدم [Follow] (بجانب الاسم، يبقى في الموقع ويفعل الإشعارات) ---
         const hiddenFollowBtn = document.getElementById('hiddenFollowBtn');
 
         hiddenFollowBtn.addEventListener('click', () => {
-            // يبقى في الموقع ويظهر له إشعار فوري بدون نقله للخارج نهائياً
             if (!("Notification" in window)) {
-                alert("[System Control]: تفعيل الاشتراك والمتابعة بنجاح داخل الخادم الخاص بموقع RICK.");
+                alert("[System Alert]: تفعيل الاشتراك الداخلي والمتابعة بنجاح داخل الخادم الافتراضي.");
             } else if (Notification.permission === "granted") {
                 sendWelcomeNotification();
             } else if (Notification.permission !== "denied") {
@@ -515,8 +536,8 @@
         });
 
         function sendWelcomeNotification() {
-            new Notification("[RICK Feed Control]", {
-                body: "Connection complete. You will now receive alert updates directly on this machine.",
+            new Notification("[RICK Feed Status]", {
+                body: "Subscribed securely! New video synchronizations are active.",
                 icon: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/user-shield.svg"
             });
         }
@@ -544,24 +565,24 @@
             }
         });
 
-        // --- 4. نفق جلب مخفي يقوم بسحب أحدث المقاطع من خادم المزامنة دون إظهار أي بيانات علنية للمتصفح ---
+        // --- 4. جلب تلقائي ديناميكي يقوم بسحب أحدث فيديو يرفع على قناتك مع إخفاء المصدر بالصوت ---
         function maskAndLoadTunnel() {
-            // نفق برمجي يقوم بالاتصال الآمن بخادم المزامنة لجلب بيانات المقاطع بشكل تلقائي ومباشر
-            const targetToken = "UC_x5XG1OV2P6uSZw5K_A3pw"; 
-            const proxyGateway = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + targetToken)}`;
+            const maskedChannelToken = "UC_x5XG1OV2P6uSZw5K_A3pw"; 
+            const secureGateway = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=' + maskedChannelToken)}`;
             
-            fetch(proxyGateway)
+            fetch(secureGateway)
             .then(res => res.json())
             .then(feedData => {
                 if (feedData.status === 'ok' && feedData.items.length > 0) {
                     const latestRef = feedData.items[0].link;
                     const cleanId = latestRef.split('v=')[1] || latestRef.substring(latestRef.lastIndexOf('/') + 1);
                     if(cleanId) {
-                        document.getElementById('ytPlayer').src = `https://www.youtube.com/embed/${cleanId.split('&')[0]}?autoplay=1&mute=1&enablejsapi=1&rel=0&modestbranding=1`;
+                        // تم إزالة mute=1 ليعمل المقطع بالصوت الكامل مع إخفاء المظهر الخارجي
+                        document.getElementById('ytPlayer').src = `https://www.youtube.com/embed/${cleanId.split('&')[0]}?autoplay=1&enablejsapi=1&rel=0&modestbranding=1`;
                     }
                 }
             })
-            .catch(e => console.log("Internal tunnel redirection: Source hidden securely."));
+            .catch(e => console.log("Internal proxy error: Connection secured."));
         }
 
         // --- 5. تشغيل بيئة محاكاة اللابتوب العائم ---
