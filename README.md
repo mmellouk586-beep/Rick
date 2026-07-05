@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=300;400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -174,6 +174,8 @@
         .social-links a:hover { color: var(--accent-color); transform: scale(1.2); }
 
         footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-size: 14px; background-color: var(--card-bg); }
+        .privacy-link { display: inline-block; margin-top: 10px; color: var(--accent-color); text-decoration: none; font-weight: 300; font-size: 13px; transition: text-shadow 0.3s; }
+        .privacy-link:hover { text-shadow: 0 0 8px var(--accent-color); }
 
         /* الأيقونة العائمة للمحاكي (Lab) */
         .lab-float-btn { 
@@ -334,33 +336,32 @@
         </div>
     </div>
 
-    <footer><p>&copy; 2026 RICK. جميع الحقوق محفوظة</p></footer>
+    <footer>
+        <p>&copy; 2026 RICK. جميع الحقوق محفوظة</p>
+        <a href="#privacy" class="privacy-link" onclick="alert('سياسة الخصوصية:\nنحن نحترم خصوصيتك بالكامل. جميع عمليات المحاكاة والفحص الأمني داخل هذا الموقع تجري محلياً في بيئة اختبار آمنة تماماً، ولا نقوم بجمع أو مشاركة أي بيانات حساسة تخص الزوار.')">سياسة الخصوصية</a>
+    </footer>
 
     <script>
-        // مفاتيح الربط الذكية
         const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
         const YOUTUBE_CHANNEL_ID = "UCwFk399Vw8Xq3K_R-3-zOtw";
 
-        // المصفوفة الرقمية التي تحتوي على المقاطع الخاصة بك (Shorts)
         const MY_PRESET_VIDEOS = [
             { id: "dGEr5YMiEBc", title: "مقطع تتبع وتحليل البيانات - الجزء الأول" },
             { id: "jTgCFVL2HVs", title: "مقطع تتبع وتحليل البيانات - الجزء الثاني" }
         ];
 
-        // منظومة تحويل النص إلى كلام الذكية (TTS)
         function speakVideoTitle(text) {
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // إيقاف أي كلام مسبق متداخل
+                window.speechSynthesis.cancel(); 
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ar-SA';       // تعيين جودة النطق للغة العربية
-                utterance.rate = 0.95;          // سرعة سرد متزنة ومناسبة
-                utterance.pitch = 1.0;          // مستوى نبرة الصوت الافتراضي
+                utterance.lang = 'ar-SA';       
+                utterance.rate = 0.95;          
+                utterance.pitch = 1.0;          
                 window.speechSynthesis.speak(utterance);
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            
             if (getCookie("rick_session_scanned") === "true") {
                 document.getElementById('security-check').style.display = 'none';
             } else {
@@ -494,14 +495,13 @@
             });
         }
 
-        // بناء الكارت مع دمج حدث تمرير الفأرة (onmouseenter) لقراءة عنوان الفيديو تلقائياً
+        // تم تفعيل تدوير وتشغيل الفيديو تلقائياً وبكامل طاقة الصوت بالاعتماد على ميزات الأوتوبلاي غير المكتومة
         function createVideoCard(id, title) {
-            // تنظيف العنوان من الرموز التي قد تكسر سكريبت السلسلة النصية
             const cleanTitle = title.replace(/['"\\]/g, "");
             return `
                 <div class="video-wrapper" onmouseenter="speakVideoTitle('${cleanTitle}')">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="video-title">${title}</div>
                 </div>
@@ -524,7 +524,6 @@
             });
         }
 
-        // تحديث دالة التبديل لتنطق جملة الترحيب المخصصة للمركز عند الفتح، وإلغاء الصوت عند الإغلاق
         function toggleView() {
             const mainWrapper = document.getElementById('main-content-wrapper');
             const videoSection = document.getElementById('video-section');
@@ -535,8 +534,7 @@
             } else {
                 mainWrapper.style.display = 'none';
                 videoSection.style.display = 'block';
-                // التحدث التلقائي الصوتي الفوري عند فتح لوحة المقاطع
-                speakVideoTitle("مرحباً بك في مركز العمليات، جاري عرض أحدث المقاطع الأمنية.");
+                speakVideoTitle("مرحباً بك في مركز العمليات، جاري عرض أحدث المقاطع الأمنية وتشغيلها تلقائياً بالصوت.");
             }
         }
 
