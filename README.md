@@ -4,12 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RICK | Cyber Security Researcher</title>
     
-    <!-- خطوط جوجل - خط Cairo الاحترافي -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <!-- مكتبة Font Awesome للأيقونات - نسخة مستقرة ومحدثة -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -289,6 +287,222 @@
             background-color: var(--card-bg);
         }
 
+        /* ==========================================
+           أنماط الأيقونة العائمة والنافذة المنبثقة للمحاكي
+           ========================================== */
+        
+        /* زر التشغيل العائم المخصص للمحاكي */
+        .lab-float-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px; /* في جهة اليسار لعدم حجب عناصر تصفح أخرى */
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .lab-float-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+
+        .lab-float-btn i {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* الخلفية المظلمة عند فتح المحاكي */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display: none; /* مخفي افتراضياً */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* هيكل اللابتوب داخل المودال */
+        .laptop {
+            width: 850px;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            animation: zoomIn 0.3s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* شاشة اللابتوب */
+        .screen {
+            background-color: #1a1a1a;
+            border: 14px solid #1f242c;
+            border-radius: 12px 12px 0 0;
+            height: 480px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* شريط التحكم بالنافذة العلوي */
+        .title-bar {
+            background-color: #2d333b;
+            color: #adbac7;
+            padding: 6px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            direction: ltr;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 6px;
+        }
+
+        .control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .close { background-color: #ff5f56; }
+        .minimize { background-color: #ffbd2e; }
+        .maximize { background-color: #27c93f; }
+
+        .title-bar-text {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 13px;
+            font-family: monospace;
+        }
+
+        /* واجهة وتصميم التيرمينال الداخلي */
+        .simulator-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0d1117;
+            padding: 10px;
+        }
+
+        .lab-header {
+            text-align: center;
+            color: #c9d1d9;
+            margin: 5px 0 10px;
+            direction: rtl;
+        }
+        .lab-header h3 { font-size: 18px; margin-bottom: 4px; color: var(--text-bright); }
+        .lab-header p { font-size: 13px; color: #8b949e; }
+
+        .terminal-box {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            background-color: #0c0f14;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            direction: ltr;
+        }
+
+        .history-container {
+            flex: 1;
+            overflow-y: auto;
+            white-space: pre-wrap; 
+            color: #58a6ff; 
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 10px;
+        }
+        
+        .input-line { 
+            display: flex; 
+            align-items: center; 
+            border-top: 1px solid #21262d;
+            padding: 8px 10px;
+        }
+        
+        .prompt { 
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-right: 8px; 
+            white-space: nowrap;
+        }
+        
+        .term-input { 
+            background: none; 
+            border: none; 
+            color: #c9d1d9; 
+            font-family: inherit; 
+            font-size: 15px; 
+            width: 100%; 
+            outline: none; 
+        }
+
+        .system-msg { color: #8b949e; font-style: italic; }
+        .success-msg { color: #7ee787; font-weight: bold; }
+        .error-msg { color: #ff7b72; }
+
+        .hint-btn {
+            display: block;
+            margin: 0 auto 8px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            padding: 4px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            direction: rtl;
+        }
+
+        /* قاعدة لوحة المفاتيح أسفل اللابتوب */
+        .keyboard {
+            background-color: #2d333b;
+            border: 12px solid #1f242c;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .keyboard-trackpad {
+            width: 120px;
+            height: 50px;
+            background-color: #22272e;
+            border: 1px solid #444c56;
+            border-radius: 4px;
+            margin-top: 40px;
+        }
+
         /* التجاوب مع الهواتف والشاشات الصغيرة */
         @media (max-width: 768px) {
             .menu-toggle {
@@ -330,12 +544,17 @@
             .hero-content p {
                 font-size: 1.1rem;
             }
+
+            /* في الجوال: يتم إلغاء جسم اللابتوب وتحويل الشاشة لعرض كامل لراحة المستخدم */
+            .modal-overlay { padding: 5px; }
+            .keyboard { display: none; }
+            .screen { height: 90vh; border: 4px solid #1f242c; border-radius: 8px; }
+            .lab-float-btn { bottom: 20px; left: 20px; padding: 10px 15px; font-size: 14px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- الهيدر -->
     <header>
         <div class="nav-container">
             <div class="logo"><span>[</span> RICK <span>]</span></div>
@@ -354,7 +573,6 @@
         </div>
     </header>
 
-    <!-- القسم الرئيسي -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>مرحباً، أنا RICK</h1>
@@ -363,7 +581,6 @@
         </div>
     </section>
 
-    <!-- قسم من أنا -->
     <section id="about">
         <h2 class="section-title">من أنا</h2>
         <div class="about-grid">
@@ -383,7 +600,6 @@
         </div>
     </section>
 
-    <!-- قسم الخدمات -->
     <section id="services">
         <h2 class="section-title">الخدمات الأمنية</h2>
         <div class="grid-3">
@@ -405,7 +621,6 @@
         </div>
     </section>
 
-    <!-- قسم المهارات والأدوات -->
     <section id="skills">
         <h2 class="section-title">المهارات والأدوات التقنية</h2>
         <div class="grid-3">
@@ -437,14 +652,12 @@
         </div>
     </section>
 
-    <!-- قسم الاتصال -->
     <section id="contact">
         <h2 class="section-title">تواصل معي</h2>
         <div class="contact-info">
             <p>هل تريد تأمين مشروعك أو لديك استفسار أمني؟ لا تتردد في مراسلتي مباشرة عبر المنصات التالية:</p>
             
             <div class="social-links">
-                <!-- استبدل العلامة # بروابطك الحقيقية لاحقاً -->
                 <a href="#" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
                 <a href="#" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                 <a href="mailto:rick@example.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
@@ -452,28 +665,186 @@
         </div>
     </section>
 
-    <!-- الفوتر -->
+    <button class="lab-float-btn" id="openLabBtn">
+        <i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span>
+    </button>
+
+    <div class="modal-overlay" id="labModal">
+        <div class="laptop">
+            <div class="screen">
+                <div class="title-bar">
+                    <div class="window-controls">
+                        <div class="control close" id="closeLabBtn" title="إغلاق المختبر"></div>
+                        <div class="control minimize"></div>
+                        <div class="control maximize"></div>
+                    </div>
+                    <div class="title-bar-text">Termux-SecLab v3.1 [Laptop Mode]</div>
+                </div>
+
+                <div class="simulator-content">
+                    <div class="lab-header">
+                        <h3>🤖 بيئة محاكاة التيرمينال</h3>
+                        <p>المهمة: افحص الهدف <span style="color: #ff7b72;">vulnerable-target.local</span> واكتشف الثغرة!</p>
+                    </div>
+
+                    <button class="hint-btn" onclick="showLabHint()">💡 تلميحة للمهمة</button>
+
+                    <div class="terminal-box" onclick="document.getElementById('termCmd').focus()">
+                        <div id="termHistory" class="history-container"><span class="system-msg">Welcome to Termux-SecLab Environment v3.1
+Type 'help' to see available commands.
+------------------------------------------------------------</span></div>
+                        <div class="input-line">
+                            <span class="prompt">rick@seclab:~$</span>
+                            <input type="text" id="termCmd" autocomplete="off" autocapitalize="none" spellcheck="false">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="keyboard">
+                <div class="keyboard-trackpad"></div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 RICK. جميع الحقوق محفوظة | مستضاف بأمان على GitHub Pages</p>
     </footer>
 
-    <!-- كود جافا سكريبت لإصلاح وتفعيل قائمة الجوال التفاعلية -->
     <script>
+        // --- أولاً: أكواد تحكم القائمة الأصلية للموقع ---
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
 
-        // فتح وإغلاق القائمة عند الضغط على الزر في الجوال
         mobileMenu.addEventListener('click', () => {
             navList.classList.toggle('active');
         });
 
-        // إغلاق القائمة تلقائياً عند الضغط على أي رابط لتسهيل التنقل
         const navLinks = document.querySelectorAll('#nav-list a');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                navList.classList.remove('active');
+                navList.remove();
             });
         });
+
+        // --- ثانياً: أكواد التحكم بالنافذة المنبثقة للمحاكي ---
+        const labModal = document.getElementById('labModal');
+        const openLabBtn = document.getElementById('openLabBtn');
+        const closeLabBtn = document.getElementById('closeLabBtn');
+        const termCmd = document.getElementById('termCmd');
+        const termHistory = document.getElementById('termHistory');
+
+        // فتح نافذة اللابتوب والتركيز على حقل الكتابة تلقائياً
+        openLabBtn.addEventListener('click', () => {
+            labModal.style.display = 'flex';
+            termCmd.focus();
+        });
+
+        // إغلاق النافذة
+        closeLabBtn.addEventListener('click', () => {
+            labModal.style.display = 'none';
+        });
+
+        // إغلاق عند الضغط خارج جسم اللابتوب
+        labModal.addEventListener('click', (e) => {
+            if (e.target === labModal) {
+                labModal.style.display = 'none';
+            }
+        });
+
+        // --- ثالثاً: منطق عمل أوامر التيرمينال التفاعلية ---
+        let labState = {
+            scanned: false,
+            vulnerabilityFound: false
+        };
+
+        termCmd.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = termCmd.value.trim();
+                if (command) {
+                    executeLabCommand(command);
+                }
+                termCmd.value = '';
+            }
+        });
+
+        function showLabHint() {
+            alert("تلميحة: ابدأ الفحص بكتابة أمر nmap للمستهدف كالتالي:\nnmap vulnerable-target.local");
+        }
+
+        function executeLabCommand(cmd) {
+            let output = `\n<span class="prompt">rick@seclab:~$</span> ${cmd}\n`;
+            const tokens = cmd.split(' ');
+            const baseCmd = tokens[0].toLowerCase();
+            const arg = tokens[1];
+
+            switch(baseCmd) {
+                case 'help':
+                    output += `Available Commands:
+- <span class="success-msg">help</span>       : Show this menu
+- <span class="success-msg">clear</span>      : Clear terminal screen
+- <span class="success-msg">nmap</span>       : Network mapper tool
+- <span class="success-msg">curl</span>       : Data transfer utility
+- <span class="success-msg">whois</span>      : Domain registration intelligence`;
+                    break;
+
+                case 'clear':
+                    termHistory.innerHTML = '';
+                    return;
+
+                case 'whois':
+                    if (arg === 'vulnerable-target.local') {
+                        output += `Domain: vulnerable-target.local
+Registrar: SecLabs Registry Internal
+Status: Active
+Admin IP: 10.0.2.15`;
+                    } else {
+                        output += `<span class="error-msg">Usage: whois vulnerable-target.local</span>`;
+                    }
+                    break;
+
+                case 'nmap':
+                    if (arg === 'vulnerable-target.local') {
+                        labState.scanned = true;
+                        output += `Starting Nmap 7.92...
+Scanning vulnerable-target.local (10.0.2.15)
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 8.2p1
+80/tcp   open  http    Apache httpd 2.4.41
+<span class="error-msg">8080/tcp open  http    Apache Struts v2.3 (VULNERABLE)</span>
+
+Nmap done: 1 IP address scanned.`;
+                    } else {
+                        output += `<span class="error-msg">Usage: nmap vulnerable-target.local</span>`;
+                    }
+                    break;
+
+                case 'curl':
+                    if (!labState.scanned) {
+                        output += `<span class="error-msg">Error: Host unreachable. Try scanning the network first!</span>`;
+                    } else if (arg === 'http://vulnerable-target.local:8080') {
+                        output += `<span class="success-msg">[+] Connected to Apache Struts Portal!</span>
+[!] Alert: Remote Code Execution (RCE) vulnerability detected.
+[💡] Try to exploit it by appending parameters: <span class="success-msg">?cmd=id</span>`;
+                        labState.vulnerabilityFound = true;
+                    } else if (arg === 'http://vulnerable-target.local:8080?cmd=id' && labState.vulnerabilityFound) {
+                        output += `<span class="success-msg">HTTP/1.1 200 OK</span>
+Response Payload:
+--------------------------------------
+<span class="success-msg">uid=0(root) gid=0(root) groups=0(root)
+[🏆] CONGRATULATIONS Rick! You successfully got Root access!</span>`;
+                    } else {
+                        output += `<span class="error-msg">Usage: curl http://vulnerable-target.local:8080</span>`;
+                    }
+                    break;
+
+                default:
+                    output += `<span class="error-msg">bash: ${baseCmd}: command not found</span>`;
+            }
+
+            termHistory.innerHTML += output;
+            termHistory.scrollTop = termHistory.scrollHeight;
+        }
     </script>
 </body>
 </html>
