@@ -101,7 +101,7 @@
         nav ul li a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 24px; color: var(--text-bright); cursor: pointer; }
 
-        /* قسم المقاطع الجديد المشترك تلقائياً */
+        /* قسم المقاطع */
         #video-section {
             display: none;
             padding: 120px 20px 80px 20px;
@@ -129,7 +129,7 @@
 
         .video-container {
             width: 100%;
-            height: 500px; /* أبعاد ممتازة للشورتس والفيديوهات الطولية */
+            height: 500px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             overflow: hidden;
@@ -139,7 +139,7 @@
         .video-container iframe { width: 100%; height: 100%; border: none; }
         .video-title { font-size: 14px; color: var(--text-bright); margin-top: 10px; text-align: right; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 
-        /* الأقسام العامة والمحتوى القديم */
+        /* الأقسام العامة */
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); }
         .hero-content h1 { font-size: 3.5rem; color: var(--text-bright); margin-bottom: 10px; }
         .hero-content p { font-size: 1.5rem; color: var(--accent-color); margin-bottom: 30px; font-family: monospace; }
@@ -171,9 +171,11 @@
 
         footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-size: 14px; background-color: var(--card-bg); }
 
+        /* الأيقونة العائمة للمحاكي */
         .lab-float-btn { position: fixed; bottom: 30px; left: 30px; background-color: var(--card-bg); border: 2px solid var(--accent-color); color: var(--accent-color); padding: 12px 20px; border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3); z-index: 999; display: flex; align-items: center; gap: 10px; transition: transform 0.3s; }
         .lab-float-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-color); }
 
+        /* شاشات اللابتوب والمحاكي النظيف والمصلح */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); z-index: 10000; display: none; justify-content: center; align-items: center; padding: 20px; }
         .laptop { width: 850px; max-width: 100%; display: flex; flex-direction: column; }
         .screen { background-color: #1a1a1a; border: 14px solid #1f242c; border-radius: 12px 12px 0 0; height: 480px; display: flex; flex-direction: column; overflow: hidden; }
@@ -182,12 +184,18 @@
         .control { width: 12px; height: 12px; border-radius: 50%; cursor: pointer; }
         .close { background-color: #ff5f56; }
         .title-bar-text { flex-grow: 1; text-align: center; font-size: 13px; font-family: monospace; }
+        
         .simulator-content { flex: 1; display: flex; flex-direction: column; background-color: #0d1117; padding: 10px; }
-        .terminal-box { flex: 1; border: 1px solid var(--border-color); background-color: #0c0f14; border-radius: 6px; display: flex; flex-direction: column; direction: ltr; }
-        .history-container { flex: 1; overflow-y: auto; white-space: pre-wrap; color: #58a6ff; font-family: monospace; font-size: 13px; padding: 10px; }
-        .input-line { display: flex; align-items: center; padding: 8px 10px; }
-        .prompt { color: var(--accent-color); margin-right: 8px; }
-        .term-input { background: none; border: none; color: #c9d1d9; width: 100%; outline: none; }
+        .terminal-box { flex: 1; border: 1px solid var(--border-color); background-color: #0c0f14; border-radius: 6px; display: flex; flex-direction: column; direction: ltr; overflow: hidden; }
+        .history-container { flex: 1; overflow-y: auto; white-space: pre-wrap; color: #58a6ff; font-family: monospace; font-size: 13px; padding: 15px; text-align: left; }
+        
+        .input-line { display: flex; align-items: center; padding: 10px; border-top: 1px solid var(--border-color); background: #090d13; }
+        .prompt { color: var(--accent-color); margin-right: 8px; font-family: monospace; font-size: 14px; white-space: nowrap; }
+        .term-input { background: none; border: none; color: #c9d1d9; width: 100%; outline: none; font-family: monospace; font-size: 14px; }
+        
+        .system-msg { color: #8b949e; }
+        .cmd-output { color: #c9d1d9; margin-top: 4px; margin-bottom: 10px; display: block; }
+        .success-msg { color: var(--accent-color); }
 
         @media (max-width: 768px) {
             .menu-toggle { display: block; }
@@ -294,17 +302,31 @@
     <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
 
     <div class="modal-overlay" id="labModal">
-        <div class="laptop"><div class="screen"><div class="title-bar"><div class="window-controls"><div class="control close" id="closeLabBtn"></div></div><div class="title-bar-text">Termux-SecLab</div></div></div></div>
+        <div class="laptop">
+            <div class="screen">
+                <div class="title-bar">
+                    <div class="window-controls"><div class="control close" id="closeLabBtn"></div></div>
+                    <div class="title-bar-text">Termux-SecLab v3.1</div>
+                </div>
+                <div class="simulator-content">
+                    <div class="terminal-box" onclick="document.getElementById('textCmd').focus()">
+                        <div id="termHistory" class="history-container"><span class="system-msg">Welcome to Termux-SecLab. Type 'help' to see available commands.</span></div>
+                        <div class="input-line">
+                            <span class="prompt">rick@seclab:~$</span>
+                            <input type="text" id="textCmd" class="term-input" autocomplete="off" autofocus>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer><p>&copy; 2026 RICK. جميع الحقوق محفوظة</p></footer>
 
     <script>
-        // التكوين الأساسي ليوتيوب - ضع بياناتك هنا لتفعيل الميزة تلقائياً ⬇️
+        // التكوين الأساسي ليوتيوب
         const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
         const YOUTUBE_CHANNEL_ID = "ضع_معرف_قناتك_هنا_يبدأ_بـ_UC";
-        
-        // المقطع القديم كـ احتياط (Fallback) في حال لم يتم إدخال مفاتيح اليوتيوب بعد
         const BACKUP_VIDEO_ID = "dGEr5YMiEBc"; 
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -313,57 +335,103 @@
             } else {
                 runSecuritySimulation();
             }
-            // فحص وجلب الفيديوهات وإرسال إشعار إذا وجد جديد
             fetchLatestYouTubeVideos();
         });
 
-        // جلب الفيديوهات تلقائياً عبر الـ API وفحص إذا كان هناك جديد لإصدار إشعار
+        // تشغيل برمجية التيرمينال والمحاكي والتحكم بالأزرار بالكامل 🖥️
+        const labModal = document.getElementById('labModal');
+        const openLabBtn = document.getElementById('openLabBtn');
+        const closeLabBtn = document.getElementById('closeLabBtn');
+        const textCmd = document.getElementById('textCmd');
+        const termHistory = document.getElementById('termHistory');
+
+        // أزرار الفتح والإغلاق
+        openLabBtn.addEventListener('click', () => { labModal.style.display = 'flex'; textCmd.focus(); });
+        closeLabBtn.addEventListener('click', () => { labModal.style.display = 'none'; });
+
+        // معالجة الأوامر داخل التيرمينال
+        textCmd.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = textCmd.value.trim();
+                if (command.length > 0) {
+                    executeCommand(command);
+                }
+                textCmd.value = '';
+            }
+        });
+
+        function executeCommand(cmd) {
+            // إضافة الأمر المكتوب للتاريخ
+            termHistory.innerHTML += `<div><span class="prompt">rick@seclab:~$</span> <span style="color: #fff">${cmd}</span></div>`;
+            
+            let output = '';
+            const lowerCmd = cmd.toLowerCase();
+
+            if (lowerCmd === 'help') {
+                output = `<span class="cmd-output">Available Commands:<br>
+                - <b>tools</b> : List cybersecurity research tools deployed.<br>
+                - <b>scan</b>  : Run a demo network integrity check.<br>
+                - <b>clear</b> : Clear the terminal interface.<br>
+                - <b>about</b> : Show researcher credential file.</span>`;
+            } else if (lowerCmd === 'tools') {
+                output = `<span class="cmd-output">[+] Deployed Tools Inside Termux:<br>
+                - nmap v7.92 (Network Mapper)<br>
+                - hping3 (Packet Generator)<br>
+                - sqlmap v1.6 (Automation Exploit)</span>`;
+            } else if (lowerCmd === 'scan') {
+                output = `<span class="cmd-output success-msg">[*] Scanning target loopback...<br>
+                [+] Host 127.0.0.1 is UP.<br>
+                [+] Port 80/tcp OPEN (http)<br>
+                [+] Port 443/tcp OPEN (https)<br>
+                [+] Scan finished. No vulnerability found on current interface.</span>`;
+            } else if (lowerCmd === 'about') {
+                output = `<span class="cmd-output">File: rick_credentials.txt<br>
+                Role: Cyber Security Researcher / Bug Bounty Hunter.<br>
+                Specialty: Web Apps Security & Network Auditing.</span>`;
+            } else if (lowerCmd === 'clear') {
+                termHistory.innerHTML = '';
+                return;
+            } else {
+                output = `<span class="cmd-output" style="color: #ff5f56">Command '${cmd}' not found. Type 'help' for options.</span>`;
+            }
+
+            termHistory.innerHTML += output;
+            termHistory.scrollTop = termHistory.scrollHeight; // النزول التلقائي لأسفل التيرمينال
+        }
+
+        // جلب فيديوهات يوتيوب
         function fetchLatestYouTubeVideos() {
             const grid = document.getElementById('youtubeVideosGrid');
-            
             if (!YOUTUBE_API_KEY || YOUTUBE_API_KEY.includes("ضع_")) {
-                // عرض المقطع الافتراضي القديم إذا لم يربط المستخدم الـ API بعد
                 grid.innerHTML = createVideoCard(BACKUP_VIDEO_ID, "مقطع تتبع وتحليل البيانات الافتراضي");
                 return;
             }
 
             const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${YOUTUBE_CHANNEL_ID}&part=snippet,id&order=date&maxResults=5`;
-
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     if (data.items && data.items.length > 0) {
                         grid.innerHTML = '';
                         let latestVideoId = '';
-
                         data.items.forEach((item, index) => {
                             let videoId = item.id.videoId;
-                            if (!videoId && item.id.kind === "youtube#video") videoId = item.id.videoId;
-                            
-                            // التعامل مع الروابط العادية أو Shorts
                             if(videoId) {
-                                if(index === 0) latestVideoId = videoId; // أحدث فيديو تم رفعه
+                                if(index === 0) latestVideoId = videoId;
                                 grid.innerHTML += createVideoCard(videoId, item.snippet.title);
                             }
                         });
-
-                        // آلية الإشعارات التلقائية للفيديو الجديد 🔔
                         if (latestVideoId) {
                             const lastSeenVideo = localStorage.getItem('last_seen_video_id');
                             const isSubscribed = localStorage.getItem('notifications_enabled') === 'true';
-
-                            // إذا كان الفيديو المجلوب أحدث من آخر فيديو شاهده العميل والمستخدم مفعّل المتابعة
                             if (lastSeenVideo && lastSeenVideo !== latestVideoId && isSubscribed) {
-                                sendSystemNotification("فيديو جديد متاح!", "قام RICK بنشر مقطع جديد على يوتيوب، افتح قسم المقاطع لمشاهدته الآن.");
+                                sendSystemNotification("فيديو جديد متاح!", "قام RICK بنشر مقطع جديد على يوتيوب.");
                             }
-                            
-                            // حفظ هذا المقطع كآخر مقطع تم رصده في المتصفح
                             localStorage.setItem('last_seen_video_id', latestVideoId);
                         }
                     }
                 })
-                .catch(err => {
-                    console.error("YouTube API Error:", err);
+                .catch(() => {
                     grid.innerHTML = createVideoCard(BACKUP_VIDEO_ID, "مقطع تتبع وتحليل البيانات الافتراضي");
                 });
         }
@@ -379,26 +447,18 @@
             `;
         }
 
-        // إرسال الإشعار الحقيقي على الجهاز
         function sendSystemNotification(title, body) {
             if ("Notification" in window && Notification.permission === "granted") {
                 new Notification(title, { body: body, icon: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/user-shield.svg" });
             }
         }
 
-        // تفعيل زر المتابعة وطلب الإذن بالإشعارات
         function activateFollow() {
-            if (!("Notification" in window)) {
-                alert("متصفحك لا يدعم إشعارات النظام البرمجية.");
-                return;
-            }
-
+            if (!("Notification" in window)) { alert("متصفحك لا يدعم الإشعارات."); return; }
             Notification.requestPermission().then(permission => {
                 if (permission === "granted") {
                     localStorage.setItem('notifications_enabled', 'true');
-                    sendSystemNotification("RICK System Control", "تم تفعيل نظام المتابعة الذكي! ستتلقى تنبيهاً فوريّاً على شاشتك بمجرد رفع أي مقطع جديد.");
-                } else {
-                    alert("تم رفض إذن الإشعارات، لن تتلقى تنبيهات المقاطع الجديدة.");
+                    sendSystemNotification("RICK System Control", "تم تفعيل نظام المتابعة الذكي!");
                 }
             });
         }
@@ -420,7 +480,6 @@
             document.getElementById('main-content-wrapper').style.display = 'block';
         }
 
-        // إدارة الكوكيز
         function setCookie(name, value, days) { let expires = ""; if (days) { let date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "")  + expires + "; path=/"; }
         function getCookie(name) { let nameEQ = name + "="; let ca = document.cookie.split(';'); for(let i=0;i < ca.length;i++) { let c = ca[i]; while (c.charAt(0)==' ') c = c.substring(1,c.length); if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); } return null; }
         function runSecuritySimulation() { setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); setTimeout(() => { document.getElementById('line5').style.display = 'block'; setCookie("rick_session_scanned", "true", 7); document.getElementById('liveCookieBox').style.display = 'block'; document.getElementById('cookieValueSpan').innerText = `rick_session_scanned=true`; }, 1600); setTimeout(() => { document.getElementById('security-check').style.display = 'none'; }, 3200); }
