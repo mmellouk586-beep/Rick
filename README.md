@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -140,7 +139,7 @@
             background: #000;
         }
 
-        .video-container iframe { width: 100%; height: 100%; border: none; }
+        .video-container iframe, .video-container video { width: 100%; height: 100%; border: none; object-fit: cover; }
         .video-title { font-size: 15px; font-weight: bold; color: var(--text-bright); margin-top: 10px; text-align: right; }
         
         /* صندوق الترجمة المضافة تحت الفيديو */
@@ -363,9 +362,16 @@
         const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
         const YOUTUBE_CHANNEL_ID = "UCwFk399Vw8Xq3K_R-3-zOtw";
 
-        // تم استبدال وتخصيص هذا القسم لعرض فيديو الشورتس المطلوب مع ترجمته العربية المرافقة
+        // إضافة الفيديو المخصص وتشغيله محلياً بشكل تلقائي واحترافي
         const MY_PRESET_VIDEOS = [
+            {
+                type: "local",
+                id: "VID20260710115227.mp4",
+                title: "يوميات ريك",
+                translation: "مقطع فيديو حصري من يوميات ريك، يوثق الأنشطة اليومية والتجارب الميدانية في الأبحاث الأمنية والتقنية."
+            },
             { 
+                type: "youtube",
                 id: "wAzR14CknzU", 
                 title: "The story of Noah's Ark (قصة سفينة نوح)",
                 translation: "منذ زمن طويل، دعا الله نوحاً، وهو رجل صالح، لبناء سفينة - ملاذ للخلاص. ورغم سخرية العالم، أطاع نوح دون تردد، واثقاً في الوعد الإلهي بالحماية. من كل ركن من أركان الأرض، سارت المخلوقات كبيرة وصغيرة إلى السفينة؛ الأسود والحملان مشوا جنباً إلى جنب، مستجيبين لنداء صامت للحفظ. وعندما تراجعت المياه، قدم نوح الامتنان لله، ورداً على ذلك، امتد قوس قزح في السماء كعهد أبدي بين الله والبشرية، واعداً بعدم غمر الأرض بالفيضان مرة أخرى."
@@ -473,28 +479,35 @@
             const grid = document.getElementById('youtubeVideosGrid');
             if (!grid) return;
 
-            // الاعتماد المباشر على مصفوفة الفيديوهات المحددة لضمان بقاء الفيديو المخصص مترجماً ومستقراً
             loadPresetVideos(grid);
         }
 
         function loadPresetVideos(gridElement) {
             gridElement.innerHTML = '';
             MY_PRESET_VIDEOS.forEach(video => {
-                gridElement.innerHTML += createVideoCard(video.id, video.title, video.translation);
+                gridElement.innerHTML += createVideoCard(video);
             });
         }
 
-        function createVideoCard(id, title, translation) {
-            const cleanTitle = title.replace(/['"\\]/g, "");
+        function createVideoCard(video) {
+            const cleanTitle = video.title.replace(/['"\\]/g, "");
+            let mediaHtml = '';
+
+            if (video.type === "local") {
+                mediaHtml = `<video src="${video.id}" controls autoplay muted playsinline loop></video>`;
+            } else {
+                mediaHtml = `<iframe src="https://www.youtube.com/embed/${video.id}?autoplay=1&mute=0&rel=0&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            }
+
             return `
                 <div class="video-wrapper" onmouseenter="speakVideoTitle('${cleanTitle}')">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        ${mediaHtml}
                     </div>
-                    <div class="video-title">${title}</div>
+                    <div class="video-title">${video.title}</div>
                     <div class="video-translation">
-                        <strong><i class="fa-solid fa-language"></i> الترجمة الفورية للعربية:</strong>
-                        ${translation}
+                        <strong><i class="fa-solid fa-language"></i> الوصف والترجمة:</strong>
+                        ${video.translation}
                     </div>
                 </div>
             `;
