@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -159,7 +160,8 @@
         .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 13px; }
 
         /* الأقسام العامة */
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); }
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); flex-direction: column; }
+        .hero-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.4); margin-bottom: 20px; object-fit: cover; }
         .hero-content h1 { font-size: 3.5rem; color: var(--text-bright); margin-bottom: 10px; }
         .hero-content p { font-size: 1.5rem; color: var(--accent-color); margin-bottom: 30px; font-family: monospace; }
         .btn { display: inline-block; padding: 12px 30px; background-color: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; cursor: pointer; }
@@ -171,7 +173,7 @@
 
         .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; }
         .profile-img-container { display: flex; justify-content: center; }
-        .avatar-placeholder { width: 180px; height: 180px; border-radius: 50%; background-color: var(--card-bg); border: 3px solid var(--accent-color); display: flex; align-items: center; justify-content: center; font-size: 65px; color: var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.2); }
+        .avatar-placeholder { width: 180px; height: 180px; border-radius: 50%; background-color: var(--card-bg); border: 3px solid var(--accent-color); display: flex; align-items: center; justify-content: center; font-size: 65px; color: var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.2); object-fit: cover; }
 
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card { background-color: var(--card-bg); border: 1px solid var(--border-color); padding: 30px; border-radius: 8px; transition: transform 0.3s, border-color 0.3s; }
@@ -275,8 +277,9 @@
 
     <div id="main-content-wrapper">
         <section id="home" class="hero">
+            <img src="IMG_20260710_104918.png" alt="Reck Avatar" class="hero-avatar">
             <div class="hero-content">
-                <h1>مرحباً، أنا RICK</h1>
+                <h1>مرحباً، أنا Reck</h1>
                 <p>>_ Cybersecurity Researcher & Ethical Hacker</p>
                 <a href="#contact" class="btn">اطلب فحص أمني الآن</a>
             </div>
@@ -286,10 +289,10 @@
             <h2 class="section-title">من أنا</h2>
             <div class="about-grid">
                 <div class="profile-img-container">
-                    <div class="avatar-placeholder"><i class="fa-solid fa-user-shield"></i></div>
+                    <img src="IMG_20260710_104918.png" alt="Reck Profile" class="avatar-placeholder">
                 </div>
                 <div>
-                    <p style="font-size: 18px; margin-bottom: 20px;">أنا <strong>RICK</strong>، باحث متخصص في الأمن السيبراني.</p>
+                    <p style="font-size: 18px; margin-bottom: 20px;">أنا <strong>Reck</strong>، باحث متخصص في الأمن السيبراني.</p>
                     <p>مرحباً بك في بوابتي الشخصية لتتبع وتحليل البيانات وفحص الأنظمة المتقدمة.</p>
                 </div>
             </div>
@@ -317,7 +320,7 @@
             <h2 class="section-title">تواصل معي</h2>
             <div class="contact-info">
                 <div class="social-links">
-                    <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.tiktok.com/@rick_6000?_r=1&_t=ZS-97ujNamvHms" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                     <a href="mailto:rick@example.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
                 </div>
             </div>
@@ -342,7 +345,7 @@
                     <div class="terminal-box" id="terminalBoxContainer">
                         <div id="termHistory" class="history-container"><span class="system-msg">Welcome to Termux-SecLab. Type 'help' to see available commands.</span></div>
                         <div class="input-line">
-                            <span class="prompt">rick@seclab:~$</span>
+                            <span class="prompt">reck@seclab:~$</span>
                             <input type="text" id="textCmd" class="term-input" autocomplete="off" autofocus>
                         </div>
                     </div>
@@ -352,7 +355,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 RICK. جميع الحقوق محفوظة</p>
+        <p>&copy; 2026 Reck. جميع الحقوق محفوظة</p>
         <a href="#privacy" class="privacy-link" onclick="alert('سياسة الخصوصية:\nنحن نحترم خصوصيتك بالكامل. جميع عمليات المحاكاة والفحص الأمني داخل هذا الموقع تجري محلياً في بيئة اختبار آمنة تماماً، ولا نقوم بجمع أو مشاركة أي بيانات حساسة تخص الزوار.')">سياسة الخصوصية</a>
     </footer>
 
@@ -381,7 +384,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (getCookie("rick_session_scanned") === "true") {
+            if (getCookie("reck_session_scanned") === "true") {
                 document.getElementById('security-check').style.display = 'none';
             } else {
                 runSecuritySimulation();
@@ -427,7 +430,7 @@
             }
 
             function executeCommand(cmd) {
-                termHistory.innerHTML += `<div><span class="prompt">rick@seclab:~$</span> <span style="color: #fff">${cmd}</span></div>`;
+                termHistory.innerHTML += `<div><span class="prompt">reck@seclab:~$</span> <span style="color: #fff">${cmd}</span></div>`;
                 let output = '';
                 const lowerCmd = cmd.toLowerCase();
 
@@ -449,7 +452,7 @@
                     [+] Port 443/tcp OPEN (https)<br>
                     [+] Scan finished. No vulnerability found on current interface.</span>`;
                 } else if (lowerCmd === 'about') {
-                    output = `<span class="cmd-output">File: rick_credentials.txt<br>
+                    output = `<span class="cmd-output">File: reck_credentials.txt<br>
                     Role: Cyber Security Researcher / Bug Bounty Hunter.<br>
                     Specialty: Web Apps Security & Network Auditing.</span>`;
                 } else if (lowerCmd === 'clear') {
@@ -508,7 +511,7 @@
             Notification.requestPermission().then(permission => {
                 if (permission === "granted") {
                     localStorage.setItem('notifications_enabled', 'true');
-                    sendSystemNotification("RICK System Control", "تم تفعيل نظام المتابعة الذكي وقناتك متصلة حالياً!");
+                    sendSystemNotification("Reck System Control", "تم تفعيل نظام المتابعة الذكي وقناتك متصلة حالياً!");
                 }
             });
         }
@@ -535,7 +538,7 @@
 
         function setCookie(name, value, days) { let expires = ""; if (days) { let date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "")  + expires + "; path=/"; }
         function getCookie(name) { let nameEQ = name + "="; let ca = document.cookie.split(';'); for(let i=0;i < ca.length;i++) { let c = ca[i]; while (c.charAt(0)==' ') c = c.substring(1,c.length); if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); } return null; }
-        function runSecuritySimulation() { setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); setTimeout(() => { document.getElementById('line5').style.display = 'block'; setCookie("rick_session_scanned", "true", 7); document.getElementById('liveCookieBox').style.display = 'block'; document.getElementById('cookieValueSpan').innerText = `rick_session_scanned=true`; }, 1600); setTimeout(() => { document.getElementById('security-check').style.display = 'none'; }, 3200); }
+        function runSecuritySimulation() { setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); setTimeout(() => { document.getElementById('line5').style.display = 'block'; setCookie("reck_session_scanned", "true", 7); document.getElementById('liveCookieBox').style.display = 'block'; document.getElementById('cookieValueSpan').innerText = `reck_session_scanned=true`; }, 1600); setTimeout(() => { document.getElementById('security-check').style.display = 'none'; }, 3200); }
 
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
