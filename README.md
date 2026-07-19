@@ -107,7 +107,7 @@
         nav ul li a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 24px; color: var(--text-bright); cursor: pointer; }
 
-        /* قسم المقاطع اليوتيوب الديناميكية */
+        /* قسم المقاطع اليوتيوب الديناميكية والتعليقات */
         #video-section {
             display: none;
             padding: 120px 20px 80px 20px;
@@ -156,6 +156,41 @@
         }
         .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 14px; }
 
+        /* قسم التفاعلات والتعليقات المطور أسفل الفيديو مباشرة */
+        .video-interaction-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 650px;
+            margin-top: 20px;
+            text-align: right;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .interaction-title {
+            font-size: 16px; font-weight: bold; color: var(--text-bright);
+            margin-bottom: 15px; border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px; display: flex; align-items: center; gap: 8px;
+        }
+        
+        .form-group { margin-bottom: 12px; position: relative; }
+        .form-group i { position: absolute; top: 14px; right: 15px; color: var(--accent-color); }
+        .form-input {
+            width: 100%; padding: 12px 45px 12px 15px; background: #0d1117;
+            border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-bright);
+            font-size: 14px; outline: none; transition: border-color 0.3s;
+        }
+        .form-input:focus { border-color: var(--accent-color); }
+        
+        .message-actions-merge {
+            display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; justify-content: flex-start;
+        }
+        .merge-option { cursor: pointer; display: flex; align-items: center; }
+        .merge-option input { display: none; }
+        .merge-option span { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 13px; transition: all 0.2s; color: var(--text-color); }
+        .merge-option input:checked + span { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 255, 102, 0.05); }
+
         /* الأقسام العامة */
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); flex-direction: column; }
         .hero-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.4); margin-bottom: 20px; object-fit: cover; }
@@ -186,29 +221,6 @@
         .social-links { margin-top: 30px; display: flex; justify-content: center; gap: 25px; }
         .social-links a { color: var(--text-color); font-size: 24px; transition: color 0.3s, transform 0.3s; }
         .social-links a:hover { color: var(--accent-color); transform: scale(1.2); }
-
-        /* نموذج التفاعل والتعليق داخل أيقونة مراسلة الحساب */
-        .message-icon-box {
-            background-color: #0d1117; border: 1px solid var(--border-color);
-            padding: 15px; border-radius: 6px; margin-top: 15px; text-align: right;
-        }
-        .form-group { margin-bottom: 12px; position: relative; }
-        .form-group i { position: absolute; top: 14px; right: 15px; color: var(--accent-color); }
-        .form-input {
-            width: 100%; padding: 12px 45px 12px 15px; background: #161b22;
-            border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-bright);
-            font-size: 14px; outline: none; transition: border-color 0.3s;
-        }
-        .form-input:focus { border-color: var(--accent-color); }
-        
-        /* دمج خيارات التفاعل والطلبات داخل صندوق المراسلة */
-        .message-actions-merge {
-            display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; justify-content: flex-start;
-        }
-        .merge-option { cursor: pointer; display: flex; align-items: center; }
-        .merge-option input { display: none; }
-        .merge-option span { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 13px; transition: all 0.2s; color: var(--text-color); }
-        .merge-option input:checked + span { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 255, 102, 0.05); }
 
         footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-size: 14px; background-color: var(--card-bg); }
         .privacy-link { display: inline-block; margin-top: 10px; color: var(--accent-color); text-decoration: none; font-weight: 300; font-size: 13px; transition: text-shadow 0.3s; }
@@ -266,7 +278,6 @@
         .user-info-brief { display: flex; align-items: center; gap: 12px; }
         .user-avatar-small { width: 40px; height: 40px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 1px solid var(--border-color); }
         
-        /* نقطة النشاط الخضراء */
         .status-dot {
             width: 10px; height: 10px; background-color: var(--accent-color);
             border-radius: 50%; display: inline-block; margin-right: 8px;
@@ -283,7 +294,6 @@
         .profile-avatar-large { width: 85px; height: 85px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 2px solid var(--accent-color); margin: 0 auto 15px auto; font-size: 30px; }
         .back-to-users-btn { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; float: right; }
 
-        /* زر فتح صندوق المراسلة وطلب الصداقة المدمج */
         .open-msg-btn {
             background: #21262d; border: 1px solid var(--accent-color); color: var(--accent-color);
             padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; font-weight: bold;
@@ -413,10 +423,12 @@
         </section>
     </div>
 
-    <!-- قسم المقاطع الديناميكية المصلح مع تشغيل فيديو VID20260710115227.mp4 -->
+    <!-- قسم المقاطع الحصرية المحدث بالكامل -->
     <div id="video-section">
         <h2 class="section-title">المقاطع الحصرية</h2>
         <div class="videos-grid">
+            
+            <!-- حاوية الفيديو والترجمة -->
             <div class="video-wrapper">
                 <div class="video-container">
                     <video src="VID20260710115227.mp4" controls preload="auto" playsinline></video>
@@ -427,6 +439,43 @@
                     مرحباً بكم في هذا المقطع التوضيحي الذي نستعرض فيه آليات الحماية المتقدمة وكيفية فحص وإدارة الجلسات بشكل آمن تماماً ضد الثغرات المتطورة.
                 </div>
             </div>
+
+            <!-- ثانياً: صندوق التفاعلات والتعليقات مفصول تماماً وأسفل الفيديو مباشرة -->
+            <div class="video-interaction-box">
+                <div class="interaction-title">
+                    <i class="fa-solid fa-comments"></i> <span>التفاعلات والتعليقات على الفيديو</span>
+                </div>
+                
+                <!-- الإرسال المباشر لبريدك الإلكتروني بدون مسار وسيط خاطئ -->
+                <form action="https://formsubmit.co/mmellouk586@gmail.com" method="POST">
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <!-- أزرار التفاعل (لايك / قلب) مدمجة علوياً -->
+                    <div class="message-actions-merge">
+                        <label class="merge-option">
+                            <input type="radio" name="video_reaction" value="Like" checked>
+                            <span><i class="fa-solid fa-thumbs-up"></i> أعجبني (لايك)</span>
+                        </label>
+                        <label class="merge-option">
+                            <input type="radio" name="video_reaction" value="Heart">
+                            <span><i class="fa-solid fa-heart"></i> قلب</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" name="visitor_name" class="form-input" placeholder="اسمك الكريم" required>
+                    </div>
+
+                    <div class="form-group">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        <textarea name="visitor_comment" class="form-input" rows="3" placeholder="اكتب تعليقك أو رسالتك حول الفيديو هنا..." required style="resize:none; font-family:inherit;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn" style="width:100%; padding:10px 0; font-size:14px;">إرسال التعليق والتفاعل فوراً</button>
+                </form>
+            </div>
+
         </div>
     </div>
 
@@ -461,7 +510,7 @@
         </div>
     </div>
 
-    <!-- نافذة الحسابات والملفات الشخصية المدمج بها خيارات المراسلة والتعليق وطلب الصداقة التلقائي -->
+    <!-- نافذة الحسابات والملفات الشخصية المستقلة تماماً -->
     <div id="users-modal" class="modal-overlay" onclick="closeUsersModalOutside(event)">
         <div class="users-modal-content">
             <div class="modal-header">
@@ -469,7 +518,6 @@
                 <button class="modal-close-btn" onclick="closeUsersModal()">&times;</button>
             </div>
             
-            <!-- شاشة القائمة الرئيسية -->
             <div id="users-list-view" class="users-list">
                 <div class="user-item" onclick="showProfile('rick_admin')">
                     <div class="user-info-brief">
@@ -496,7 +544,6 @@
                 </div>
             </div>
 
-            <!-- شاشة استعراض الملف الشخصي مع أيقونة المراسلة المدمجة -->
             <div id="profile-view-section" class="profile-view">
                 <button class="back-to-users-btn" onclick="backToUsersList()"><i class="fa-solid fa-arrow-right"></i> عودة</button>
                 <div style="clear:both;"></div>
@@ -569,7 +616,7 @@
         function closeUsersModal() { backToUsersList(); document.getElementById('users-modal').style.display = 'none'; }
         function closeUsersModalOutside(e) { if(e.target.id === 'users-modal') closeUsersModal(); }
 
-        // استعراض الملف الشخصي وإدارة أيقونة المراسلة المدمجة بالتفاعلات والتعليق
+        // استعراض الملف الشخصي وإدارة مراسلة الحسابات وطلبات الصداقة المباشرة
         function showProfile(userId) {
             document.getElementById('users-list-view').style.display = 'none';
             document.getElementById('profile-view-section').style.display = 'block';
@@ -584,48 +631,34 @@
                 <div style="margin-bottom: 10px;">
                     ${userId === 'rick_admin' ? '<span class="status-dot pulsing"></span> <span style="color: var(--accent-color); font-size:13px; font-weight:bold;">نشط الآن</span>' : '<span style="color:#8b949e; font-size:13px;">غير متصل</span>'}
                 </div>
-                <h3 style="color:var(--text-bright);">${targetUserEmail}</h3>
+                <h3 style="color:var(--text-bright); margin-bottom:15px;">${targetUserEmail}</h3>
                 
-                <!-- زر أيقونة المراسلة الرئيسي المدمج -->
                 <button class="open-msg-btn" onclick="toggleMessageForm()">
-                    <i class="fa-solid fa-envelope-open-text"></i> [ فتح أيقونة المراسلة والتفاعل ]
+                    <i class="fa-solid fa-paper-plane"></i> [ مراسلة وطلب صداقة ]
                 </button>
 
-                <!-- صندوق المراسلة المدمج به التعليقات واللايك وطلب الصداقة -->
                 <div id="msg-box-container" class="message-icon-box" style="display: none;">
                     <form action="https://formsubmit.co/mmellouk586@gmail.com" method="POST">
                         <input type="hidden" name="target_account" value="${targetUserEmail}">
                         
-                        <p style="font-size:12px; color:var(--accent-color); margin-bottom:10px;"><i class="fa-solid fa-circle-info"></i> سيتم إرسال الرسالة، طلب التواصل، وطلب الصداقة مباشرة وتلقائياً.</p>
-                        
-                        <!-- دمج التفاعلات (الإعجاب واللايك) داخل الأيقونة -->
                         <div class="message-actions-merge">
                             <label class="merge-option">
-                                <input type="radio" name="user_reaction" value="Like" checked>
-                                <span><i class="fa-solid fa-thumbs-up"></i> أعجبني (لايك)</span>
-                            </label>
-                            <label class="merge-option">
-                                <input type="radio" name="user_reaction" value="Heart">
-                                <span><i class="fa-solid fa-heart"></i> قلب</span>
-                            </label>
-                            <label class="merge-option">
                                 <input type="checkbox" name="friend_request" value="Yes" checked>
-                                <span><i class="fa-solid fa-user-plus"></i> طلب صداقة تلقائي</span>
+                                <span><i class="fa-solid fa-user-plus"></i> إرسال طلب صداقة مع الرسالة</span>
                             </label>
                         </div>
 
                         <div class="form-group">
                             <i class="fa-solid fa-user"></i>
-                            <input type="text" name="visitor_name" class="form-input" placeholder="اسمك الكريم" required>
+                            <input type="text" name="sender_name" class="form-input" placeholder="اسمك الكريم" required>
                         </div>
 
-                        <!-- صندوق التعليق المدمج داخل المراسلة -->
                         <div class="form-group">
-                            <i class="fa-solid fa-comment-dots"></i>
-                            <textarea name="visitor_message_or_comment" class="form-input" rows="3" placeholder="اكتب رسالتك وتعليقك هنا ليتم إرسالهما معاً..." required style="resize:none; font-family:inherit;"></textarea>
+                            <i class="fa-solid fa-envelope"></i>
+                            <textarea name="sender_message" class="form-input" rows="3" placeholder="اكتب رسالة التواصل المباشرة هنا..." required style="resize:none; font-family:inherit;"></textarea>
                         </div>
 
-                        <button type="submit" class="btn" style="width:100%; padding:8px 0; font-size:14px;">إرسال التفاعل والرسالة فوراً</button>
+                        <button type="submit" class="btn" style="width:100%; padding:8px 0; font-size:14px;">إرسال طلب التواصل</button>
                     </form>
                 </div>
             `;
