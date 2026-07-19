@@ -6,7 +6,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -88,6 +88,13 @@
         }
         .header-follow-btn:hover { background: var(--accent-color); color: #000; box-shadow: 0 0 10px var(--accent-color); }
 
+        /* زر المستخدمين الجديد */
+        .header-users-btn {
+            background: #21262d; border: 1px solid #58a6ff; color: #58a6ff;
+            padding: 3px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; transition: all 0.2s; margin-left: 10px;
+        }
+        .header-users-btn:hover { background: #58a6ff; color: #000; box-shadow: 0 0 10px #58a6ff; }
+
         .nav-video-toggle {
             background: none; border: 1px solid var(--border-color); color: var(--accent-color);
             padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: all 0.3s;
@@ -157,6 +164,149 @@
             line-height: 1.5;
         }
         .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 13px; }
+
+        /* أزرار التفاعل في الفيديو */
+        .interaction-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            justify-content: center;
+        }
+        .interaction-btn {
+            background: #21262d;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .interaction-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .interaction-btn.liked { border-color: #ff6b6b; color: #ff6b6b; }
+        .interaction-btn i { font-size: 14px; }
+
+        .comment-area {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .comment-area input {
+            flex: 1;
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px 10px;
+            color: var(--text-color);
+            font-size: 12px;
+            outline: none;
+        }
+        .comment-area input:focus { border-color: var(--accent-color); }
+        .comment-area button {
+            background: var(--accent-color);
+            border: none;
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .comment-area button:hover { opacity: 0.8; }
+
+        /* نافذة المستخدمين */
+        .users-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.85);
+            z-index: 30000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .users-modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0,255,102,0.1);
+        }
+        .users-modal-box h2 {
+            color: var(--text-bright);
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        .users-modal-box .email-display {
+            background: #0d1117;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            color: #58a6ff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+        .users-modal-box .email-display:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0,255,102,0.15);
+        }
+        .users-modal-box .friend-request-area {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .users-modal-box .friend-request-area input,
+        .users-modal-box .friend-request-area textarea {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 10px;
+            color: var(--text-color);
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+            width: 100%;
+        }
+        .users-modal-box .friend-request-area input:focus,
+        .users-modal-box .friend-request-area textarea:focus {
+            border-color: var(--accent-color);
+        }
+        .users-modal-box .friend-request-area textarea {
+            height: 70px;
+            resize: vertical;
+        }
+        .users-modal-box .friend-request-area button {
+            background: var(--accent-color);
+            border: none;
+            color: #000;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .users-modal-box .friend-request-area button:hover { opacity: 0.8; }
+        .users-modal-close {
+            margin-top: 20px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 6px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .users-modal-close:hover { border-color: var(--accent-color); color: var(--accent-color); }
 
         /* الأقسام العامة */
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); flex-direction: column; }
@@ -257,6 +407,8 @@
             <div class="logo-area">
                 <div class="logo"><span>[</span> RICK <span>]</span></div>
                 <button class="header-follow-btn" onclick="activateFollow()">[ Follow ]</button>
+                <!-- زر المستخدمين الجديد -->
+                <button class="header-users-btn" onclick="openUsersModal()"><i class="fa-solid fa-users"></i> [ المستخدمين ]</button>
                 <button class="nav-video-toggle" onclick="toggleView()">
                     <i class="fa-solid fa-video"></i> <span>[ المقاطع ]</span>
                 </button>
@@ -331,6 +483,23 @@
         <div class="videos-grid" id="youtubeVideosGrid"></div>
     </section>
 
+    <!-- نافذة المستخدمين -->
+    <div class="users-modal" id="usersModal">
+        <div class="users-modal-box">
+            <h2><i class="fa-solid fa-users"></i> قائمة المستخدمين</h2>
+            <div class="email-display" onclick="copyEmail()">
+                <i class="fa-regular fa-envelope"></i> mmellouk586@gmail.com
+                <span style="display:block;font-size:12px;color:#8b949e;margin-top:4px;">(اضغط لنسخ البريد)</span>
+            </div>
+            <div class="friend-request-area">
+                <input type="text" id="friendName" placeholder="اسم المستخدم الذي تريد إضافته...">
+                <textarea id="friendMessage" placeholder="رسالة طلب الصداقة..."></textarea>
+                <button onclick="sendFriendRequest()"><i class="fa-regular fa-paper-plane"></i> إرسال طلب الصداقة</button>
+            </div>
+            <button class="users-modal-close" onclick="closeUsersModal()">إغلاق</button>
+        </div>
+    </div>
+
     <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
 
     <div class="modal-overlay" id="labModal">
@@ -378,6 +547,115 @@
             }
         ];
 
+        // حالة التفاعل لكل فيديو
+        let videoInteractions = {};
+
+        function getVideoId(video) {
+            return video.type === "local" ? video.id : video.id;
+        }
+
+        function createVideoCard(video) {
+            const vidId = getVideoId(video);
+            if (!videoInteractions[vidId]) {
+                videoInteractions[vidId] = { liked: false, comments: [] };
+            }
+
+            const cleanTitle = video.title.replace(/['"\\]/g, "");
+            let mediaHtml = '';
+
+            if (video.type === "local") {
+                mediaHtml = `<video src="${video.id}" controls autoplay muted playsinline loop></video>`;
+            } else {
+                mediaHtml = `<iframe src="https://www.youtube.com/embed/${video.id}?autoplay=1&mute=0&rel=0&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            }
+
+            const interaction = videoInteractions[vidId];
+            const likeClass = interaction.liked ? 'liked' : '';
+            const commentCount = interaction.comments.length;
+
+            return `
+                <div class="video-wrapper" onmouseenter="speakVideoTitle('${cleanTitle}')">
+                    <div class="video-container">
+                        ${mediaHtml}
+                    </div>
+                    <div class="video-title">${video.title}</div>
+                    <div class="video-translation">
+                        <strong><i class="fa-solid fa-language"></i> الوصف والترجمة:</strong>
+                        ${video.translation}
+                    </div>
+                    <div class="interaction-buttons">
+                        <button class="interaction-btn ${likeClass}" onclick="toggleLike('${vidId}')">
+                            <i class="fa-${interaction.liked ? 'solid' : 'regular'} fa-heart"></i> <span id="like-count-${vidId}">${interaction.liked ? 1 : 0}</span>
+                        </button>
+                        <button class="interaction-btn" onclick="focusComment('${vidId}')">
+                            <i class="fa-regular fa-comment"></i> <span id="comment-count-${vidId}">${commentCount}</span>
+                        </button>
+                    </div>
+                    <div class="comment-area">
+                        <input type="text" id="comment-input-${vidId}" placeholder="اكتب تعليقاً..." onkeypress="if(event.key==='Enter') submitComment('${vidId}')">
+                        <button onclick="submitComment('${vidId}')"><i class="fa-regular fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleLike(vidId) {
+            const interaction = videoInteractions[vidId];
+            interaction.liked = !interaction.liked;
+            const countSpan = document.getElementById(`like-count-${vidId}`);
+            if (countSpan) {
+                countSpan.textContent = interaction.liked ? 1 : 0;
+            }
+            // تحديث المظهر
+            const btn = document.querySelector(`#like-count-${vidId}`)?.closest('.interaction-btn');
+            if (btn) {
+                btn.classList.toggle('liked');
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = interaction.liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+                }
+            }
+            
+            // إرسال تفاعل إلى البريد الإلكتروني
+            sendInteractionEmail('إعجاب', vidId, interaction.liked ? 'أعجبني' : 'إلغاء الإعجاب');
+        }
+
+        function focusComment(vidId) {
+            const input = document.getElementById(`comment-input-${vidId}`);
+            if (input) input.focus();
+        }
+
+        function submitComment(vidId) {
+            const input = document.getElementById(`comment-input-${vidId}`);
+            if (!input || !input.value.trim()) return;
+            
+            const comment = input.value.trim();
+            const interaction = videoInteractions[vidId];
+            interaction.comments.push(comment);
+            
+            const countSpan = document.getElementById(`comment-count-${vidId}`);
+            if (countSpan) {
+                countSpan.textContent = interaction.comments.length;
+            }
+            
+            // إرسال التعليق إلى البريد الإلكتروني
+            sendInteractionEmail('تعليق', vidId, comment);
+            
+            input.value = '';
+            alert('تم إرسال تعليقك بنجاح!');
+        }
+
+        function sendInteractionEmail(type, vidId, content) {
+            const subject = encodeURIComponent(`تفاعل جديد - ${type} على فيديو`);
+            const body = encodeURIComponent(
+                `نوع التفاعل: ${type}\n` +
+                `معرف الفيديو: ${vidId}\n` +
+                `المحتوى: ${content}\n` +
+                `تم الإرسال من: ${window.location.href}`
+            );
+            window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
+        }
+
         function speakVideoTitle(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel(); 
@@ -387,6 +665,41 @@
                 utterance.pitch = 1.0;          
                 window.speechSynthesis.speak(utterance);
             }
+        }
+
+        function copyEmail() {
+            navigator.clipboard?.writeText('mmellouk586@gmail.com').then(() => {
+                alert('تم نسخ البريد الإلكتروني!');
+            }).catch(() => {
+                alert('mmellouk586@gmail.com');
+            });
+        }
+
+        function openUsersModal() {
+            document.getElementById('usersModal').style.display = 'flex';
+        }
+
+        function closeUsersModal() {
+            document.getElementById('usersModal').style.display = 'none';
+        }
+
+        function sendFriendRequest() {
+            const name = document.getElementById('friendName')?.value?.trim() || 'مستخدم غير معروف';
+            const message = document.getElementById('friendMessage')?.value?.trim() || 'لا توجد رسالة';
+            
+            const subject = encodeURIComponent(`طلب صداقة من ${name}`);
+            const body = encodeURIComponent(
+                `مرحباً،\n\n` +
+                `قام المستخدم "${name}" بإرسال طلب صداقة.\n` +
+                `الرسالة: ${message}\n` +
+                `تم الإرسال من: ${window.location.href}`
+            );
+            
+            window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
+            
+            document.getElementById('friendName').value = '';
+            document.getElementById('friendMessage').value = '';
+            alert('تم إرسال طلب الصداقة بنجاح!');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -478,7 +791,6 @@
         function fetchLatestYouTubeVideos() {
             const grid = document.getElementById('youtubeVideosGrid');
             if (!grid) return;
-
             loadPresetVideos(grid);
         }
 
@@ -489,42 +801,16 @@
             });
         }
 
-        function createVideoCard(video) {
-            const cleanTitle = video.title.replace(/['"\\]/g, "");
-            let mediaHtml = '';
-
-            if (video.type === "local") {
-                mediaHtml = `<video src="${video.id}" controls autoplay muted playsinline loop></video>`;
-            } else {
-                mediaHtml = `<iframe src="https://www.youtube.com/embed/${video.id}?autoplay=1&mute=0&rel=0&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            }
-
-            return `
-                <div class="video-wrapper" onmouseenter="speakVideoTitle('${cleanTitle}')">
-                    <div class="video-container">
-                        ${mediaHtml}
-                    </div>
-                    <div class="video-title">${video.title}</div>
-                    <div class="video-translation">
-                        <strong><i class="fa-solid fa-language"></i> الوصف والترجمة:</strong>
-                        ${video.translation}
-                    </div>
-                </div>
-            `;
-        }
-
-        function sendSystemNotification(title, body) {
-            if ("Notification" in window && Notification.permission === "granted") {
-                new Notification(title, { body: body, icon: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/user-shield.svg" });
-            }
-        }
+        function setCookie(name, value, days) { let expires = ""; if (days) { let date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "")  + expires + "; path=/"; }
+        function getCookie(name) { let nameEQ = name + "="; let ca = document.cookie.split(';'); for(let i=0;i < ca.length;i++) { let c = ca[i]; while (c.charAt(0)==' ') c = c.substring(1,c.length); if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); } return null; }
+        function runSecuritySimulation() { setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); setTimeout(() => { document.getElementById('line5').style.display = 'block'; setCookie("reck_session_scanned", "true", 7); document.getElementById('liveCookieBox').style.display = 'block'; document.getElementById('cookieValueSpan').innerText = `reck_session_scanned=true`; }, 1600); setTimeout(() => { document.getElementById('security-check').style.display = 'none'; }, 3200); }
 
         function activateFollow() {
             if (!("Notification" in window)) { alert("متصفحك لا يدعم الإشعارات."); return; }
             Notification.requestPermission().then(permission => {
                 if (permission === "granted") {
                     localStorage.setItem('notifications_enabled', 'true');
-                    sendSystemNotification("Reck System Control", "تم تفعيل نظام المتابعة الذكي وقناتك متصلة حالياً!");
+                    new Notification("Reck System Control", { body: "تم تفعيل نظام المتابعة الذكي وقناتك متصلة حالياً!" });
                 }
             });
         }
@@ -549,10 +835,6 @@
             if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
-        function setCookie(name, value, days) { let expires = ""; if (days) { let date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "")  + expires + "; path=/"; }
-        function getCookie(name) { let nameEQ = name + "="; let ca = document.cookie.split(';'); for(let i=0;i < ca.length;i++) { let c = ca[i]; while (c.charAt(0)==' ') c = c.substring(1,c.length); if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); } return null; }
-        function runSecuritySimulation() { setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); setTimeout(() => { document.getElementById('line5').style.display = 'block'; setCookie("reck_session_scanned", "true", 7); document.getElementById('liveCookieBox').style.display = 'block'; document.getElementById('cookieValueSpan').innerText = `reck_session_scanned=true`; }, 1600); setTimeout(() => { document.getElementById('security-check').style.display = 'none'; }, 3200); }
-
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
         if (mobileMenu) {
@@ -561,4 +843,3 @@
     </script>
 </body>
 </html>
-
