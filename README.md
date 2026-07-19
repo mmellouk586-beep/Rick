@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -15,9 +16,11 @@
             --bg-color: #0d1117;
             --card-bg: #161b22;
             --accent-color: #00ff66;
+            --accent-hover: rgba(0, 255, 102, 0.15);
             --text-color: #c9d1d9;
             --text-bright: #ffffff;
             --border-color: #30363d;
+            --overlay-bg: rgba(22, 27, 34, 0.85);
         }
 
         * {
@@ -88,18 +91,12 @@
         }
         .header-follow-btn:hover { background: var(--accent-color); color: #000; box-shadow: 0 0 10px var(--accent-color); }
 
-        .nav-video-toggle {
-            background: none; border: 1px solid var(--border-color); color: var(--accent-color);
-            padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: all 0.3s;
-        }
-        .nav-video-toggle:hover { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(0, 255, 102, 0.2); }
-
-        .nav-users-btn {
+        .nav-video-toggle, .nav-users-btn {
             background: none; border: 1px solid var(--border-color); color: var(--accent-color);
             padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: all 0.3s;
             margin-left: 10px;
         }
-        .nav-users-btn:hover { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(0, 255, 102, 0.2); }
+        .nav-video-toggle:hover, .nav-users-btn:hover { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(0, 255, 102, 0.2); }
 
         nav ul { display: flex; list-style: none; align-items: center; }
         nav ul li { margin-right: 25px; }
@@ -107,91 +104,189 @@
         nav ul li a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 24px; color: var(--text-bright); cursor: pointer; }
 
-        /* قسم المقاطع والتعليقات */
+        /* قسم المقاطع الجديد المدمج كلياً */
         #video-section {
             display: none;
             padding: 120px 20px 80px 20px;
             max-width: 800px;
             margin: 0 auto;
-            text-align: center;
         }
 
         .videos-grid {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 25px;
+            gap: 35px;
             margin-top: 30px;
         }
 
-        .video-wrapper {
+        /* حاوية الفيديو الشاملة بنظام المنصات الحديثة */
+        .modern-video-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: 12px;
             width: 100%;
             max-width: 650px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            position: relative;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .modern-video-card:hover { border-color: var(--accent-color); transform: translateY(-2px); }
+
+        /* منطقة تشغيل الفيديو المدمجة مع أدوات التفاعل */
+        .video-player-frame {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-player-frame video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* الأزرار العائمة الجانبية (مثل تيك توك و ريلز) */
+        .video-floating-actions {
+            position: absolute;
+            left: 15px;
+            bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .action-circle-btn {
+            width: 45px;
+            height: 45px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+        }
+        .action-circle-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        .action-circle-btn i { font-size: 18px; }
+        .action-circle-btn span { font-size: 10px; margin-top: 2px; font-weight: bold; }
+        .action-circle-btn.active i { color: #ff3366; animation: heartBeat 0.3s ease-in-out; }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* شريط البيانات السفلي المدمج فوق الفيديو */
+        .video-bottom-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.95));
+            padding: 20px 15px 15px 15px;
+            color: #fff;
+            text-align: right;
+            pointer-events: none;
+        }
+        .video-bottom-overlay * { pointer-events: auto; }
+        .video-overlay-title { font-size: 15px; font-weight: 700; color: var(--text-bright); margin-bottom: 5px; }
+        .video-overlay-desc { font-size: 12px; color: #b3b3b3; max-height: 50px; overflow-y: auto; }
+
+        /* نافذة/درج الردود والتعليقات المدمج التفاعلي */
+        .video-comments-tray {
+            background: #11161d;
+            border-top: 1px solid var(--border-color);
+            padding: 15px;
+            text-align: right;
+        }
+
+        .tray-interactive-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tray-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .tray-input-wrapper i {
+            position: absolute;
+            right: 15px;
+            color: var(--accent-color);
+        }
+        .tray-input {
+            width: 100%;
+            padding: 10px 40px 10px 80px;
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-bright);
+            font-size: 13px;
+            outline: none;
             transition: border-color 0.3s;
         }
-        .video-wrapper:hover { border-color: var(--accent-color); }
+        .tray-input:focus { border-color: var(--accent-color); }
 
-        .video-container {
-            width: 100%;
-            height: 380px;
+        .tray-submit-btn {
+            position: absolute;
+            left: 5px;
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .tray-submit-btn:hover { background: #00cc52; }
+
+        /* خيارات التفاعل السريع بنمط الكبسولات */
+        .quick-interaction-capsules {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        .capsule-option { cursor: pointer; }
+        .capsule-option input { display: none; }
+        .capsule-option span {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #1f242c;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            overflow: hidden;
-            background: #000;
-            position: relative;
+            border-radius: 15px;
+            font-size: 12px;
+            color: var(--text-color);
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .capsule-option input:checked + span {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: var(--accent-hover);
         }
 
-        .video-container video { width: 100%; height: 100%; border: none; object-fit: contain; background: #000; }
-        .video-title { font-size: 16px; font-weight: bold; color: var(--text-bright); margin-top: 12px; text-align: right; }
-        
-        .video-translation {
-            background: #0d1117; border: 1px solid #30363d; border-radius: 4px;
-            padding: 12px; margin-top: 12px; font-size: 13px; color: #8b949e;
-            text-align: right; max-height: 120px; overflow-y: auto; line-height: 1.5;
-        }
-        .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 14px; }
-
-        /* قسم التفاعلات والتعليقات أسفل الفيديو */
-        .video-interaction-box {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 650px;
-            margin-top: 20px;
-            text-align: right;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .interaction-title {
-            font-size: 16px; font-weight: bold; color: var(--text-bright);
-            margin-bottom: 15px; border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px; display: flex; align-items: center; gap: 8px;
-        }
-        
-        .form-group { margin-bottom: 12px; position: relative; }
-        .form-group i { position: absolute; top: 14px; right: 15px; color: var(--accent-color); }
-        .form-input {
-            width: 100%; padding: 12px 45px 12px 15px; background: #0d1117;
-            border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-bright);
-            font-size: 14px; outline: none; transition: border-color 0.3s;
-        }
-        .form-input:focus { border-color: var(--accent-color); }
-        
-        .message-actions-merge {
-            display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; justify-content: flex-start;
-        }
-        .merge-option { cursor: pointer; display: flex; align-items: center; }
-        .merge-option input { display: none; }
-        .merge-option span { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 13px; transition: all 0.2s; color: var(--text-color); }
-        .merge-option input:checked + span { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 255, 102, 0.05); }
-
-        /* الأقسام العامة */
+        /* الأقسام العامة المستقرة */
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); flex-direction: column; }
         .hero-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.4); margin-bottom: 20px; object-fit: cover; }
         .hero-content h1 { font-size: 3.5rem; color: var(--text-bright); margin-bottom: 10px; }
@@ -261,7 +356,6 @@
         .cmd-output { color: #c9d1d9; margin-top: 4px; margin-bottom: 10px; display: block; }
         .success-msg { color: var(--accent-color); }
 
-        /* نافذة قائمة المستخدمين والملفات الشخصية */
         .users-modal-content {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 8px; width: 520px; max-width: 100%; padding: 25px; text-align: right;
@@ -284,11 +378,6 @@
             box-shadow: 0 0 8px var(--accent-color);
         }
         .status-dot.pulsing { animation: pulse-animation 1.5s infinite; }
-        @keyframes pulse-animation {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 255, 102, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
-        }
 
         .profile-view { display: none; text-align: center; padding: 10px 0; }
         .profile-avatar-large { width: 85px; height: 85px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 2px solid var(--accent-color); margin: 0 auto 15px auto; font-size: 30px; }
@@ -308,7 +397,7 @@
             nav ul li { margin-right: 0; text-align: center; }
             .about-grid { grid-template-columns: 1fr; text-align: center; }
             .logo-area { flex-wrap: wrap; }
-            .video-container { height: 240px; }
+            .video-player-frame { height: 280px; }
         }
     </style>
 </head>
@@ -344,160 +433,129 @@
                 <ul id="nav-list">
                     <li><a href="#home" onclick="resetToHome()">الرئيسية</a></li>
                     <li><a href="#about" onclick="resetToHome()">من أنا</a></li>
-                    <li><a href="#services" onclick="resetToHome()">الخدمات</a></li>
-                    <li><a href="#skills" onclick="resetToHome()">المهارات</a></li>
-                    <li><a href="#contact" onclick="resetToHome()">اتصال</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <div id="main-content-wrapper">
-        <section id="home" class="hero">
-            <img src="IMG_20260710_104918.png" alt="Reck Avatar" class="hero-avatar">
+    <!-- واجهة عرض الصفحة الرئيسية التقليدية -->
+    <div id="main-content-view">
+        <section class="hero" id="home">
+            <div class="avatar-placeholder hero-avatar"><i class="fa-solid fa-user-shield"></i></div>
             <div class="hero-content">
-                <h1>مرحباً، أنا Reck</h1>
-                <p>>_ Cybersecurity Researcher & Ethical Hacker</p>
-                <a href="#contact" class="btn">اطلب فحص أمني الآن</a>
+                <h1>RICK</h1>
+                <p>Cyber Security Researcher & Ethical Hacker</p>
+                <a href="#about" class="btn">اكتشف المزيد</a>
             </div>
         </section>
 
         <section id="about">
-            <div class="section-title">من أنا</div>
+            <h2 class="section-title">من أنا</h2>
             <div class="about-grid">
                 <div class="profile-img-container">
-                    <div class="avatar-placeholder">
-                        <i class="fa-solid fa-user-shield"></i>
-                    </div>
+                    <div class="avatar-placeholder"><i class="fa-solid fa-terminal"></i></div>
                 </div>
                 <div>
-                    <h2>الباحث الأمني RICK</h2>
-                    <p style="margin-top:15px;">متخصص في اختبار الاختراق واكتشاف الثغرات الأمنية في تطبيقات الويب وأنظمة الشبكات. أعمل على تقديم حلول واستشارات أمنية متقدمة لحماية البيانات وتأمين البنى التحتية الرقمية من التهديدات السيبرانية المتطورة.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="services">
-            <div class="section-title">الخدمات الأمنية</div>
-            <div class="grid-3">
-                <div class="card">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <h3>اختبار الاختراق</h3>
-                    <p>محاكاة الهجمات السيبرانية الحقيقية لتحديد نقاط الضعف في التطبيقات والأنظمة قبل استغلالها.</p>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-bug"></i>
-                    <h3>تحليل الكود الأمني</h3>
-                    <p>مراجعة شاملة للأكواد البرمجية البرمجيات للتأكد من خلوها من الأخطاء المنطقية والثغرات.</p>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-lock"></i>
-                    <h3>الاستشارات والدعم</h3>
-                    <p>تقديم استراتيجيات أمنية متكاملة للشركات والأفراد لتعزيز خطوط الدفاع الرقمية.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills">
-            <div class="section-title">المهارات التقنية</div>
-            <div class="skills-container">
-                <span class="skill-badge">Web Pentesting</span>
-                <span class="skill-badge">Network Security</span>
-                <span class="skill-badge">Vulnerability Assessment</span>
-                <span class="skill-badge">Linux System Admin</span>
-                <span class="skill-badge">Python Scripting</span>
-                <span class="skill-badge">Reverse Engineering</span>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="section-title">اتصال وتفاعل</div>
-            <div class="contact-info">
-                <p>إذا كنت بحاجة إلى استشارة أمنية أو تود الإبلاغ عن مشكلة، لا تتردد في مراسلتي.</p>
-                <div class="social-links">
-                    <a href="mailto:mmellouk586@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <h3>مرحباً بك في عالم الحماية واختبار الاختراق</h3>
+                    <p style="margin-top:15px;">متخصص في تقييم الثغرات الأمنية البرمجية وحماية الشبكات الافتراضية.</p>
+                    <div class="skills-container">
+                        <span class="skill-badge">Nmap Expert</span>
+                        <span class="skill-badge">Penetration Testing</span>
+                        <span class="skill-badge">Python Scripting</span>
+                        <span class="skill-badge">Web Application Security</span>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- قسم المقاطع الحصرية والتعليقات -->
-    <div id="video-section">
-        <h2 class="section-title">المقاطع الحصرية</h2>
+    <!-- قسم المقاطع بالتصميم المدمج الجديد تماماً -->
+    <main id="video-section">
+        <h2 class="section-title">المقاطع الأمنية والتعليمية</h2>
         <div class="videos-grid">
             
-            <div class="video-wrapper">
-                <div class="video-container">
-                    <video src="VID20260710115227.mp4" controls preload="auto" playsinline></video>
-                </div>
-                <div class="video-title">استعراض حظر وفحص سلامة الأنظمة والتطبيقات</div>
-                <div class="video-translation">
-                    <strong><i class="fa-solid fa-language"></i> الترجمة المضافة:</strong>
-                    مرحباً بكم في هذا المقطع التوضيحي الذي نستعرض فيه آليات الحماية المتقدمة وكيفية فحص وإدارة الجلسات بشكل آمن تماماً ضد الثغرات المتطورة.
-                </div>
-            </div>
+            <!-- كرت فيديو متكامل مدمج الأدوات -->
+            <article class="modern-video-card" id="video-card-1">
+                <div class="video-player-frame">
+                    <video id="main-video-element" controls preload="metadata">
+                        <source src="your-video-file.mp4" type="video/mp4">
+                        متصفحك لا يدعم تشغيل الفيديو.
+                    </video>
 
-            <!-- صندوق التفاعلات والتعليقات أسفل الفيديو المحدث للتحويل للبريد مباشرة -->
-            <div class="video-interaction-box">
-                <div class="interaction-title">
-                    <i class="fa-solid fa-comments"></i> <span>التفاعلات والتعليقات على الفيديو</span>
-                </div>
-                
-                <form onsubmit="sendVideoFeedback(event)">
-                    <div class="message-actions-merge">
-                        <label class="merge-option">
-                            <input type="radio" name="video_reaction" value="Like" checked>
-                            <span><i class="fa-solid fa-thumbs-up"></i> أعجبني (لايك)</span>
-                        </label>
-                        <label class="merge-option">
-                            <input type="radio" name="video_reaction" value="Heart">
-                            <span><i class="fa-solid fa-heart"></i> قلب</span>
-                        </label>
+                    <!-- الأزرار العائمة الجانبية (مثل تطبيقات الفيديو الحديثة) -->
+                    <div class="video-floating-actions">
+                        <button class="action-circle-btn" onclick="handleLike(this)" title="إعجاب">
+                            <i class="fa-solid fa-heart"></i>
+                            <span class="count">0</span>
+                        </button>
+                        <button class="action-circle-btn" onclick="focusCommentInput('comment-text-1')" title="تعليق">
+                            <i class="fa-solid fa-comment"></i>
+                            <span>رد</span>
+                        </button>
+                        <button class="action-circle-btn" onclick="shareVideo()" title="مشاركة">
+                            <i class="fa-solid fa-share"></i>
+                        </button>
                     </div>
 
-                    <div class="form-group">
-                        <i class="fa-solid fa-user"></i>
-                        <input type="text" id="vid-visitor-name" class="form-input" placeholder="اسمك الكريم" required>
+                    <!-- شريط البيانات الشفاف السفلي للمقطع -->
+                    <div class="video-bottom-overlay">
+                        <h3 class="video-overlay-title">شرح تقنيات هندسة فحص الجلسات والملفات</h3>
+                        <div class="video-overlay-desc">
+                            استعراض حي لآليات قراءة وحقن قيم تتبع المتصفح ومحاكاة الثغرات المتقدمة.
+                        </div>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <i class="fa-solid fa-comment-dots"></i>
-                        <textarea id="vid-visitor-comment" class="form-input" rows="3" placeholder="اكتب تعليقك أو رسالتك حول الفيديو هنا..." required style="resize:none; font-family:inherit;"></textarea>
-                    </div>
+                <!-- درج التعليقات السريع المدمج أسفل المقطع مباشرة -->
+                <div class="video-comments-tray">
+                    <form class="tray-interactive-form" onsubmit="submitCommentForm(event, 'comment-text-1', 'capsule-group-1')">
+                        
+                        <!-- خيارات كبسولات الرد السريع للتفاعل بنقرة واحدة -->
+                        <div class="quick-interaction-capsules" id="capsule-group-1">
+                            <label class="capsule-option">
+                                <input type="radio" name="reaction_type_1" value="🔥 مذهل">
+                                <span>🔥 مذهل</span>
+                            </label>
+                            <label class="capsule-option">
+                                <input type="radio" name="reaction_type_1" value="💡 استفسار تقني">
+                                <span>💡 استفسار تقني</span>
+                            </label>
+                            <label class="capsule-option">
+                                <input type="radio" name="reaction_type_1" value="🛡️ شكراً جزيلاً">
+                                <span>🛡️ شكراً جزيلاً</span>
+                            </label>
+                        </div>
 
-                    <button type="submit" class="btn" style="width:100%; padding:10px 0; font-size:14px;">إرسال عبر البريد الإلكتروني</button>
-                </form>
-            </div>
+                        <!-- حقل النص الإدخالي الذكي مع زر الإرسال المدمج في نفس السطر -->
+                        <div class="tray-input-wrapper">
+                            <i class="fa-solid fa-user-astronaut"></i>
+                            <input type="text" id="comment-text-1" class="tray-input" placeholder="اكتب تعليقك أو استفسارك هنا..." required>
+                            <button type="submit" class="tray-submit-btn">إرسال الرد</button>
+                        </div>
+                    </form>
+                </div>
+            </article>
 
         </div>
-    </div>
+    </main>
 
-    <!-- زر المحاكي العائم -->
-    <button class="lab-float-btn" onclick="openLabModal()">
-        <i class="fa-solid fa-terminal"></i> <span>Security Lab</span>
-    </button>
+    <!-- الأيقونة العائمة للمحاكي -->
+    <button class="lab-float-btn" onclick="openSimulator()"><i class="fa-solid fa-flask"></i> [ Security Lab ]</button>
 
-    <!-- نافذة المحاكي السيبراني -->
-    <div id="lab-modal" class="modal-overlay" onclick="closeLabModal(event)">
+    <!-- نافذة المحاكي الأمنية -->
+    <div class="modal-overlay" id="simulator-modal">
         <div class="laptop">
             <div class="screen">
                 <div class="title-bar">
-                    <div class="window-controls">
-                        <div class="control close" onclick="document.getElementById('lab-modal').style.display='none'"></div>
-                    </div>
-                    <div class="title-bar-text">rick@cyber-lab:~</div>
+                    <div class="window-controls"><div class="control close" onclick="closeSimulator()"></div></div>
+                    <div class="title-bar-text">Terminal Shell - Sandbox Environment</div>
                 </div>
                 <div class="simulator-content">
                     <div class="terminal-box">
-                        <div class="history-container" id="term-history">
-                            <span class="system-msg">Welcome to RICK Security Simulator v1.0.0</span><br>
-                            <span class="system-msg">Type 'help' to see available commands.</span><br><br>
-                        </div>
+                        <div class="history-container" id="term-history">Welcome to Security Sandbox Terminal... Type 'help' for available commands.</div>
                         <div class="input-line">
-                            <span class="prompt">guest@rick-lab:~$</span>
-                            <input type="text" id="term-input-field" class="term-input" autofocus onkeydown="processCommand(event)">
+                            <span class="prompt">rick@security-lab:~$</span>
+                            <input type="text" class="term-input" id="terminal-input-field" autofocus>
                         </div>
                     </div>
                 </div>
@@ -505,225 +563,183 @@
         </div>
     </div>
 
-    <!-- نافذة الحسابات والملفات الشخصية المستقلة -->
-    <div id="users-modal" class="modal-overlay" onclick="closeUsersModalOutside(event)">
+    <!-- نافذة قائمة المستخدمين -->
+    <div class="modal-overlay" id="users-modal">
         <div class="users-modal-content">
             <div class="modal-header">
-                <h3 style="color:var(--text-bright);"><i class="fa-solid fa-users"></i> الحسابات المسجلة</h3>
+                <h3><i class="fa-solid fa-users-gear" style="color:var(--accent-color);"></i> قائمة الباحثين المتصلين</h3>
                 <button class="modal-close-btn" onclick="closeUsersModal()">&times;</button>
             </div>
-            
-            <div id="users-list-view" class="users-list">
-                <div class="user-item" onclick="showProfile('rick_admin')">
-                    <div class="user-info-brief">
-                        <div class="user-avatar-small" style="color: var(--accent-color); border-color: var(--accent-color);">
-                            <i class="fa-solid fa-user-check"></i>
+            <div id="users-main-list-view">
+                <div class="users-list">
+                    <div class="user-item" onclick="viewUserProfile('Rick Master', 'نشط الآن في بيئة فحص الثغرات المحمية', 'Senior Pentester')">
+                        <div class="user-info-brief">
+                            <div class="user-avatar-small"><i class="fa-solid fa-user-secret"></i></div>
+                            <div>
+                                <strong style="color:var(--text-bright);">Rick Master</strong>
+                                <p style="font-size:11px; color:#8b949e;">Senior Pentester</p>
+                            </div>
                         </div>
-                        <div>
-                            <span style="color:var(--text-bright); font-weight:bold; display:block;">mmellouk586@gmail.com <i class="fa-solid fa-circle-check" style="color: var(--accent-color); font-size:12px;"></i></span>
-                            <span style="font-size:11px; color:#8b949e;">المسؤول والمطور الرئيسي</span>
-                        </div>
+                        <span class="status-dot pulsing"></span>
                     </div>
-                    <i class="fa-solid fa-chevron-left" style="font-size:12px; color:#8b949e;"></i>
-                </div>
-
-                <div class="user-item" onclick="showProfile('user1')">
-                    <div class="user-info-brief">
-                        <div class="user-avatar-small"><i class="fa-solid fa-user"></i></div>
-                        <div>
-                            <span style="color:var(--text-bright); font-weight:bold; display:block;">User_Alpha</span>
-                            <span style="font-size:11px; color:#8b949e;">عضو نشط</span>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-left" style="font-size:12px; color:#8b949e;"></i>
                 </div>
             </div>
-
-            <div id="profile-view-section" class="profile-view">
-                <button class="back-to-users-btn" onclick="backToUsersList()"><i class="fa-solid fa-arrow-right"></i> عودة</button>
+            <div id="user-profile-detail-view" class="profile-view">
+                <button class="back-to-users-btn" onclick="backToUsersList()"><i class="fa-solid fa-arrow-left"></i> عودة</button>
                 <div style="clear:both;"></div>
-                <div id="profile-dynamic-content"></div>
+                <div class="profile-avatar-large"><i class="fa-solid fa-user-shield"></i></div>
+                <h4 id="prof-name" style="color:var(--text-bright); margin-bottom:5px;">-</h4>
+                <p id="prof-title" style="color:var(--accent-color); font-size:12px; margin-bottom:15px;">-</p>
+                <p id="prof-desc" style="color:var(--text-color); font-size:13px; padding:0 20px;">-</p>
+                <button class="open-msg-btn" onclick="triggerDirectMessage()"><i class="fa-solid fa-paper-plane"></i> إرسال رسالة مشفرة</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 RICK. All Rights Reserved. Designed for Cybersecurity Integrity.</p>
-        <a href="#" class="privacy-link">سياسة الخصوصية وأمن البيانات</a>
+        <p>&copy; 2026 RICK Security Researcher. All Rights Reserved.</p>
+        <a href="#" class="privacy-link">سياسة الخصوصية وأمان البيانات</a>
     </footer>
 
     <script>
-        // إعداد شاشة الفحص الأمني التلقائي عند الدخول
-        document.addEventListener("DOMContentLoaded", function() {
+        // إعدادات الشاشة التحضيرية والتحقق من ملفات الارتباط (Cookies)
+        document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400);
             setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 900);
             setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1400);
             setTimeout(() => { 
                 document.getElementById('line5').style.display = 'block';
                 document.getElementById('liveCookieBox').style.display = 'block';
-                document.getElementById('cookieValueSpan').innerText = "integrity_token_dev_2026_secured";
+                document.getElementById('cookieValueSpan').innerText = "sec_session_token_xyz123";
             }, 1900);
             setTimeout(() => {
-                let loader = document.getElementById('security-check');
-                loader.style.transition = 'opacity 0.5s ease';
-                loader.style.opacity = '0';
-                setTimeout(() => loader.remove(), 500);
-            }, 2800);
+                const overlay = document.getElementById('security-check');
+                overlay.style.transition = "opacity 0.4s";
+                overlay.style.opacity = 0;
+                setTimeout(() => overlay.remove(), 400);
+            }, 3000);
         });
 
-        // القائمة المتجاوبة للجوال
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navList = document.getElementById('nav-list');
-        if(mobileMenu) {
-            mobileMenu.addEventListener('click', () => {
-                navList.classList.toggle('active');
-            });
-        }
-
-        // التبديل بين الأقسام الرئيسية وقسم المقاطع
+        // التبديل السلس بين الواجهة الرئيسية وقسم المقاطع
         function toggleView() {
-            let mainWrapper = document.getElementById('main-content-wrapper');
-            let videoSection = document.getElementById('video-section');
-            if(videoSection.style.display === 'none' || videoSection.style.display === '') {
-                videoSection.style.display = 'block';
-                mainWrapper.style.display = 'none';
-                navList.classList.remove('active');
-            } else {
+            const mainView = document.getElementById('main-content-view');
+            const videoSection = document.getElementById('video-section');
+            if(videoSection.style.display === 'block') {
                 resetToHome();
+            } else {
+                mainView.style.display = 'none';
+                videoSection.style.display = 'block';
+                window.scrollTo(0, 0);
             }
         }
 
         function resetToHome() {
-            document.getElementById('main-content-wrapper').style.display = 'block';
+            document.getElementById('main-content-view').style.display = 'block';
             document.getElementById('video-section').style.display = 'none';
-            navList.classList.remove('active');
         }
 
-        function activateFollow() {
-            alert('شكراً لك على المتابعة والدعم المتواصل للبحث الأمني!');
-        }
-
-        // فتح وإغلاق النوافذ المنبثقة للـ Lab والـ Users
-        function openLabModal() { document.getElementById('lab-modal').style.display = 'flex'; document.getElementById('term-input-field').focus(); }
-        function closeLabModal(e) { if(e.target.id === 'lab-modal') document.getElementById('lab-modal').style.display = 'none'; }
-        
-        function openUsersModal() { document.getElementById('users-modal').style.display = 'flex'; backToUsersList(); }
-        function closeUsersModal() { backToUsersList(); document.getElementById('users-modal').style.display = 'none'; }
-        function closeUsersModalOutside(e) { if(e.target.id === 'users-modal') closeUsersModal(); }
-
-        // دالة تجميع وإرسال تعليقات الفيديو عبر البريد التقليدي للـ المستخدم
-        function sendVideoFeedback(event) {
-            event.preventDefault();
-            let reaction = document.querySelector('input[name="video_reaction"]:checked').value;
-            let name = document.getElementById('vid-visitor-name').value;
-            let comment = document.getElementById('vid-visitor-comment').value;
-            
-            let subject = encodeURIComponent("تفاعل وتعليق جديد على الفيديو من: " + name);
-            let body = encodeURIComponent("الاسم: " + name + "\nالتفاعل: " + reaction + "\nالتعليق:\n" + comment);
-            
-            window.location.href = "mailto:mmellouk586@gmail.com?subject=" + subject + "&body=" + body;
-        }
-
-        // دالة تجميع وإرسال طلبات الصداقة والمراسلة عبر البريد التقليدي
-        function sendDirectMessage(event, targetEmail) {
-            event.preventDefault();
-            let friendReq = document.getElementById('profile-friend-req').checked ? "نعم" : "لا";
-            let name = document.getElementById('profile-sender-name').value;
-            let msg = document.getElementById('profile-sender-msg').value;
-            
-            let subject = encodeURIComponent("رسالة تواصل وطلب صداقة من: " + name);
-            let body = encodeURIComponent("الحساب المستهدف: " + targetEmail + "\nاسم المرسل: " + name + "\nطلب صداقة: " + friendReq + "\nالرسالة:\n" + msg);
-            
-            window.location.href = "mailto:mmellouk586@gmail.com?subject=" + subject + "&body=" + body;
-        }
-
-        // استعراض الملف الشخصي وإدارة مراسلة الحسابات وطلبات الصداقة المباشرة
-        function showProfile(userId) {
-            document.getElementById('users-list-view').style.display = 'none';
-            document.getElementById('profile-view-section').style.display = 'block';
-            let contentDiv = document.getElementById('profile-dynamic-content');
-            
-            let targetUserEmail = (userId === 'rick_admin') ? 'mmellouk586@gmail.com' : 'User_Alpha';
-
-            contentDiv.innerHTML = `
-                <div class="profile-avatar-large" ${userId === 'rick_admin' ? 'style="color: var(--accent-color); border-color: var(--accent-color);"' : ''}>
-                    <i class="fa-solid ${userId === 'rick_admin' ? 'fa-user-shield' : 'fa-user'}"></i>
-                </div>
-                <div style="margin-bottom: 10px;">
-                    ${userId === 'rick_admin' ? '<span class="status-dot pulsing"></span> <span style="color: var(--accent-color); font-size:13px; font-weight:bold;">نشط الآن</span>' : '<span style="color:#8b949e; font-size:13px;">غير متصل</span>'}
-                </div>
-                <h3 style="color:var(--text-bright); margin-bottom:15px;">${targetUserEmail}</h3>
-                
-                <button class="open-msg-btn" onclick="toggleMessageForm()">
-                    <i class="fa-solid fa-paper-plane"></i> [ مراسلة وطلب صداقة ]
-                </button>
-
-                <div id="msg-box-container" class="message-icon-box" style="display: none; text-align:right; margin-top:15px;">
-                    <form onsubmit="sendDirectMessage(event, '${targetUserEmail}')">
-                        <div class="message-actions-merge" style="margin-bottom:12px;">
-                            <label class="merge-option">
-                                <input type="checkbox" id="profile-friend-req" checked>
-                                <span><i class="fa-solid fa-user-plus"></i> إرسال طلب صداقة مع الرسالة</span>
-                            </label>
-                        </div>
-
-                        <div class="form-group">
-                            <i class="fa-solid fa-user"></i>
-                            <input type="text" id="profile-sender-name" class="form-input" placeholder="اسمك الكريم" required>
-                        </div>
-
-                        <div class="form-group">
-                            <i class="fa-solid fa-envelope"></i>
-                            <textarea id="profile-sender-msg" class="form-input" rows="3" placeholder="اكتب رسالة التواصل المباشرة هنا..." required style="resize:none; font-family:inherit;"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn" style="width:100%; padding:8px 0; font-size:14px;">إرسال طلب التواصل</button>
-                    </form>
-                </div>
-            `;
-        }
-
-        function toggleMessageForm() {
-            let msgBox = document.getElementById('msg-box-container');
-            if(msgBox) {
-                msgBox.style.display = (msgBox.style.display === 'none') ? 'block' : 'none';
+        // أداء زر الإعجاب العائم
+        function handleLike(btn) {
+            btn.classList.toggle('active');
+            let countSpan = btn.querySelector('.count');
+            let currentCount = parseInt(countSpan.innerText);
+            if(btn.classList.contains('active')) {
+                countSpan.innerText = currentCount + 1;
+            } else {
+                countSpan.innerText = currentCount - 1;
             }
+        }
+
+        // التركيز على حقل النص تلقائياً عند الضغط على أيقونة التعليق الجانبية
+        function focusCommentInput(inputId) {
+            const input = document.getElementById(inputId);
+            input.focus();
+            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // إرسال التعليق والمشاركة عبر البريد المدمج الخلفي ديناميكياً
+        function submitCommentForm(event, textInputId, capsuleGroupId) {
+            event.preventDefault();
+            const textValue = document.getElementById(textInputId).value;
+            const capsuleGroup = document.getElementById(capsuleGroupId);
+            const checkedRadio = capsuleGroup.querySelector('input[type="radio"]:checked');
+            const reactionValue = checkedRadio ? checkedRadio.value : 'لا يوجد تفاعل سريع';
+
+            // تكوين نص الرسالة الموحد لإرساله
+            const finalBody = `نوع التفاعل السريع: ${reactionValue}\nنص التعليق المكتوب: ${textValue}`;
+            
+            // فتح نافذة البريد لإرسال البيانات للخادم أو للمسؤول مباشرة
+            window.location.href = `mailto:support@yourdomain.com?subject=تفاعل جديد على مقطع الفيديو&body=${encodeURIComponent(finalBody)}`;
+            
+            // إعادة ضبط الحقول بعد الإرسال الناجح
+            document.getElementById(textInputId).value = '';
+            if(checkedRadio) checkedRadio.checked = false;
+            alert('تم تجهيز تفاعلك وإرساله بنجاح!');
+        }
+
+        function shareVideo() {
+            if (navigator.share) {
+                navigator.share({ title: 'مقاطع RICK الأمنية', url: window.location.href });
+            } else {
+                alert('تم نسخ رابط المقطع إلى الحافظة بمحاكاة آمنة!');
+            }
+        }
+
+        // معالجة القوائم المنبثقة والمحاكي
+        function openSimulator() { document.getElementById('simulator-modal').style.display = 'flex'; }
+        function closeSimulator() { document.getElementById('simulator-modal').style.display = 'none'; }
+        function openUsersModal() { document.getElementById('users-modal').style.display = 'flex'; }
+        function closeUsersModal() { document.getElementById('users-modal').style.display = 'none'; backToUsersList(); }
+        
+        function viewUserProfile(name, desc, title) {
+            document.getElementById('users-main-list-view').style.display = 'none';
+            const profileView = document.getElementById('user-profile-detail-view');
+            profileView.style.display = 'block';
+            document.getElementById('prof-name').innerText = name;
+            document.getElementById('prof-title').innerText = title;
+            document.getElementById('prof-desc').innerText = desc;
         }
 
         function backToUsersList() {
-            document.getElementById('users-list-view').style.display = 'flex';
-            document.getElementById('profile-view-section').style.display = 'none';
-            document.getElementById('profile-dynamic-content').innerHTML = '';
+            document.getElementById('user-profile-detail-view').style.display = 'none';
+            document.getElementById('users-main-list-view').style.display = 'block';
         }
 
-        // أوامر محاكي الـ Terminal (Lab)
-        function processCommand(e) {
-            if(e.key === 'Enter') {
-                let inputField = document.getElementById('term-input-field');
-                let cmd = inputField.value.trim().toLowerCase();
-                let history = document.getElementById('term-history');
-                
-                if(cmd === '') return;
-                
-                history.innerHTML += `<span class="prompt">guest@rick-lab:~$</span> <span style="color:#fff">${inputField.value}</span><br>`;
-                
-                if(cmd === 'help') {
-                    history.innerHTML += `<span class="cmd-output">Available commands:<br> - info : About this lab<br> - clear : Clear terminal<br> - scan : Simulate system vulnerability check</span>`;
-                } else if(cmd === 'info') {
-                    history.innerHTML += `<span class="cmd-output">RICK Security Lab Environment v1.0.0. Secured simulator channel.</span>`;
-                } else if(cmd === 'clear') {
+        function triggerDirectMessage() { alert('جاري إنشاء اتصال آمن ومسار مشفر للدردشة النفقية الـ P2P...'); }
+        function activateFollow() { alert('تم تسجيل المتابعة لملف الباحث باكتشاف ناجح لبيئة العرض.'); }
+
+        // معالجة أوامر المحاكي الطرفي
+        document.getElementById('terminal-input-field').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const input = this.value.trim();
+                const history = document.getElementById('term-history');
+                if(!input) return;
+
+                let output = `\nrick@security-lab:~$ ${input}\n`;
+                if(input.toLowerCase() === 'help') {
+                    output += "Commands available: help, clear, scan, status";
+                } else if(input.toLowerCase() === 'clear') {
                     history.innerHTML = '';
-                } else if(cmd === 'scan') {
-                    history.innerHTML += `<span class="system-msg">Scanning target internal structures...</span><br>`;
-                    history.innerHTML += `<span class="success-msg">[OK] No dangerous exploits detected. Framework is highly patched.</span><br>`;
+                    this.value = '';
+                    return;
+                } else if(input.toLowerCase() === 'scan') {
+                    output += "[+] Accessing automated asset mapping suite...\n[!] Vulnerability scanning initialized on localhost target.\n[+] Results recorded cleanly inside environment memory buffer.";
+                } else if(input.toLowerCase() === 'status') {
+                    output += "System Integrity: 100%\nActive Session Tokens: 1\nDatabase Target Status: CONNECTED";
                 } else {
-                    history.innerHTML += `<span class="cmd-output" style="color:#ff5f56;">Command not found: ${cmd}</span>`;
+                    output += `bash: command not found: ${input}`;
                 }
-                
-                inputField.value = '';
-                document.getElementById('term-history').scrollTop = document.getElementById('term-history').scrollHeight;
+
+                history.innerHTML += output;
+                this.value = '';
+                history.scrollTop = history.scrollHeight;
             }
-        }
+        });
+
+        // القائمة المتجاوبة للهواتف الذكية
+        document.getElementById('mobile-menu').addEventListener('click', () => {
+            document.getElementById('nav-list').classList.toggle('active');
+        });
     </script>
 </body>
 </html>
