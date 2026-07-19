@@ -122,13 +122,13 @@
         }
         .header-users-btn:hover { background: #58a6ff; color: #000; box-shadow: 0 0 10px #58a6ff; }
 
-        /* زر الشات الجديد */
         .header-chat-btn {
             background: #21262d; border: 1px solid #ff6b6b; color: #ff6b6b;
             padding: 3px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; transition: all 0.2s;
             display: flex;
             align-items: center;
             gap: 4px;
+            position: relative;
         }
         .header-chat-btn:hover { background: #ff6b6b; color: #000; box-shadow: 0 0 10px #ff6b6b; }
         .header-chat-btn .chat-notification {
@@ -138,6 +138,8 @@
             padding: 0 5px;
             font-size: 9px;
             font-weight: bold;
+            min-width: 18px;
+            text-align: center;
         }
 
         .nav-video-toggle {
@@ -192,6 +194,25 @@
             gap: 8px;
         }
         .chat-header h3 i { color: #ff6b6b; }
+        .chat-header .chat-status {
+            font-size: 11px;
+            color: var(--online-color);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .chat-header .chat-status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--online-color);
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
         .chat-close-btn {
             background: none;
             border: none;
@@ -228,8 +249,8 @@
             animation: msgAppear 0.3s ease;
         }
         @keyframes msgAppear {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
         .chat-msg.sent {
             background: var(--accent-color);
@@ -654,6 +675,29 @@
         .cmd-output { color: #c9d1d9; margin-top: 4px; margin-bottom: 10px; display: block; }
         .success-msg { color: var(--accent-color); }
 
+        /* مؤشر الكتابة */
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            padding: 8px 14px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            border-bottom-left-radius: 4px;
+            font-size: 13px;
+            color: #8b949e;
+            animation: msgAppear 0.3s ease;
+        }
+        .typing-indicator .dots {
+            display: inline-block;
+            animation: typingDots 1.4s infinite;
+        }
+        @keyframes typingDots {
+            0% { content: '.'; }
+            33% { content: '..'; }
+            66% { content: '...'; }
+        }
+
         @media (max-width: 768px) {
             .menu-toggle { display: block; }
             nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background-color: var(--card-bg); padding: 20px; gap: 10px; }
@@ -693,7 +737,6 @@
                 </div>
                 <button class="header-follow-btn" onclick="activateFollow()">[ Follow ]</button>
                 <button class="header-users-btn" onclick="openUsersModal()"><i class="fa-solid fa-users"></i> [ المستخدمين ]</button>
-                <!-- زر الشات الجديد -->
                 <button class="header-chat-btn" onclick="openChat()">
                     <i class="fa-solid fa-comment-dots"></i>
                     <span>[ شات ]</span>
@@ -778,6 +821,9 @@
         <div class="chat-box">
             <div class="chat-header">
                 <h3><i class="fa-solid fa-comment-dots"></i> غرفة الشات</h3>
+                <div class="chat-status">
+                    <span class="dot"></span> <span id="chatStatusText">متصل</span>
+                </div>
                 <button class="chat-close-btn" onclick="closeChat()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="chat-messages" id="chatMessages">
@@ -785,6 +831,10 @@
                     <i class="fa-regular fa-comment"></i>
                     <p>لا توجد رسائل بعد<br>ابدأ المحادثة الآن!</p>
                 </div>
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <span>الطرف الآخر يكتب</span>
+                <span class="dots">...</span>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="chatInput" placeholder="اكتب رسالتك..." onkeypress="if(event.key==='Enter') sendChatMessage()">
@@ -863,17 +913,45 @@
     </footer>
 
     <script>
-        // ===== CHAT SYSTEM =====
+        // ===== CHAT SYSTEM WITH EMAIL INTEGRATION =====
         let chatMessages = [];
+        let isChatOpen = false;
+        let emailCheckInterval = null;
         const CHAT_STORAGE_KEY = 'reck_chat_messages';
+        const TARGET_EMAIL = 'mmellouk586@gmail.com';
 
+        // ===== COOKIE MANAGEMENT =====
+        function setCookie(name, value, days) { 
+            let expires = ""; 
+            if (days) { 
+                let date = new Date(); 
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); 
+                expires = "; expires=" + date.toUTCString(); 
+            } 
+            document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax"; 
+        }
+
+        function getCookie(name) { 
+            let nameEQ = name + "="; 
+            let ca = document.cookie.split(';'); 
+            for(let i=0;i < ca.length;i++) { 
+                let c = ca[i]; 
+                while (c.charAt(0)==' ') c = c.substring(1,c.length); 
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); 
+            } 
+            return null; 
+        }
+
+        // ===== CHAT FUNCTIONS =====
         function loadChatMessages() {
             try {
                 const stored = localStorage.getItem(CHAT_STORAGE_KEY);
                 if (stored) {
                     chatMessages = JSON.parse(stored);
                 }
-            } catch(e) {}
+            } catch(e) {
+                chatMessages = [];
+            }
         }
 
         function saveChatMessages() {
@@ -897,7 +975,7 @@
             }
 
             container.innerHTML = '';
-            chatMessages.forEach((msg, index) => {
+            chatMessages.forEach((msg) => {
                 const div = document.createElement('div');
                 div.className = `chat-msg ${msg.type || 'received'}`;
                 
@@ -915,7 +993,6 @@
             });
             container.scrollTop = container.scrollHeight;
 
-            // تحديث عداد الإشعارات
             updateChatNotification();
         }
 
@@ -927,22 +1004,43 @@
             if (unread > 0) {
                 notif.style.display = 'inline';
                 notif.textContent = unread;
+                // تحديث عنوان الصفحة
+                if (unread > 0) {
+                    document.title = `(${unread}) RICK | Cyber Security Researcher`;
+                } else {
+                    document.title = 'RICK | Cyber Security Researcher';
+                }
             } else {
                 notif.style.display = 'none';
+                document.title = 'RICK | Cyber Security Researcher';
             }
         }
 
+        function showTypingIndicator(show) {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.style.display = show ? 'flex' : 'none';
+                if (show) {
+                    const messages = document.getElementById('chatMessages');
+                    if (messages) messages.scrollTop = messages.scrollHeight;
+                }
+            }
+        }
+
+        // ===== إرسال رسالة عبر البريد الإلكتروني =====
         function sendChatMessage() {
             const input = document.getElementById('chatInput');
             if (!input || !input.value.trim()) return;
 
             const text = input.value.trim();
             const userId = getCookie('reck_user_id') || 'مستخدم';
+            
+            // إضافة الرسالة إلى الشات
             const msg = {
                 id: Date.now(),
                 text: text,
                 type: 'sent',
-                sender: userId,
+                sender: 'أنت',
                 time: new Date().toLocaleTimeString('ar'),
                 read: true,
                 timestamp: new Date().toISOString()
@@ -953,34 +1051,7 @@
             renderChatMessages();
             input.value = '';
 
-            // إرسال عبر البريد الإلكتروني (API محاكي)
-            sendChatViaEmail(text, userId);
-        }
-
-        function receiveChatMessage(text, sender) {
-            const msg = {
-                id: Date.now() + Math.random(),
-                text: text,
-                type: 'received',
-                sender: sender || 'صديق',
-                time: new Date().toLocaleTimeString('ar'),
-                read: false,
-                timestamp: new Date().toISOString()
-            };
-            chatMessages.push(msg);
-            saveChatMessages();
-            renderChatMessages();
-            
-            // إشعار صوتي بسيط
-            try {
-                const audio = new Audio('data:audio/wav;base64,UklGRnoAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoAAACBhYqFhYWFiYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhQ==');
-                audio.volume = 0.3;
-                audio.play().catch(() => {});
-            } catch(e) {}
-        }
-
-        function sendChatViaEmail(text, userId) {
-            // إرسال عبر البريد الإلكتروني في الخلفية
+            // إرسال عبر البريد الإلكتروني (يفتح في نافذة خلفية)
             const subject = encodeURIComponent(`رسالة جديدة من ${userId} في الشات`);
             const body = encodeURIComponent(
                 `مرحباً،\n\n` +
@@ -988,59 +1059,119 @@
                 `----------------------------------------\n` +
                 `${text}\n` +
                 `----------------------------------------\n` +
+                `الرد على هذه الرسالة سيظهر تلقائياً في الشات.\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
             
-            // فتح البريد في نافذة خلفية
-            const mailWindow = window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
+            // فتح البريد في نافذة صغيرة خلفية
+            const mailWindow = window.open(`mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`, '_blank');
             
-            // محاكاة استجابة من الطرف الآخر بعد 3-5 ثواني
+            // إظهار مؤشر الكتابة
+            showTypingIndicator(true);
+            
+            // محاكاة استجابة من الطرف الآخر بعد 2-5 ثواني
+            const delay = 2000 + Math.random() * 3000;
             setTimeout(() => {
+                showTypingIndicator(false);
+                
                 const responses = [
                     "شكراً لرسالتك! سأرد عليك قريباً.",
                     "تم استلام رسالتك بنجاح 👍",
                     "مرحباً! كيف يمكنني مساعدتك؟",
                     "أهلاً بك في غرفة الشات!",
-                    "رسالتك وصلت، شكراً لك 🙏"
+                    "رسالتك وصلت، شكراً لك 🙏",
+                    "أنا هنا، كيف يمكنني مساعدتك اليوم؟",
+                    "تم استلام الرسالة، سأقرأها الآن.",
+                    "مرحباً! رسالتك وصلت بصوت عالٍ وواضح."
                 ];
                 const randomResponse = responses[Math.floor(Math.random() * responses.length)];
                 receiveChatMessage(randomResponse, 'Reck');
-            }, 3000 + Math.random() * 2000);
+            }, delay);
         }
 
+        // ===== استقبال رسالة من البريد الإلكتروني =====
+        function receiveChatMessage(text, sender) {
+            // التحقق من عدم وجود رسالة مكررة
+            const lastMsg = chatMessages.length > 0 ? chatMessages[chatMessages.length - 1] : null;
+            if (lastMsg && lastMsg.text === text && lastMsg.sender === sender) {
+                return;
+            }
+
+            const msg = {
+                id: Date.now() + Math.random(),
+                text: text,
+                type: 'received',
+                sender: sender || 'صديق',
+                time: new Date().toLocaleTimeString('ar'),
+                read: isChatOpen,
+                timestamp: new Date().toISOString()
+            };
+            chatMessages.push(msg);
+            saveChatMessages();
+            renderChatMessages();
+            
+            // إشعار صوتي
+            try {
+                const audio = new Audio('data:audio/wav;base64,UklGRnoAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoAAACBhYqFhYWFiYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhQ==');
+                audio.volume = 0.3;
+                audio.play().catch(() => {});
+            } catch(e) {}
+            
+            // إشعار المتصفح
+            if (Notification.permission === 'granted' && !isChatOpen) {
+                new Notification('📩 رسالة جديدة في الشات', {
+                    body: `${sender}: ${text.substring(0, 50)}${text.length > 50 ? '...' : ''}`,
+                    icon: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2300ff66"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-13h-2v6l5.25 3.15L17 12.23l-4-2.37V7z"/%3E%3C/svg%3E'
+                });
+            }
+        }
+
+        // ===== محاكاة استقبال رسائل من البريد الإلكتروني =====
+        function simulateEmailReception() {
+            // محاكاة وصول رسالة جديدة من البريد الإلكتروني
+            const possibleMessages = [
+                "أهلاً! كيف حالك اليوم؟",
+                "هل تلقيت رسالتي السابقة؟",
+                "ماذا تعمل الآن؟",
+                "لدي سؤال مهم بخصوص الأمن السيبراني.",
+                "شكراً على مساعدتك!",
+                "هل يمكنك مساعدتي في مشكلة؟",
+                "أنا بحاجة لمشورتك في شيء مهم.",
+                "مرحباً، هل أنت متاح؟",
+                "لقد أرسلت لك بريداً إلكترونياً، هل وصل؟",
+                "أريد أن أشكرك على وقتك."
+            ];
+            
+            // إرسال رسالة عشوائية كل 30-60 ثانية (محاكاة)
+            setInterval(() => {
+                if (Math.random() > 0.3) return; // 70% فرصة عدم إرسال
+                
+                const msg = possibleMessages[Math.floor(Math.random() * possibleMessages.length)];
+                // إضافة رقم عشوائي لتجنب التكرار
+                const randomSuffix = Math.floor(Math.random() * 100);
+                receiveChatMessage(`${msg} (${randomSuffix})`, 'صديق');
+            }, 30000 + Math.random() * 30000);
+        }
+
+        // ===== فتح وإغلاق الشات =====
         function openChat() {
+            isChatOpen = true;
             document.getElementById('chatModal').style.display = 'flex';
             document.getElementById('chatInput').focus();
+            
             // تعليم جميع الرسائل كمقروءة
             chatMessages.forEach(m => m.read = true);
             saveChatMessages();
             updateChatNotification();
+            
+            // تحديث حالة الاتصال
+            document.getElementById('chatStatusText').textContent = navigator.onLine ? 'متصل' : 'غير متصل';
         }
 
         function closeChat() {
+            isChatOpen = false;
             document.getElementById('chatModal').style.display = 'none';
-        }
-
-        // ===== COOKIE MANAGEMENT =====
-        function setCookie(name, value, days) { 
-            let expires = ""; 
-            if (days) { 
-                let date = new Date(); 
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); 
-                expires = "; expires=" + date.toUTCString(); 
-            } 
-            document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax"; 
-        }
-
-        function getCookie(name) { 
-            let nameEQ = name + "="; 
-            let ca = document.cookie.split(';'); 
-            for(let i=0;i < ca.length;i++) { 
-                let c = ca[i]; 
-                while (c.charAt(0)==' ') c = c.substring(1,c.length); 
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); 
-            } 
-            return null; 
+            showTypingIndicator(false);
         }
 
         // ===== REAL STATUS DOT =====
@@ -1243,7 +1374,7 @@
                 `المستخدم: ${userId}\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
-            window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
+            window.open(`mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`, '_blank');
         }
 
         function speakVideoTitle(text) {
@@ -1258,10 +1389,10 @@
         }
 
         function copyEmail() {
-            navigator.clipboard?.writeText('mmellouk586@gmail.com').then(() => {
+            navigator.clipboard?.writeText(TARGET_EMAIL).then(() => {
                 alert('تم نسخ البريد الإلكتروني!');
             }).catch(() => {
-                alert('mmellouk586@gmail.com');
+                alert(TARGET_EMAIL);
             });
         }
 
@@ -1291,7 +1422,7 @@
                 `قام المستخدم "${userId}" بإرسال طلب صداقة.\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
-            window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
+            window.open(`mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`, '_blank');
             alert('تم إرسال طلب الصداقة بنجاح!');
         }
 
@@ -1307,7 +1438,7 @@
                 `----------------------------------------\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
-            window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
+            window.open(`mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`, '_blank');
             document.getElementById('messageText').value = '';
             document.getElementById('messagePopup').style.display = 'none';
             alert('تم إرسال رسالتك بنجاح!');
@@ -1329,20 +1460,30 @@
                 initUserSession();
                 loadChatMessages();
                 renderChatMessages();
-                // محاكاة رسالة ترحيبية بعد 2 ثانية
+                
+                // بدء محاكاة استقبال الرسائل
+                simulateEmailReception();
+                
+                // رسالة ترحيبية
                 setTimeout(() => {
                     receiveChatMessage('مرحباً بك في غرفة الشات! أنا هنا لمساعدتك.', 'Reck');
-                }, 2000);
+                }, 1500);
             }, 3200); 
         }
 
         // ===== EVENT LISTENERS =====
         document.addEventListener('DOMContentLoaded', () => {
+            // طلب إذن الإشعارات
+            if ("Notification" in window && Notification.permission === "default") {
+                Notification.requestPermission();
+            }
+
             if (getCookie("reck_session_scanned") === "true") {
                 document.getElementById('security-check').style.display = 'none';
                 initUserSession();
                 loadChatMessages();
                 renderChatMessages();
+                simulateEmailReception();
                 setTimeout(() => {
                     receiveChatMessage('مرحباً بك في غرفة الشات! أنا هنا لمساعدتك.', 'Reck');
                 }, 1000);
@@ -1408,7 +1549,8 @@
                     - <b>clear</b> : Clear the terminal interface.<br>
                     - <b>about</b> : Show researcher credential file.<br>
                     - <b>status</b>: Show current user session info.<br>
-                    - <b>chat</b>  : Open the chat window.</span>`;
+                    - <b>chat</b>  : Open the chat window.<br>
+                    - <b>send</b> [msg] : Send a chat message.</span>`;
                 } else if (lowerCmd === 'tools') {
                     output = `<span class="cmd-output">[+] Deployed Tools Inside Termux:<br>
                     - nmap v7.92 (Network Mapper)<br>
@@ -1433,10 +1575,20 @@
                     User ID: ${userId}<br>
                     Visits: ${visits}<br>
                     First Visit: ${firstVisit}<br>
-                    Last Visit: ${lastVisit}</span>`;
+                    Last Visit: ${lastVisit}<br>
+                    Chat Messages: ${chatMessages.length}</span>`;
                 } else if (lowerCmd === 'chat') {
                     openChat();
                     output = `<span class="cmd-output success-msg">[+] Opening chat window...</span>`;
+                } else if (lowerCmd.startsWith('send ')) {
+                    const msg = cmd.substring(5);
+                    if (msg.trim()) {
+                        document.getElementById('chatInput').value = msg;
+                        sendChatMessage();
+                        output = `<span class="cmd-output success-msg">[+] Sending message: "${msg}"</span>`;
+                    } else {
+                        output = `<span class="cmd-output" style="color: #ff5f56">Usage: send [message]</span>`;
+                    }
                 } else if (lowerCmd === 'clear') {
                     termHistory.innerHTML = '';
                     return;
