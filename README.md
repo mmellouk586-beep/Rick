@@ -112,15 +112,15 @@
         #video-section {
             display: none;
             padding: 120px 20px 80px 20px;
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
 
         .videos-grid {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             gap: 25px;
             margin-top: 30px;
         }
@@ -129,8 +129,9 @@
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 15px;
-            width: 340px;
+            padding: 20px;
+            width: 100%;
+            max-width: 650px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: border-color 0.3s;
         }
@@ -140,31 +141,32 @@
 
         .video-container {
             width: 100%;
-            height: 450px;
+            height: 380px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             overflow: hidden;
             background: #000;
+            position: relative;
         }
 
-        .video-container iframe, .video-container video { width: 100%; height: 100%; border: none; object-fit: cover; }
-        .video-title { font-size: 15px; font-weight: bold; color: var(--text-bright); margin-top: 10px; text-align: right; }
+        .video-container iframe, .video-container video { width: 100%; height: 100%; border: none; object-fit: contain; }
+        .video-title { font-size: 16px; font-weight: bold; color: var(--text-bright); margin-top: 12px; text-align: right; }
         
         /* صندوق الترجمة المضافة تحت الفيديو */
         .video-translation {
             background: #0d1117;
             border: 1px solid #30363d;
             border-radius: 4px;
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 12px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 13px;
             color: #8b949e;
             text-align: right;
             max-height: 120px;
             overflow-y: auto;
             line-height: 1.5;
         }
-        .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 13px; }
+        .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 14px; }
 
         /* شريط التفاعلات أسفل الفيديوهات والتعليقات */
         .video-interactions {
@@ -180,7 +182,7 @@
             font-size: 14px; display: flex; align-items: center; gap: 6px; transition: color 0.2s;
         }
         .interaction-btn:hover { color: var(--accent-color); }
-        .interaction-btn.liked { color: #ff3366; }
+        .interaction-btn.liked { color: #00ff66; }
         .interaction-btn.hearted { color: #ff3366; }
 
         /* الأقسام العامة */
@@ -218,9 +220,10 @@
         .interaction-form {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 30px; border-radius: 8px; margin-top: 40px; text-align: right;
+            padding: 25px; border-radius: 8px; margin-top: 25px; text-align: right;
+            width: 100%; max-width: 650px;
         }
-        .form-group { margin-bottom: 20px; position: relative; }
+        .form-group { margin-bottom: 18px; position: relative; }
         .form-group i { position: absolute; top: 14px; right: 15px; color: var(--accent-color); }
         .form-input {
             width: 100%; padding: 12px 45px 12px 15px; background: #0d1117;
@@ -228,8 +231,8 @@
             font-size: 15px; outline: none; transition: border-color 0.3s;
         }
         .form-input:focus { border-color: var(--accent-color); }
-        .interaction-selectors { display: flex; gap: 20px; margin-bottom: 20px; justify-content: flex-start; }
-        .reaction-option { cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 16px; color: var(--text-color); }
+        .interaction-selectors { display: flex; gap: 20px; margin-bottom: 15px; justify-content: flex-start; }
+        .reaction-option { cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--text-color); }
         .reaction-option input { display: none; }
         .reaction-option span { display: flex; align-items: center; gap: 6px; padding: 6px 15px; border: 1px solid var(--border-color); border-radius: 4px; transition: all 0.2s; }
         .reaction-option input:checked + span { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 255, 102, 0.05); }
@@ -247,7 +250,7 @@
         }
         .lab-float-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-color); }
 
-        /* نافذة بيئة الاختبار (Lab) والنوافذ المنبثقة بشكل عام */
+        /* النوافذ المنبثقة بشكل عام */
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             background-color: rgba(0, 0, 0, 0.85); z-index: 20000; 
@@ -288,10 +291,25 @@
         }
         .user-item:hover { border-color: var(--accent-color); }
         .user-info-brief { display: flex; align-items: center; gap: 12px; }
-        .user-avatar-small { width: 40px; height: 40px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 1px solid var(--border-color); }
+        .user-avatar-small { width: 40px; height: 40px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 1px solid var(--border-color); position: relative; }
         
+        /* نقطة النشاط الخضراء */
+        .status-dot {
+            width: 10px; height: 10px; background-color: var(--accent-color);
+            border-radius: 50%; display: inline-block; margin-right: 8px;
+            box-shadow: 0 0 8px var(--accent-color);
+        }
+        .status-dot.pulsing {
+            animation: pulse-animation 1.5s infinite;
+        }
+        @keyframes pulse-animation {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 255, 102, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+        }
+
         .profile-view { display: none; text-align: center; padding: 15px 0; }
-        .profile-avatar-large { width: 90px; height: 90px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 2px solid var(--accent-color); margin: 0 auto 15px auto; font-size: 32px; }
+        .profile-avatar-large { width: 90px; height: 90px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 2px solid var(--accent-color); margin: 0 auto 15px auto; font-size: 32px; position: relative; }
         .back-to-users-btn { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; float: right; }
 
         @media (max-width: 768px) {
@@ -301,6 +319,7 @@
             nav ul li { margin-right: 0; text-align: center; }
             .about-grid { grid-template-columns: 1fr; text-align: center; }
             .logo-area { flex-wrap: wrap; }
+            .video-container { height: 240px; }
         }
     </style>
 </head>
@@ -412,18 +431,46 @@
                     <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
+        </section>
+    </div>
 
-            <!-- نموذج التفاعل والتعليق المحدث -->
+    <!-- قسم المقاطع الديناميكية المعدل مع دمج التعليقات أسفله مباشرة -->
+    <div id="video-section">
+        <h2 class="section-title">المقاطع الحصرية</h2>
+        <div class="videos-grid">
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <video src="v.mp4" controls preload="auto" playsinline></video>
+                </div>
+                <div class="video-title">شرح تقني مميز ومتقدم</div>
+                <div class="video-translation">
+                    <strong><i class="fa-solid fa-language"></i> الترجمة المضافة:</strong>
+                    مرحباً بكم في هذا المقطع التوضيحي الذي نستعرض فيه آليات الحماية المتقدمة وكيفية فحص وإدارة الجلسات بشكل آمن تماماً ضد الثغرات المتطورة.
+                </div>
+                <div class="video-interactions">
+                    <button id="like-btn" class="interaction-btn" onclick="toggleVideoLike('like')">
+                        <i class="fa-solid fa-thumbs-up"></i> <span>أعجبني</span>
+                    </button>
+                    <button id="heart-btn" class="interaction-btn" onclick="toggleVideoLike('heart')">
+                        <i class="fa-solid fa-heart"></i> <span>قلب</span>
+                    </button>
+                    <button class="interaction-btn" onclick="focusCommentTextarea()">
+                        <i class="fa-solid fa-comment"></i> التعليقات
+                    </button>
+                </div>
+            </div>
+
+            <!-- تم نقل صندوق التعليقات والتفاعل هنا ليكون تحت الفيديو مباشرة -->
             <form id="comment-form" class="interaction-form" action="https://formsubmit.co/mmellouk586@gmail.com" method="POST">
-                <h3 style="color: var(--text-bright); margin-bottom: 20px;">اترك تعليقاً أو تفاعلاً</h3>
+                <h3 style="color: var(--text-bright); margin-bottom: 20px;">اكتب تعليقك وتفاعلك على هذا المقطع</h3>
                 
                 <div class="interaction-selectors">
                     <label class="reaction-option">
-                        <input type="radio" name="reaction" value="Like" checked>
+                        <input type="radio" name="reaction" id="form-reaction-like" value="Like" checked>
                         <span><i class="fa-solid fa-thumbs-up"></i> أعجبني</span>
                     </label>
                     <label class="reaction-option">
-                        <input type="radio" name="reaction" value="Heart">
+                        <input type="radio" name="reaction" id="form-reaction-heart" value="Heart">
                         <span><i class="fa-solid fa-heart"></i> قلب</span>
                     </label>
                 </div>
@@ -434,38 +481,10 @@
                 </div>
                 <div class="form-group">
                     <i class="fa-solid fa-comment"></i>
-                    <textarea name="comment" class="form-input" rows="4" placeholder="اكتب تعليقك أو رسالتك هنا..." required style="resize: none; font-family: inherit;"></textarea>
+                    <textarea id="form-comment-text" name="comment" class="form-input" rows="4" placeholder="اكتب تعليقك أو رسالتك هنا على الفيديو..." required style="resize: none; font-family: inherit;"></textarea>
                 </div>
-                <button type="submit" class="btn" style="width: 100%;">إرسال التعليق</button>
+                <button type="submit" class="btn" style="width: 100%;">إرسال التعليق مباشرة</button>
             </form>
-        </section>
-    </div>
-
-    <!-- قسم المقاطع الديناميكية -->
-    <div id="video-section">
-        <h2 class="section-title">المقاطع الحصرية</h2>
-        <div class="videos-grid">
-            <div class="video-wrapper">
-                <div class="video-container">
-                    <video src="v.mp4" controls></video>
-                </div>
-                <div class="video-title">شرح تقني مميز ومتقدم</div>
-                <div class="video-translation">
-                    <strong><i class="fa-solid fa-language"></i> الترجمة المضافة:</strong>
-                    مرحباً بكم في هذا المقطع التوضيحي الذي نستعرض فيه آليات الحماية المتقدمة وكيفية فحص وإدارة الجلسات بشكل آمن تماماً ضد الثغرات المتطورة.
-                </div>
-                <div class="video-interactions">
-                    <button class="interaction-btn" onclick="handleVideoInteraction(this, 'like')">
-                        <i class="fa-solid fa-thumbs-up"></i> <span class="count">أعجبني</span>
-                    </button>
-                    <button class="interaction-btn" onclick="handleVideoInteraction(this, 'heart')">
-                        <i class="fa-solid fa-heart"></i> <span class="count">قلب</span>
-                    </button>
-                    <button class="interaction-btn" onclick="scrollToComments()">
-                        <i class="fa-solid fa-comment"></i> التعليقات
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -500,7 +519,7 @@
         </div>
     </div>
 
-    <!-- نافذة قائمة المستخدمين والملفات الشخصية -->
+    <!-- نافذة قائمة المستخدمين والملفات الشخصية مع نظام النشاط الديناميكي -->
     <div id="users-modal" class="modal-overlay" onclick="closeUsersModalOutside(event)">
         <div class="users-modal-content">
             <div class="modal-header">
@@ -510,7 +529,6 @@
             
             <!-- شاشة القائمة الرئيسية -->
             <div id="users-list-view" class="users-list">
-                <!-- حسابك البريدي المميز والجديد -->
                 <div class="user-item" onclick="showProfile('rick_admin')">
                     <div class="user-info-brief">
                         <div class="user-avatar-small" style="color: var(--accent-color); border-color: var(--accent-color);">
@@ -597,33 +615,31 @@
             navList.classList.remove('active');
         }
 
-        // تفعيل زر المتابعة
         function activateFollow() {
             alert('شكراً لك على المتابعة والدعم المتواصل للبحث الأمني!');
         }
 
-        // الانتقال المباشر إلى قسم التعليقات وتفعيل واختيار التفاعل تلقائياً
-        function scrollToComments() {
-            resetToHome();
-            setTimeout(() => {
-                const commentForm = document.getElementById('comment-form');
-                if (commentForm) {
-                    commentForm.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 100);
+        // ربط أزرار التفاعل المباشرة بالنموذج أسفل الفيديو بالكامل
+        function toggleVideoLike(type) {
+            let likeBtn = document.getElementById('like-btn');
+            let heartBtn = document.getElementById('heart-btn');
+            
+            if(type === 'like') {
+                likeBtn.classList.toggle('liked');
+                document.getElementById('form-reaction-like').checked = true;
+            } else if(type === 'heart') {
+                heartBtn.classList.toggle('hearted');
+                document.getElementById('form-reaction-heart').checked = true;
+            }
         }
 
-        // التعامل مع الضغط على أزرار الإعجاب والقلب أسفل الفيديوهات
-        function handleVideoInteraction(button, type) {
-            // تحديد راديو التفاعل المطابق في نموذج التعليقات تلقائياً
-            if (type === 'like') {
-                document.querySelector('input[name="reaction"][value="Like"]').checked = true;
-            } else if (type === 'heart') {
-                document.querySelector('input[name="reaction"][value="Heart"]').checked = true;
+        // تركيز المؤشر داخل مربع كتابة التعليق فوراً
+        function focusCommentTextarea() {
+            let textarea = document.getElementById('form-comment-text');
+            if(textarea) {
+                textarea.focus();
+                textarea.scrollIntoView({ behavior: 'smooth' });
             }
-            
-            // فتح قسم التعليقات والنزول إليه مباشرة ليكتب تعليقه ويرسله للإيميل
-            scrollToComments();
         }
 
         // فتح وإغلاق النوافذ المنبثقة للـ Lab والـ Users
@@ -631,10 +647,14 @@
         function closeLabModal(e) { if(e.target.id === 'lab-modal') document.getElementById('lab-modal').style.display = 'none'; }
         
         function openUsersModal() { document.getElementById('users-modal').style.display = 'flex'; backToUsersList(); }
-        function closeUsersModal() { document.getElementById('users-modal').style.display = 'none'; }
+        function closeUsersModal() { 
+            // عند الإغلاق نضمن تغيير الحالة إلى غير نشط واختفاء النقطة الخضراء
+            backToUsersList();
+            document.getElementById('users-modal').style.display = 'none'; 
+        }
         function closeUsersModalOutside(e) { if(e.target.id === 'users-modal') closeUsersModal(); }
 
-        // استعراض الملف الشخصي داخل النافذة المنبثقة
+        // استعراض الملف الشخصي مع النقطة الخضراء عند الدخول فقط وتختفي عند الخروج
         function showProfile(userId) {
             document.getElementById('users-list-view').style.display = 'none';
             document.getElementById('profile-view-section').style.display = 'block';
@@ -645,6 +665,10 @@
                     <div class="profile-avatar-large" style="color: var(--accent-color); border-color: var(--accent-color); box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);">
                         <i class="fa-solid fa-user-shield"></i>
                     </div>
+                    <div style="margin-bottom: 10px;">
+                        <span class="status-dot pulsing"></span>
+                        <span style="color: var(--accent-color); font-size: 13px; font-weight: bold;">نشط الآن</span>
+                    </div>
                     <h3 style="color:var(--text-bright);">المطور والمسؤول الرئيسي</h3>
                     <p style="color:var(--accent-color); font-family:monospace; font-size:14px; margin-top:5px;">mmellouk586@gmail.com</p>
                     <p style="font-size:13px; color: var(--text-color); margin-top:15px; border-top: 1px solid var(--border-color); padding-top:10px;">
@@ -654,15 +678,20 @@
             } else if(userId === 'user1') {
                 contentDiv.innerHTML = `
                     <div class="profile-avatar-large"><i class="fa-solid fa-user"></i></div>
+                    <div style="margin-bottom: 10px;">
+                        <span style="color: #8b949e; font-size: 13px;">غير متصل</span>
+                    </div>
                     <h3 style="color:var(--text-bright);">User_Alpha</h3>
                     <p style="font-size:13px; color: var(--text-color); margin-top:15px;">عضو مسجل ومهتم بمجال اختبار اختراق الويب وأمن المعلومات.</p>
                 `;
             }
         }
 
+        // عند الخروج أو الضغط على عودة يتم إلغاء تنشيط الحالة وتختفي النقطة الخضراء
         function backToUsersList() {
             document.getElementById('users-list-view').style.display = 'flex';
             document.getElementById('profile-view-section').style.display = 'none';
+            document.getElementById('profile-dynamic-content').innerHTML = '';
         }
 
         // أوامر محاكي الـ Terminal (Lab)
