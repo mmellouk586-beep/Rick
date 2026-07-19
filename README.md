@@ -107,7 +107,7 @@
         nav ul li a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 24px; color: var(--text-bright); cursor: pointer; }
 
-        /* قسم المقاطع اليوتيوب الديناميكية والتعليقات */
+        /* قسم المقاطع والتعليقات */
         #video-section {
             display: none;
             padding: 120px 20px 80px 20px;
@@ -156,7 +156,7 @@
         }
         .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 14px; }
 
-        /* قسم التفاعلات والتعليقات المطور أسفل الفيديو مباشرة */
+        /* قسم التفاعلات والتعليقات أسفل الفيديو */
         .video-interaction-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -423,12 +423,11 @@
         </section>
     </div>
 
-    <!-- قسم المقاطع الحصرية المحدث بالكامل -->
+    <!-- قسم المقاطع الحصرية والتعليقات -->
     <div id="video-section">
         <h2 class="section-title">المقاطع الحصرية</h2>
         <div class="videos-grid">
             
-            <!-- حاوية الفيديو والترجمة -->
             <div class="video-wrapper">
                 <div class="video-container">
                     <video src="VID20260710115227.mp4" controls preload="auto" playsinline></video>
@@ -440,17 +439,13 @@
                 </div>
             </div>
 
-            <!-- ثانياً: صندوق التفاعلات والتعليقات مفصول تماماً وأسفل الفيديو مباشرة -->
+            <!-- صندوق التفاعلات والتعليقات أسفل الفيديو المحدث للتحويل للبريد مباشرة -->
             <div class="video-interaction-box">
                 <div class="interaction-title">
                     <i class="fa-solid fa-comments"></i> <span>التفاعلات والتعليقات على الفيديو</span>
                 </div>
                 
-                <!-- الإرسال المباشر لبريدك الإلكتروني بدون مسار وسيط خاطئ -->
-                <form action="https://formsubmit.co/mmellouk586@gmail.com" method="POST">
-                    <input type="hidden" name="_captcha" value="false">
-                    
-                    <!-- أزرار التفاعل (لايك / قلب) مدمجة علوياً -->
+                <form onsubmit="sendVideoFeedback(event)">
                     <div class="message-actions-merge">
                         <label class="merge-option">
                             <input type="radio" name="video_reaction" value="Like" checked>
@@ -464,15 +459,15 @@
 
                     <div class="form-group">
                         <i class="fa-solid fa-user"></i>
-                        <input type="text" name="visitor_name" class="form-input" placeholder="اسمك الكريم" required>
+                        <input type="text" id="vid-visitor-name" class="form-input" placeholder="اسمك الكريم" required>
                     </div>
 
                     <div class="form-group">
                         <i class="fa-solid fa-comment-dots"></i>
-                        <textarea name="visitor_comment" class="form-input" rows="3" placeholder="اكتب تعليقك أو رسالتك حول الفيديو هنا..." required style="resize:none; font-family:inherit;"></textarea>
+                        <textarea id="vid-visitor-comment" class="form-input" rows="3" placeholder="اكتب تعليقك أو رسالتك حول الفيديو هنا..." required style="resize:none; font-family:inherit;"></textarea>
                     </div>
 
-                    <button type="submit" class="btn" style="width:100%; padding:10px 0; font-size:14px;">إرسال التعليق والتفاعل فوراً</button>
+                    <button type="submit" class="btn" style="width:100%; padding:10px 0; font-size:14px;">إرسال عبر البريد الإلكتروني</button>
                 </form>
             </div>
 
@@ -510,7 +505,7 @@
         </div>
     </div>
 
-    <!-- نافذة الحسابات والملفات الشخصية المستقلة تماماً -->
+    <!-- نافذة الحسابات والملفات الشخصية المستقلة -->
     <div id="users-modal" class="modal-overlay" onclick="closeUsersModalOutside(event)">
         <div class="users-modal-content">
             <div class="modal-header">
@@ -616,6 +611,32 @@
         function closeUsersModal() { backToUsersList(); document.getElementById('users-modal').style.display = 'none'; }
         function closeUsersModalOutside(e) { if(e.target.id === 'users-modal') closeUsersModal(); }
 
+        // دالة تجميع وإرسال تعليقات الفيديو عبر البريد التقليدي للـ المستخدم
+        function sendVideoFeedback(event) {
+            event.preventDefault();
+            let reaction = document.querySelector('input[name="video_reaction"]:checked').value;
+            let name = document.getElementById('vid-visitor-name').value;
+            let comment = document.getElementById('vid-visitor-comment').value;
+            
+            let subject = encodeURIComponent("تفاعل وتعليق جديد على الفيديو من: " + name);
+            let body = encodeURIComponent("الاسم: " + name + "\nالتفاعل: " + reaction + "\nالتعليق:\n" + comment);
+            
+            window.location.href = "mailto:mmellouk586@gmail.com?subject=" + subject + "&body=" + body;
+        }
+
+        // دالة تجميع وإرسال طلبات الصداقة والمراسلة عبر البريد التقليدي
+        function sendDirectMessage(event, targetEmail) {
+            event.preventDefault();
+            let friendReq = document.getElementById('profile-friend-req').checked ? "نعم" : "لا";
+            let name = document.getElementById('profile-sender-name').value;
+            let msg = document.getElementById('profile-sender-msg').value;
+            
+            let subject = encodeURIComponent("رسالة تواصل وطلب صداقة من: " + name);
+            let body = encodeURIComponent("الحساب المستهدف: " + targetEmail + "\nاسم المرسل: " + name + "\nطلب صداقة: " + friendReq + "\nالرسالة:\n" + msg);
+            
+            window.location.href = "mailto:mmellouk586@gmail.com?subject=" + subject + "&body=" + body;
+        }
+
         // استعراض الملف الشخصي وإدارة مراسلة الحسابات وطلبات الصداقة المباشرة
         function showProfile(userId) {
             document.getElementById('users-list-view').style.display = 'none';
@@ -637,25 +658,23 @@
                     <i class="fa-solid fa-paper-plane"></i> [ مراسلة وطلب صداقة ]
                 </button>
 
-                <div id="msg-box-container" class="message-icon-box" style="display: none;">
-                    <form action="https://formsubmit.co/mmellouk586@gmail.com" method="POST">
-                        <input type="hidden" name="target_account" value="${targetUserEmail}">
-                        
-                        <div class="message-actions-merge">
+                <div id="msg-box-container" class="message-icon-box" style="display: none; text-align:right; margin-top:15px;">
+                    <form onsubmit="sendDirectMessage(event, '${targetUserEmail}')">
+                        <div class="message-actions-merge" style="margin-bottom:12px;">
                             <label class="merge-option">
-                                <input type="checkbox" name="friend_request" value="Yes" checked>
+                                <input type="checkbox" id="profile-friend-req" checked>
                                 <span><i class="fa-solid fa-user-plus"></i> إرسال طلب صداقة مع الرسالة</span>
                             </label>
                         </div>
 
                         <div class="form-group">
                             <i class="fa-solid fa-user"></i>
-                            <input type="text" name="sender_name" class="form-input" placeholder="اسمك الكريم" required>
+                            <input type="text" id="profile-sender-name" class="form-input" placeholder="اسمك الكريم" required>
                         </div>
 
                         <div class="form-group">
                             <i class="fa-solid fa-envelope"></i>
-                            <textarea name="sender_message" class="form-input" rows="3" placeholder="اكتب رسالة التواصل المباشرة هنا..." required style="resize:none; font-family:inherit;"></textarea>
+                            <textarea id="profile-sender-msg" class="form-input" rows="3" placeholder="اكتب رسالة التواصل المباشرة هنا..." required style="resize:none; font-family:inherit;"></textarea>
                         </div>
 
                         <button type="submit" class="btn" style="width:100%; padding:8px 0; font-size:14px;">إرسال طلب التواصل</button>
