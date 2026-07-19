@@ -15,11 +15,9 @@
             --bg-color: #0d1117;
             --card-bg: #161b22;
             --accent-color: #00ff66;
-            --accent-hover: rgba(0, 255, 102, 0.15);
             --text-color: #c9d1d9;
             --text-bright: #ffffff;
             --border-color: #30363d;
-            --overlay-bg: rgba(22, 27, 34, 0.85);
         }
 
         * {
@@ -90,12 +88,11 @@
         }
         .header-follow-btn:hover { background: var(--accent-color); color: #000; box-shadow: 0 0 10px var(--accent-color); }
 
-        .nav-video-toggle, .nav-users-btn {
+        .nav-video-toggle {
             background: none; border: 1px solid var(--border-color); color: var(--accent-color);
             padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: all 0.3s;
-            margin-left: 10px;
         }
-        .nav-video-toggle:hover, .nav-users-btn:hover { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(0, 255, 102, 0.2); }
+        .nav-video-toggle:hover { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(0, 255, 102, 0.2); }
 
         nav ul { display: flex; list-style: none; align-items: center; }
         nav ul li { margin-right: 25px; }
@@ -103,29 +100,67 @@
         nav ul li a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 24px; color: var(--text-bright); cursor: pointer; }
 
-        /* الأقسام الأساسية والتبديل بينها */
-        #main-content-view { display: block; }
+        /* قسم المقاطع اليوتيوب الديناميكية */
         #video-section {
             display: none;
             padding: 120px 20px 80px 20px;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
+            text-align: center;
         }
 
-        /* تنسيقات الواجهة الرئيسية الثابتة */
-        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); flex-direction: column; }
-        
-        /* تأمين وعزل أبعاد الصورة الشخصية */
-        .profile-img-fixed { 
-            width: 180px; 
-            height: 180px; 
-            border-radius: 50%; 
-            border: 3px solid var(--accent-color); 
-            object-fit: cover; 
-            margin-bottom: 20px; 
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.4); 
+        .videos-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
         }
+
+        .video-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            width: 340px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: border-color 0.3s;
+        }
+        .video-wrapper:hover {
+            border-color: var(--accent-color);
+        }
+
+        .video-container {
+            width: 100%;
+            height: 450px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-container iframe, .video-container video { width: 100%; height: 100%; border: none; object-fit: cover; }
+        .video-title { font-size: 15px; font-weight: bold; color: var(--text-bright); margin-top: 10px; text-align: right; }
         
+        /* صندوق الترجمة المضافة تحت الفيديو */
+        .video-translation {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #8b949e;
+            text-align: right;
+            max-height: 120px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+        .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 13px; }
+
+        /* الأقسام العامة */
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); flex-direction: column; }
+        .hero-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.4); margin-bottom: 20px; object-fit: cover; }
         .hero-content h1 { font-size: 3.5rem; color: var(--text-bright); margin-bottom: 10px; }
         .hero-content p { font-size: 1.5rem; color: var(--accent-color); margin-bottom: 30px; font-family: monospace; }
         .btn { display: inline-block; padding: 12px 30px; background-color: transparent; color: var(--accent-color); border: 2px solid var(--accent-color); border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease; cursor: pointer; }
@@ -137,101 +172,61 @@
 
         .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center; }
         .profile-img-container { display: flex; justify-content: center; }
+        .avatar-placeholder { width: 180px; height: 180px; border-radius: 50%; background-color: var(--card-bg); border: 3px solid var(--accent-color); display: flex; align-items: center; justify-content: center; font-size: 65px; color: var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.2); object-fit: cover; }
 
-        /* علامات المهارات المحدثة */
-        .skills-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; justify-content: center; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background-color: var(--card-bg); border: 1px solid var(--border-color); padding: 30px; border-radius: 8px; transition: transform 0.3s, border-color 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
+        .card i { font-size: 32px; color: var(--accent-color); margin-bottom: 20px; }
+        .card h3 { color: var(--text-bright); margin-bottom: 15px; }
+
+        .skills-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
         .skill-badge { background-color: var(--border-color); color: var(--text-bright); padding: 8px 16px; border-radius: 20px; font-size: 14px; border: 1px solid transparent; transition: 0.3s; }
         .skill-badge:hover { border-color: var(--accent-color); color: var(--accent-color); }
 
-        /* التنسيق المتطور للمقاطع */
-        .videos-grid { display: flex; flex-direction: column; align-items: center; gap: 35px; margin-top: 30px; }
-        .modern-video-card {
-            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px;
-            width: 100%; max-width: 650px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-            position: relative; transition: border-color 0.3s, transform 0.3s;
-        }
-        .modern-video-card:hover { border-color: var(--accent-color); transform: translateY(-2px); }
+        .contact-info { text-align: center; max-width: 600px; margin: 0 auto; }
+        .social-links { margin-top: 30px; display: flex; justify-content: center; gap: 25px; }
+        .social-links a { color: var(--text-color); font-size: 24px; transition: color 0.3s, transform 0.3s; }
+        .social-links a:hover { color: var(--accent-color); transform: scale(1.2); }
 
-        .video-player-frame { position: relative; width: 100%; height: 420px; background: #000; display: flex; align-items: center; justify-content: center; }
-        .video-player-frame video { width: 100%; height: 100%; object-fit: contain; }
+        footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-size: 14px; background-color: var(--card-bg); }
+        .privacy-link { display: inline-block; margin-top: 10px; color: var(--accent-color); text-decoration: none; font-weight: 300; font-size: 13px; transition: text-shadow 0.3s; }
+        .privacy-link:hover { text-shadow: 0 0 8px var(--accent-color); }
 
-        /* الأزرار العائمة وتفاعل الفيديو الجانبي */
-        .video-floating-actions { position: absolute; left: 15px; bottom: 80px; display: flex; flex-direction: column; gap: 15px; z-index: 10; }
-        .action-circle-btn {
-            width: 45px; height: 45px; background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.2s ease; backdrop-filter: blur(5px);
-        }
-        .action-circle-btn:hover { transform: scale(1.1); border-color: var(--accent-color); color: var(--accent-color); }
-        .action-circle-btn i { font-size: 18px; }
-        .action-circle-btn span { font-size: 10px; margin-top: 2px; font-weight: bold; }
-        .action-circle-btn.active i { color: #ff3366; animation: heartBeat 0.3s ease-in-out; }
-
-        @keyframes heartBeat { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
-
-        .video-bottom-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.95)); padding: 20px 15px 15px 15px; color: #fff; text-align: right; pointer-events: none; }
-        .video-bottom-overlay * { pointer-events: auto; }
-        .video-overlay-title { font-size: 15px; font-weight: 700; color: var(--text-bright); margin-bottom: 5px; }
-        .video-overlay-desc { font-size: 12px; color: #b3b3b3; max-height: 50px; overflow-y: auto; }
-
-        /* نموذج التعليق وإرسال تفاعل البريد المدمج */
-        .video-comments-tray { background: #11161d; border-top: 1px solid var(--border-color); padding: 15px; text-align: right; }
-        .tray-interactive-form { display: flex; flex-direction: column; gap: 10px; }
-        .tray-input-wrapper { position: relative; display: flex; align-items: center; }
-        .tray-input-wrapper i { position: absolute; right: 15px; color: var(--accent-color); }
-        
-        .tray-input { width: 100%; padding: 10px 40px 10px 80px; background: #0d1117; border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-bright); font-size: 13px; outline: none; }
-        .tray-input:focus { border-color: var(--accent-color); }
-        
-        .tray-submit-btn { position: absolute; left: 5px; background: var(--accent-color); color: #000; border: none; padding: 6px 14px; border-radius: 15px; font-size: 12px; font-weight: bold; cursor: pointer; }
-        .tray-submit-btn:hover { background: #00cc52; }
-
-        .quick-interaction-capsules { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; }
-        .capsule-option { cursor: pointer; }
-        .capsule-option input { display: none; }
-        .capsule-option span { display: inline-block; padding: 4px 12px; background: #1f242c; border: 1px solid var(--border-color); border-radius: 15px; font-size: 12px; color: var(--text-color); white-space: nowrap; }
-        .capsule-option input:checked + span { border-color: var(--accent-color); color: var(--accent-color); background: var(--accent-hover); }
-
-        /* نوافذ الطرفيات والمعامل المشفرة */
+        /* الأيقونة العائمة للمحاكي (Lab) */
         .lab-float-btn { 
             position: fixed; bottom: 30px; left: 30px; background-color: var(--card-bg); 
             border: 2px solid var(--accent-color); color: var(--accent-color); padding: 12px 20px; 
             border-radius: 50px; font-size: 16px; font-weight: bold; cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3); z-index: 9999; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3); z-index: 9999; display: flex; align-items: center; gap: 10px; transition: transform 0.3s; 
         }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); z-index: 20000; display: none; justify-content: center; align-items: center; padding: 20px; }
-        
+        .lab-float-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-color); }
+
+        /* نافذة بيئة الاختبار (Lab) */
+        .modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            background-color: rgba(0, 0, 0, 0.85); z-index: 20000; 
+            display: none; justify-content: center; align-items: center; padding: 20px; 
+        }
         .laptop { width: 850px; max-width: 100%; display: flex; flex-direction: column; }
         .screen { background-color: #1a1a1a; border: 14px solid #1f242c; border-radius: 12px 12px 0 0; height: 480px; display: flex; flex-direction: column; overflow: hidden; }
         .title-bar { background-color: #2d333b; color: #adbac7; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; direction: ltr; }
         .window-controls { display: flex; gap: 6px; }
         .control { width: 12px; height: 12px; border-radius: 50%; cursor: pointer; }
         .close { background-color: #ff5f56; }
+        .title-bar-text { flex-grow: 1; text-align: center; font-size: 13px; font-family: monospace; }
         
         .simulator-content { flex: 1; display: flex; flex-direction: column; background-color: #0d1117; padding: 10px; }
         .terminal-box { flex: 1; border: 1px solid var(--border-color); background-color: #0c0f14; border-radius: 6px; display: flex; flex-direction: column; direction: ltr; overflow: hidden; }
         .history-container { flex: 1; overflow-y: auto; white-space: pre-wrap; color: #58a6ff; font-family: monospace; font-size: 13px; padding: 15px; text-align: left; }
+        
         .input-line { display: flex; align-items: center; padding: 10px; border-top: 1px solid var(--border-color); background: #090d13; }
+        .prompt { color: var(--accent-color); margin-right: 8px; font-family: monospace; font-size: 14px; white-space: nowrap; }
         .term-input { background: none; border: none; color: #c9d1d9; width: 100%; outline: none; font-family: monospace; font-size: 14px; }
-        .prompt { color: var(--accent-color); margin-right: 8px; font-family: monospace; }
-
-        .users-modal-content { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; width: 520px; max-width: 100%; padding: 25px; text-align: right; max-height: 90vh; overflow-y: auto; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
-        .modal-close-btn { background: none; border: none; color: #ff5f56; font-size: 20px; cursor: pointer; }
-        .users-list { display: flex; flex-direction: column; gap: 12px; }
-        .user-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; background: #0d1117; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; }
-        .user-avatar-small { width: 40px; height: 40px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); }
-        .status-dot { width: 10px; height: 10px; background-color: var(--accent-color); border-radius: 50%; display: inline-block; box-shadow: 0 0 8px var(--accent-color); }
-        .status-dot.pulsing { animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.5; } }
-
-        .profile-view { display: none; text-align: center; }
-        .profile-avatar-large { width: 85px; height: 85px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 2px solid var(--accent-color); margin: 0 auto 15px auto; font-size: 30px; }
-        .open-msg-btn { background: #21262d; border: 1px solid var(--accent-color); color: var(--accent-color); padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 15px; font-weight: bold; }
-        .back-to-users-btn { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 12px; border-radius: 4px; cursor: pointer; float: right; }
-
-        footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-size: 14px; background-color: var(--card-bg); margin-top: 40px; }
-        .privacy-link { display: inline-block; margin-top: 10px; color: var(--accent-color); text-decoration: none; font-size: 13px; }
+        
+        .system-msg { color: #8b949e; }
+        .cmd-output { color: #c9d1d9; margin-top: 4px; margin-bottom: 10px; display: block; }
+        .success-msg { color: var(--accent-color); }
 
         @media (max-width: 768px) {
             .menu-toggle { display: block; }
@@ -239,14 +234,11 @@
             nav ul.active { display: flex; }
             nav ul li { margin-right: 0; text-align: center; }
             .about-grid { grid-template-columns: 1fr; text-align: center; }
-            .logo-area { flex-wrap: wrap; }
-            .video-player-frame { height: 280px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- الفحص الأمني الأصلي المتقدم عند الدخول -->
     <div id="security-check">
         <div class="scan-terminal">
             <div class="scan-line" id="line1">> Initializing visitor integrity scan...</div>
@@ -268,29 +260,27 @@
                 <button class="nav-video-toggle" onclick="toggleView()">
                     <i class="fa-solid fa-video"></i> <span>[ المقاطع ]</span>
                 </button>
-                <button class="nav-users-btn" onclick="openUsersModal()">
-                    <i class="fa-solid fa-users"></i> <span>[ المستخدمين ]</span>
-                </button>
             </div>
             <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
             <nav>
                 <ul id="nav-list">
                     <li><a href="#home" onclick="resetToHome()">الرئيسية</a></li>
                     <li><a href="#about" onclick="resetToHome()">من أنا</a></li>
+                    <li><a href="#services" onclick="resetToHome()">الخدمات</a></li>
+                    <li><a href="#skills" onclick="resetToHome()">المهارات</a></li>
+                    <li><a href="#contact" onclick="resetToHome()">اتصال</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- الواجهة الرئيسية (الصورة الشخصية والمهارات والأقسام الأصلية) -->
-    <div id="main-content-view">
-        <section class="hero" id="home">
-            <!-- الصورة الشخصية مع رابط احترافي ثابت وقابل للتغيير -->
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80" class="profile-img-fixed" alt="Profile RICK">
+    <div id="main-content-wrapper">
+        <section id="home" class="hero">
+            <img src="IMG_20260710_104918.png" alt="Reck Avatar" class="hero-avatar">
             <div class="hero-content">
-                <h1>RICK</h1>
-                <p>Cyber Security Researcher & Ethical Hacker</p>
-                <a href="#about" class="btn">اكتشف المزيد</a>
+                <h1>مرحباً، أنا Reck</h1>
+                <p>>_ Cybersecurity Researcher & Ethical Hacker</p>
+                <a href="#contact" class="btn">اطلب فحص أمني الآن</a>
             </div>
         </section>
 
@@ -298,280 +288,277 @@
             <h2 class="section-title">من أنا</h2>
             <div class="about-grid">
                 <div class="profile-img-container">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80" class="profile-img-fixed" alt="Profile RICK">
+                    <img src="IMG_20260710_104918.png" alt="Reck Profile" class="avatar-placeholder">
                 </div>
                 <div>
-                    <h3>مرحباً بك في عالم الحماية واختبار الاختراق</h3>
-                    <p style="margin-top:15px;">متخصص في تقييم الثغرات الأمنية البرمجية وحماية الشبكات الافتراضية.</p>
-                    <div class="skills-container">
-                        <span class="skill-badge">Nmap Expert</span>
-                        <span class="skill-badge">Penetration Testing</span>
-                        <span class="skill-badge">Python Scripting</span>
-                        <span class="skill-badge">Web Application Security</span>
-                    </div>
+                    <p style="font-size: 18px; margin-bottom: 20px;">أنا <strong>Reck</strong>، باحث متخصص في الأمن السيبراني.</p>
+                    <p>مرحباً بك في بوابتي الشخصية لتتبع وتحليل البيانات وفحص الأنظمة المتقدمة.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <h2 class="section-title">الخدمات الأمنية</h2>
+            <div class="grid-3">
+                <div class="card"><i class="fa-solid fa-network-wired"></i><h3>اختبار اختراق الشبكات</h3><p>فحص شامل للشبكات الداخلية والخارجية للمؤسسات.</p></div>
+                <div class="card"><i class="fa-solid fa-code-bug"></i><h3>فحص تطبيقات الويب</h3><p>تحليل أمني دقيق للتطبيقات ومواقع الويب.</p></div>
+                <div class="card"><i class="fa-solid fa-shield-halved"></i><h3>الاستجابة للحوادث</h3><p>تقديم الدعم السريع وتأمين النظام مجدداً.</p></div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title">المهارات والأدوات</h2>
+            <div class="grid-3">
+                <div class="card"><h3>أنظمة التشغيل</h3><div class="skills-container"><span class="skill-badge">Linux (Kali / Parrot)</span></div></div>
+                <div class="card"><h3>أدوات الفحص</h3><div class="skills-container"><span class="skill-badge">Nmap / Burp Suite</span></div></div>
+                <div class="card"><h3>الشبكات</h3><div class="skills-container"><span class="skill-badge">TCP/IP / Canarytokens</span></div></div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-title">تواصل معي</h2>
+            <div class="contact-info">
+                <div class="social-links">
+                    <a href="https://www.tiktok.com/@rick_6000?_r=1&_t=ZS-97ujNamvHms" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="mailto:rick@example.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- قسم المقاطع بالتصميم المدمج الحديث وفيديو العميل الثابت -->
-    <main id="video-section">
-        <h2 class="section-title">المقاطع الأمنية والتعليمية</h2>
-        <div class="videos-grid">
-            
-            <article class="modern-video-card" id="video-card-1">
-                <div class="video-player-frame">
-                    <!-- تشغيل الفيديو المباشر لملف العميل المرفق -->
-                    <video id="main-video-element" controls preload="metadata">
-                        <source src="VID20260710115227.mp4" type="video/mp4">
-                        متصفحك لا يدعم تشغيل المقطع.
-                    </video>
+    <section id="video-section">
+        <h2 class="section-title">المقاطع المنشورة</h2>
+        <div class="videos-grid" id="youtubeVideosGrid"></div>
+    </section>
 
-                    <!-- الأدوات الجانبية التفاعلية العائمة -->
-                    <div class="video-floating-actions">
-                        <button class="action-circle-btn" onclick="handleLike(this)" title="إعجاب">
-                            <i class="fa-solid fa-heart"></i>
-                            <span class="count">0</span>
-                        </button>
-                        <button class="action-circle-btn" onclick="focusCommentInput('comment-text-1')" title="تعليق">
-                            <i class="fa-solid fa-comment"></i>
-                            <span>رد</span>
-                        </button>
-                        <button class="action-circle-btn" onclick="shareVideo()" title="مشاركة">
-                            <i class="fa-solid fa-share"></i>
-                        </button>
-                    </div>
+    <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
 
-                    <!-- شريط الشفافية السفلي لوصف المحتوى التقني للمقطع -->
-                    <div class="video-bottom-overlay">
-                        <h3 class="video-overlay-title">شرح تقنيات هندسة فحص الجلسات والملفات</h3>
-                        <div class="video-overlay-desc">
-                            استعراض حي لآليات قراءة وحقن قيم تتبع المتصفح ومحاكاة الثغرات المتقدمة.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- درج الردود التفاعلي السريع أسفل الفيديو مباشرة -->
-                <div class="video-comments-tray">
-                    <form class="tray-interactive-form" onsubmit="submitCommentForm(event, 'comment-text-1', 'capsule-group-1')">
-                        
-                        <div class="quick-interaction-capsules" id="capsule-group-1">
-                            <label class="capsule-option">
-                                <input type="radio" name="reaction_type_1" value="🔥 مذهل">
-                                <span>🔥 مذهل</span>
-                            </label>
-                            <label class="capsule-option">
-                                <input type="radio" name="reaction_type_1" value="💡 استفسار تقني">
-                                <span>💡 استفسار تقني</span>
-                            </label>
-                            <label class="capsule-option">
-                                <input type="radio" name="reaction_type_1" value="🛡️ شكراً جزيلاً">
-                                <span>🛡️ شكراً جزيلاً</span>
-                            </label>
-                        </div>
-
-                        <div class="tray-input-wrapper">
-                            <i class="fa-solid fa-user-astronaut"></i>
-                            <input type="text" id="comment-text-1" class="tray-input" placeholder="اكتب تعليقك أو استفسارك هنا..." required>
-                            <button type="submit" class="tray-submit-btn">إرسال الرد</button>
-                        </div>
-                    </form>
-                </div>
-            </article>
-
-        </div>
-    </main>
-
-    <!-- الأيقونة العائمة والأصلية للوصول إلى المختبر (Lab) -->
-    <button class="lab-float-btn" onclick="openSimulator()"><i class="fa-solid fa-flask"></i> [ Security Lab ]</button>
-
-    <!-- نافذة محاكاة نظام التشغيل الطرفي والأوامر الشاملة -->
-    <div class="modal-overlay" id="simulator-modal">
+    <div class="modal-overlay" id="labModal">
         <div class="laptop">
             <div class="screen">
                 <div class="title-bar">
-                    <div class="window-controls"><div class="control close" onclick="closeSimulator()"></div></div>
-                    <div class="title-bar-text">Terminal Shell - Sandbox Environment</div>
+                    <div class="window-controls"><div class="control close" id="closeLabBtn"></div></div>
+                    <div class="title-bar-text">Termux-SecLab v3.1</div>
                 </div>
                 <div class="simulator-content">
-                    <div class="terminal-box">
-                        <div class="history-container" id="term-history">Welcome to Security Sandbox Terminal... Type 'help' for available commands.</div>
+                    <div class="terminal-box" id="terminalBoxContainer">
+                        <div id="termHistory" class="history-container"><span class="system-msg">Welcome to Termux-SecLab. Type 'help' to see available commands.</span></div>
                         <div class="input-line">
-                            <span class="prompt">rick@security-lab:~$</span>
-                            <input type="text" class="term-input" id="terminal-input-field" autocomplete="off" autofocus>
+                            <span class="prompt">reck@seclab:~$</span>
+                            <input type="text" id="textCmd" class="term-input" autocomplete="off" autofocus>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة قائمة وقواعد بيانات الباحثين المتصلين بالموقع -->
-    <div class="modal-overlay" id="users-modal">
-        <div class="users-modal-content">
-            <div class="modal-header">
-                <h3><i class="fa-solid fa-users-gear" style="color:var(--accent-color);"></i> قائمة الباحثين المتصلين</h3>
-                <button class="modal-close-btn" onclick="closeUsersModal()">&times;</button>
-            </div>
-            <div id="users-main-list-view">
-                <div class="users-list">
-                    <div class="user-item" onclick="viewUserProfile('Rick Master', 'نشط الآن في بيئة فحص الثغرات المحمية', 'Senior Pentester')">
-                        <div class="user-info-brief">
-                            <div class="user-avatar-small"><i class="fa-solid fa-user-secret"></i></div>
-                            <div>
-                                <strong style="color:var(--text-bright);">Rick Master</strong>
-                                <p style="font-size:11px; color:#8b949e;">Senior Pentester</p>
-                            </div>
-                        </div>
-                        <span class="status-dot pulsing"></span>
-                    </div>
-                </div>
-            </div>
-            <div id="user-profile-detail-view" class="profile-view">
-                <button class="back-to-users-btn" onclick="backToUsersList()"><i class="fa-solid fa-arrow-left"></i> عودة</button>
-                <div style="clear:both;"></div>
-                <div class="profile-avatar-large"><i class="fa-solid fa-user-shield"></i></div>
-                <h4 id="prof-name" style="color:var(--text-bright); margin-bottom:5px;">-</h4>
-                <p id="prof-title" style="color:var(--accent-color); font-size:12px; margin-bottom:15px;">-</p>
-                <p id="prof-desc" style="color:var(--text-color); font-size:13px; padding:0 20px;">-</p>
-                <button class="open-msg-btn" onclick="triggerDirectMessage()"><i class="fa-solid fa-paper-plane"></i> إرسال رسالة مشفرة</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 RICK Security Researcher. All Rights Reserved.</p>
-        <a href="#" class="privacy-link">سياسة الخصوصية وأمان البيانات</a>
+        <p>&copy; 2026 Reck. جميع الحقوق محفوظة</p>
+        <a href="#privacy" class="privacy-link" onclick="alert('سياسة الخصوصية:\nنحن نحترم خصوصيتك بالكامل. جميع عمليات المحاكاة والفحص الأمني داخل هذا الموقع تجري محلياً في بيئة اختبار آمنة تماماً، ولا نقوم بجمع أو مشاركة أي بيانات حساسة تخص الزوار.')">سياسة الخصوصية</a>
     </footer>
 
     <script>
-        // إعدادات الشاشة الأمنية والتحقق الفوري من التتبع وجلب الكوكيز
-        document.addEventListener("DOMContentLoaded", () => {
-            setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400);
-            setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 900);
-            setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1400);
-            setTimeout(() => { 
-                document.getElementById('line5').style.display = 'block';
-                document.getElementById('liveCookieBox').style.display = 'block';
-                document.getElementById('cookieValueSpan').innerText = "sec_session_token_xyz123";
-            }, 1900);
-            setTimeout(() => {
-                const overlay = document.getElementById('security-check');
-                overlay.style.transition = "opacity 0.4s";
-                overlay.style.opacity = 0;
-                setTimeout(() => overlay.remove(), 400);
-            }, 3000);
+        const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
+        const YOUTUBE_CHANNEL_ID = "UCwFk399Vw8Xq3K_R-3-zOtw";
+
+        // إضافة الفيديو المخصص وتشغيله محلياً بشكل تلقائي واحترافي
+        const MY_PRESET_VIDEOS = [
+            {
+                type: "local",
+                id: "VID20260710115227.mp4",
+                title: "يوميات ريك",
+                translation: "مقطع فيديو حصري من يوميات ريك، يوثق الأنشطة اليومية والتجارب الميدانية في الأبحاث الأمنية والتقنية."
+            },
+            { 
+                type: "youtube",
+                id: "wAzR14CknzU", 
+                title: "The story of Noah's Ark (قصة سفينة نوح)",
+                translation: "منذ زمن طويل، دعا الله نوحاً، وهو رجل صالح، لبناء سفينة - ملاذ للخلاص. ورغم سخرية العالم، أطاع نوح دون تردد، واثقاً في الوعد الإلهي بالحماية. من كل ركن من أركان الأرض، سارت المخلوقات كبيرة وصغيرة إلى السفينة؛ الأسود والحملان مشوا جنباً إلى جنب، مستجيبين لنداء صامت للحفظ. وعندما تراجعت المياه، قدم نوح الامتنان لله، ورداً على ذلك، امتد قوس قزح في السماء كعهد أبدي بين الله والبشرية، واعداً بعدم غمر الأرض بالفيضان مرة أخرى."
+            }
+        ];
+
+        function speakVideoTitle(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); 
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';       
+                utterance.rate = 0.95;          
+                utterance.pitch = 1.0;          
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (getCookie("reck_session_scanned") === "true") {
+                document.getElementById('security-check').style.display = 'none';
+            } else {
+                runSecuritySimulation();
+            }
+
+            const labModal = document.getElementById('labModal');
+            const openLabBtn = document.getElementById('openLabBtn');
+            const closeLabBtn = document.getElementById('closeLabBtn');
+            const textCmd = document.getElementById('textCmd');
+            const termHistory = document.getElementById('termHistory');
+            const terminalBoxContainer = document.getElementById('terminalBoxContainer');
+
+            if (openLabBtn) {
+                openLabBtn.onclick = function(e) {
+                    e.preventDefault();
+                    labModal.style.display = 'flex';
+                    if(textCmd) textCmd.focus();
+                };
+            }
+
+            if (closeLabBtn) {
+                closeLabBtn.onclick = function() {
+                    labModal.style.display = 'none';
+                };
+            }
+
+            if (terminalBoxContainer && textCmd) {
+                terminalBoxContainer.onclick = function() {
+                    textCmd.focus();
+                };
+            }
+
+            if (textCmd) {
+                textCmd.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        const command = textCmd.value.trim();
+                        if (command.length > 0) {
+                            executeCommand(command);
+                        }
+                        textCmd.value = '';
+                    }
+                });
+            }
+
+            function executeCommand(cmd) {
+                termHistory.innerHTML += `<div><span class="prompt">reck@seclab:~$</span> <span style="color: #fff">${cmd}</span></div>`;
+                let output = '';
+                const lowerCmd = cmd.toLowerCase();
+
+                if (lowerCmd === 'help') {
+                    output = `<span class="cmd-output">Available Commands:<br>
+                    - <b>tools</b> : List cybersecurity research tools deployed.<br>
+                    - <b>scan</b>  : Run a demo network integrity check.<br>
+                    - <b>clear</b> : Clear the terminal interface.<br>
+                    - <b>about</b> : Show researcher credential file.</span>`;
+                } else if (lowerCmd === 'tools') {
+                    output = `<span class="cmd-output">[+] Deployed Tools Inside Termux:<br>
+                    - nmap v7.92 (Network Mapper)<br>
+                    - hping3 (Packet Generator)<br>
+                    - sqlmap v1.6 (Automation Exploit)</span>`;
+                } else if (lowerCmd === 'scan') {
+                    output = `<span class="cmd-output success-msg">[*] Scanning target loopback...<br>
+                    [+] Host 127.0.0.1 is UP.<br>
+                    [+] Port 80/tcp OPEN (http)<br>
+                    [+] Port 443/tcp OPEN (https)<br>
+                    [+] Scan finished. No vulnerability found on current interface.</span>`;
+                } else if (lowerCmd === 'about') {
+                    output = `<span class="cmd-output">File: reck_credentials.txt<br>
+                    Role: Cyber Security Researcher / Bug Bounty Hunter.<br>
+                    Specialty: Web Apps Security & Network Auditing.</span>`;
+                } else if (lowerCmd === 'clear') {
+                    termHistory.innerHTML = '';
+                    return;
+                } else {
+                    output = `<span class="cmd-output" style="color: #ff5f56">Command '${cmd}' not found. Type 'help' for options.</span>`;
+                }
+
+                termHistory.innerHTML += output;
+                termHistory.scrollTop = termHistory.scrollHeight;
+            }
+
+            fetchLatestYouTubeVideos();
         });
 
-        // التبديل الدقيق والمستقر كلياً بين الأقسام دون ضياع المكونات
-        function toggleView() {
-            const mainView = document.getElementById('main-content-view');
-            const videoSection = document.getElementById('video-section');
-            if(videoSection.style.display === 'block') {
-                resetToHome();
+        function fetchLatestYouTubeVideos() {
+            const grid = document.getElementById('youtubeVideosGrid');
+            if (!grid) return;
+
+            loadPresetVideos(grid);
+        }
+
+        function loadPresetVideos(gridElement) {
+            gridElement.innerHTML = '';
+            MY_PRESET_VIDEOS.forEach(video => {
+                gridElement.innerHTML += createVideoCard(video);
+            });
+        }
+
+        function createVideoCard(video) {
+            const cleanTitle = video.title.replace(/['"\\]/g, "");
+            let mediaHtml = '';
+
+            if (video.type === "local") {
+                mediaHtml = `<video src="${video.id}" controls autoplay muted playsinline loop></video>`;
             } else {
-                mainView.style.display = 'none';
+                mediaHtml = `<iframe src="https://www.youtube.com/embed/${video.id}?autoplay=1&mute=0&rel=0&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            }
+
+            return `
+                <div class="video-wrapper" onmouseenter="speakVideoTitle('${cleanTitle}')">
+                    <div class="video-container">
+                        ${mediaHtml}
+                    </div>
+                    <div class="video-title">${video.title}</div>
+                    <div class="video-translation">
+                        <strong><i class="fa-solid fa-language"></i> الوصف والترجمة:</strong>
+                        ${video.translation}
+                    </div>
+                </div>
+            `;
+        }
+
+        function sendSystemNotification(title, body) {
+            if ("Notification" in window && Notification.permission === "granted") {
+                new Notification(title, { body: body, icon: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/user-shield.svg" });
+            }
+        }
+
+        function activateFollow() {
+            if (!("Notification" in window)) { alert("متصفحك لا يدعم الإشعارات."); return; }
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    localStorage.setItem('notifications_enabled', 'true');
+                    sendSystemNotification("Reck System Control", "تم تفعيل نظام المتابعة الذكي وقناتك متصلة حالياً!");
+                }
+            });
+        }
+
+        function toggleView() {
+            const mainWrapper = document.getElementById('main-content-wrapper');
+            const videoSection = document.getElementById('video-section');
+            if (videoSection.style.display === 'block') {
+                videoSection.style.display = 'none';
+                mainWrapper.style.display = 'block';
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            } else {
+                mainWrapper.style.display = 'none';
                 videoSection.style.display = 'block';
-                window.scrollTo(0, 0);
+                speakVideoTitle("مرحباً بك في مركز العمليات، جاري عرض أحدث المقاطع الأمنية وتشغيلها تلقائياً بالصوت.");
             }
         }
 
         function resetToHome() {
-            document.getElementById('main-content-view').style.display = 'block';
             document.getElementById('video-section').style.display = 'none';
+            document.getElementById('main-content-wrapper').style.display = 'block';
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
-        // معالجة تفاعلات الإعجاب والتعليقات المباشرة
-        function handleLike(btn) {
-            btn.classList.toggle('active');
-            let countSpan = btn.querySelector('.count');
-            let currentCount = parseInt(countSpan.innerText);
-            countSpan.innerText = btn.classList.contains('active') ? currentCount + 1 : currentCount - 1;
+        function setCookie(name, value, days) { let expires = ""; if (days) { let date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "")  + expires + "; path=/"; }
+        function getCookie(name) { let nameEQ = name + "="; let ca = document.cookie.split(';'); for(let i=0;i < ca.length;i++) { let c = ca[i]; while (c.charAt(0)==' ') c = c.substring(1,c.length); if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); } return null; }
+        function runSecuritySimulation() { setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); setTimeout(() => { document.getElementById('line5').style.display = 'block'; setCookie("reck_session_scanned", "true", 7); document.getElementById('liveCookieBox').style.display = 'block'; document.getElementById('cookieValueSpan').innerText = `reck_session_scanned=true`; }, 1600); setTimeout(() => { document.getElementById('security-check').style.display = 'none'; }, 3200); }
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', () => { navList.classList.toggle('active'); });
         }
-
-        function focusCommentInput(inputId) {
-            const input = document.getElementById(inputId);
-            input.focus();
-            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function submitCommentForm(event, textInputId, capsuleGroupId) {
-            event.preventDefault();
-            const textValue = document.getElementById(textInputId).value;
-            const capsuleGroup = document.getElementById(capsuleGroupId);
-            const checkedRadio = capsuleGroup.querySelector('input[type="radio"]:checked');
-            const reactionValue = checkedRadio ? checkedRadio.value : 'لا يوجد تفاعل سريع';
-
-            const finalBody = `نوع التفاعل السريع: ${reactionValue}\nنص التعليق المكتوب: ${textValue}`;
-            window.location.href = `mailto:support@yourdomain.com?subject=تفاعل جديد على مقطع الفيديو&body=${encodeURIComponent(finalBody)}`;
-            
-            document.getElementById(textInputId).value = '';
-            if(checkedRadio) checkedRadio.checked = false;
-            alert('تم تجهيز تفاعلك وإرساله بنجاح عبر البريد المدمج!');
-        }
-
-        function shareVideo() {
-            if (navigator.share) {
-                navigator.share({ title: 'مقاطع RICK الأمنية', url: window.location.href });
-            } else {
-                alert('تم نسخ رابط المقطع إلى الحافظة بمحاكاة آمنة!');
-            }
-        }
-
-        // النوافذ المنبثقة للوحة التحكم وقائمة الباحثين
-        function openSimulator() { document.getElementById('simulator-modal').style.display = 'flex'; }
-        function closeSimulator() { document.getElementById('simulator-modal').style.display = 'none'; }
-        function openUsersModal() { document.getElementById('users-modal').style.display = 'flex'; }
-        function closeUsersModal() { document.getElementById('users-modal').style.display = 'none'; backToUsersList(); }
-        
-        function viewUserProfile(name, desc, title) {
-            document.getElementById('users-main-list-view').style.display = 'none';
-            const profileView = document.getElementById('user-profile-detail-view');
-            profileView.style.display = 'block';
-            document.getElementById('prof-name').innerText = name;
-            document.getElementById('prof-title').innerText = title;
-            document.getElementById('prof-desc').innerText = desc;
-        }
-
-        function backToUsersList() {
-            document.getElementById('user-profile-detail-view').style.display = 'none';
-            document.getElementById('users-main-list-view').style.display = 'block';
-        }
-
-        function triggerDirectMessage() { alert('جاري إنشاء اتصال آمن ومسار مشفر للدردشة النفقية الـ P2P...'); }
-        function activateFollow() { alert('تم تسجيل المتابعة لملف الباحث باكتشاف ناجح لبيئة العرض.'); }
-
-        // تشغيل نظام الأوامر للطرفية (Terminal Sandbox)
-        document.getElementById('terminal-input-field').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const input = this.value.trim();
-                const history = document.getElementById('term-history');
-                if(!input) return;
-
-                let output = `\nrick@security-lab:~$ ${input}\n`;
-                if(input.toLowerCase() === 'help') {
-                    output += "Commands available: help, clear, scan, status";
-                } else if(input.toLowerCase() === 'clear') {
-                    history.innerHTML = '';
-                    this.value = '';
-                    return;
-                } else if(input.toLowerCase() === 'scan') {
-                    output += "[+] Accessing asset mapping suite...\n[!] Vulnerability scanning initialized on target asset.\n[+] Analysis results recorded cleanly inside system log buffer.";
-                } else if(input.toLowerCase() === 'status') {
-                    output += "System Integrity: 100%\nActive Session Tokens: 1\nDatabase Target Status: CONNECTED";
-                } else {
-                    output += `bash: command not found: ${input}`;
-                }
-
-                history.innerHTML += output;
-                this.value = '';
-                history.scrollTop = history.scrollHeight;
-            }
-        });
-
-        document.getElementById('mobile-menu').addEventListener('click', () => {
-            document.getElementById('nav-list').classList.toggle('active');
-        });
     </script>
 </body>
 </html>
+قم بذمج  هذه الفكرة في هذا الموقع بدون تأثير على الموقع نفس
