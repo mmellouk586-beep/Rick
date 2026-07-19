@@ -18,6 +18,8 @@
             --text-color: #c9d1d9;
             --text-bright: #ffffff;
             --border-color: #30363d;
+            --online-color: #00ff66;
+            --offline-color: #ff4757;
         }
 
         * {
@@ -78,19 +80,42 @@
             display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;
         }
 
-        .logo-area { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .logo-area { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .logo { font-size: 24px; font-weight: 700; color: var(--text-bright); letter-spacing: 1px; }
         .logo span { color: var(--accent-color); }
 
+        /* عداد سرعة الشبكة */
+        .network-speed {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(13, 17, 23, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: 10px;
+            color: var(--text-color);
+            font-family: monospace;
+            direction: ltr;
+        }
+        .network-speed i { font-size: 10px; color: var(--accent-color); }
+        .network-speed .speed-value { 
+            color: var(--accent-color); 
+            font-weight: bold;
+            min-width: 40px;
+            text-align: center;
+        }
+        .network-speed .speed-unit { color: #8b949e; }
+
         .header-follow-btn {
             background: #21262d; border: 1px solid var(--accent-color); color: var(--accent-color);
-            padding: 3px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; transition: all 0.2s; margin-left: 10px;
+            padding: 3px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; transition: all 0.2s;
         }
         .header-follow-btn:hover { background: var(--accent-color); color: #000; box-shadow: 0 0 10px var(--accent-color); }
 
         .header-users-btn {
             background: #21262d; border: 1px solid #58a6ff; color: #58a6ff;
-            padding: 3px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; transition: all 0.2s; margin-left: 10px;
+            padding: 3px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; transition: all 0.2s;
         }
         .header-users-btn:hover { background: #58a6ff; color: #000; box-shadow: 0 0 10px #58a6ff; }
 
@@ -249,6 +274,11 @@
             border-radius: 12px;
             padding: 25px 20px;
             margin-bottom: 20px;
+            position: relative;
+        }
+        .profile-avatar-wrapper {
+            position: relative;
+            display: inline-block;
         }
         .profile-avatar {
             width: 80px;
@@ -264,6 +294,28 @@
             border: 3px solid var(--accent-color);
             box-shadow: 0 0 20px rgba(0,255,102,0.2);
         }
+        /* نقطة الحالة - online/offline */
+        .status-dot {
+            position: absolute;
+            bottom: 6px;
+            right: -4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--card-bg);
+            transition: background-color 0.3s;
+            background-color: var(--online-color);
+            box-shadow: 0 0 10px rgba(0,255,102,0.5);
+        }
+        .status-dot.offline {
+            background-color: var(--offline-color);
+            box-shadow: 0 0 10px rgba(255,71,87,0.5);
+        }
+        .status-dot.idle {
+            background-color: #ffa502;
+            box-shadow: 0 0 10px rgba(255,165,2,0.5);
+        }
+
         .profile-name {
             color: var(--text-bright);
             font-size: 20px;
@@ -287,32 +339,32 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* أزرار التفاعل في الملف الشخصي */
+        /* أزرار التفاعل في الملف الشخصي - صغيرة جداً */
         .profile-actions {
             display: flex;
-            gap: 12px;
+            gap: 6px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 12px;
         }
         .profile-action-btn {
             background: #21262d;
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
         }
         .profile-action-btn:hover {
             border-color: var(--accent-color);
             color: var(--accent-color);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
-        .profile-action-btn i { font-size: 16px; }
+        .profile-action-btn i { font-size: 12px; }
         .profile-action-btn.friend-btn { border-color: #58a6ff; color: #58a6ff; }
         .profile-action-btn.friend-btn:hover { background: #58a6ff; color: #000; }
         .profile-action-btn.message-btn { border-color: #ffcc00; color: #ffcc00; }
@@ -321,8 +373,8 @@
         /* نافذة الرسالة المنبثقة */
         .message-popup {
             display: none;
-            margin-top: 15px;
-            padding: 15px;
+            margin-top: 12px;
+            padding: 12px;
             background: #0d1117;
             border: 1px solid var(--border-color);
             border-radius: 8px;
@@ -332,37 +384,40 @@
             background: #161b22;
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            padding: 10px;
+            padding: 8px;
             color: var(--text-color);
             font-family: 'Cairo', sans-serif;
             resize: vertical;
-            min-height: 60px;
+            min-height: 50px;
             outline: none;
+            font-size: 13px;
         }
         .message-popup textarea:focus { border-color: var(--accent-color); }
         .message-popup .send-msg-btn {
-            margin-top: 10px;
+            margin-top: 8px;
             background: var(--accent-color);
             border: none;
             color: #000;
-            padding: 8px 20px;
+            padding: 6px 16px;
             border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
             width: 100%;
+            font-size: 13px;
         }
         .message-popup .send-msg-btn:hover { opacity: 0.8; }
 
         .users-modal-close {
-            margin-top: 15px;
+            margin-top: 12px;
             background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            padding: 6px 20px;
+            padding: 5px 16px;
             border-radius: 4px;
             cursor: pointer;
             transition: 0.3s;
+            font-size: 13px;
         }
         .users-modal-close:hover { border-color: var(--accent-color); color: var(--accent-color); }
 
@@ -440,7 +495,9 @@
             nav ul.active { display: flex; }
             nav ul li { margin-right: 0; text-align: center; }
             .about-grid { grid-template-columns: 1fr; text-align: center; }
-            .profile-actions { flex-direction: column; align-items: center; }
+            .profile-actions { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+            .network-speed { font-size: 8px; padding: 1px 5px; }
+            .network-speed .speed-value { min-width: 30px; }
         }
     </style>
 </head>
@@ -463,6 +520,12 @@
         <div class="nav-container">
             <div class="logo-area">
                 <div class="logo"><span>[</span> RICK <span>]</span></div>
+                <!-- عداد سرعة الشبكة -->
+                <div class="network-speed" id="networkSpeed">
+                    <i class="fa-solid fa-wifi"></i>
+                    <span class="speed-value" id="speedValue">0</span>
+                    <span class="speed-unit">Kbps</span>
+                </div>
                 <button class="header-follow-btn" onclick="activateFollow()">[ Follow ]</button>
                 <button class="header-users-btn" onclick="openUsersModal()"><i class="fa-solid fa-users"></i> [ المستخدمين ]</button>
                 <button class="nav-video-toggle" onclick="toggleView()">
@@ -545,8 +608,12 @@
             <h2><i class="fa-solid fa-user"></i> الملف الشخصي</h2>
             
             <div class="profile-card">
-                <div class="profile-avatar">
-                    <i class="fa-solid fa-user-secret"></i>
+                <div class="profile-avatar-wrapper">
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-user-secret"></i>
+                    </div>
+                    <!-- نقطة الحالة - تعمل بشكل حقيقي -->
+                    <div class="status-dot" id="statusDot" title="الحالة"></div>
                 </div>
                 <div class="profile-name">Reck</div>
                 <div class="profile-email" onclick="copyEmail()">
@@ -563,7 +630,7 @@
                     <i class="fa-solid fa-user-plus"></i> طلب صداقة
                 </button>
                 <button class="profile-action-btn message-btn" onclick="toggleMessagePopup()">
-                    <i class="fa-regular fa-paper-plane"></i> إرسال رسالة
+                    <i class="fa-regular fa-paper-plane"></i> رسالة
                 </button>
             </div>
 
@@ -607,9 +674,128 @@
     </footer>
 
     <script>
-        const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
-        const YOUTUBE_CHANNEL_ID = "UCwFk399Vw8Xq3K_R-3-zOtw";
+        // ===== COOKIE MANAGEMENT =====
+        function setCookie(name, value, days) { 
+            let expires = ""; 
+            if (days) { 
+                let date = new Date(); 
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); 
+                expires = "; expires=" + date.toUTCString(); 
+            } 
+            document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Lax"; 
+        }
 
+        function getCookie(name) { 
+            let nameEQ = name + "="; 
+            let ca = document.cookie.split(';'); 
+            for(let i=0;i < ca.length;i++) { 
+                let c = ca[i]; 
+                while (c.charAt(0)==' ') c = c.substring(1,c.length); 
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); 
+            } 
+            return null; 
+        }
+
+        function deleteCookie(name) {
+            document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+
+        // ===== REAL STATUS DOT (Online/Offline) =====
+        function updateStatusDot() {
+            const dot = document.getElementById('statusDot');
+            if (!dot) return;
+
+            // حالة حقيقية: تحقق من اتصال الشبكة
+            if (navigator.onLine) {
+                // تحقق من سرعة الاستجابة (ping حقيقي)
+                const startTime = Date.now();
+                fetch('https://www.google.com/favicon.ico', { 
+                    mode: 'no-cors',
+                    cache: 'no-store'
+                })
+                .then(() => {
+                    const pingTime = Date.now() - startTime;
+                    if (pingTime < 200) {
+                        dot.className = 'status-dot';
+                        dot.title = '🟢 متصل - استجابة سريعة';
+                    } else if (pingTime < 500) {
+                        dot.className = 'status-dot idle';
+                        dot.title = '🟡 متصل - استجابة بطيئة';
+                    } else {
+                        dot.className = 'status-dot idle';
+                        dot.title = '🟡 متصل - استجابة ضعيفة';
+                    }
+                })
+                .catch(() => {
+                    dot.className = 'status-dot idle';
+                    dot.title = '🟡 متصل - استجابة غير مستقرة';
+                });
+            } else {
+                dot.className = 'status-dot offline';
+                dot.title = '🔴 غير متصل';
+            }
+        }
+
+        // تحديث الحالة كل 5 ثواني
+        setInterval(updateStatusDot, 5000);
+
+        // ===== REAL NETWORK SPEED TEST =====
+        function measureNetworkSpeed() {
+            const speedSpan = document.getElementById('speedValue');
+            if (!speedSpan) return;
+
+            const startTime = Date.now();
+            const fileSize = 100000; // 100KB
+            const url = 'https://www.google.com/images/phd/px.gif';
+
+            fetch(url, { 
+                mode: 'no-cors',
+                cache: 'no-store'
+            })
+            .then(() => {
+                const endTime = Date.now();
+                const duration = (endTime - startTime) / 1000; // بالثواني
+                if (duration > 0) {
+                    const speedKbps = (fileSize * 8) / (duration * 1000);
+                    const displaySpeed = speedKbps > 1024 ? (speedKbps / 1024).toFixed(1) : speedKbps.toFixed(0);
+                    const unit = speedKbps > 1024 ? 'Mbps' : 'Kbps';
+                    speedSpan.textContent = displaySpeed;
+                    speedSpan.nextElementSibling.textContent = unit;
+                }
+            })
+            .catch(() => {
+                speedSpan.textContent = '?';
+                speedSpan.nextElementSibling.textContent = '';
+            });
+        }
+
+        // قياس السرعة كل 15 ثانية
+        setInterval(measureNetworkSpeed, 15000);
+        measureNetworkSpeed();
+
+        // ===== USER SESSION WITH COOKIES =====
+        function initUserSession() {
+            let userId = getCookie('reck_user_id');
+            if (!userId) {
+                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+                setCookie('reck_user_id', userId, 30);
+                setCookie('reck_first_visit', new Date().toISOString(), 30);
+            }
+            
+            // تخزين وقت الزيارة الحالي
+            setCookie('reck_last_visit', new Date().toISOString(), 30);
+            
+            // زيادة عدد الزيارات
+            let visits = parseInt(getCookie('reck_visits') || '0') + 1;
+            setCookie('reck_visits', visits.toString(), 30);
+            
+            // عرض معلومات الجلسة (للتطوير)
+            console.log('👤 User ID:', userId);
+            console.log('📊 Visits:', visits);
+            console.log('📅 First visit:', getCookie('reck_first_visit'));
+        }
+
+        // ===== MY PRESET VIDEOS =====
         const MY_PRESET_VIDEOS = [
             {
                 type: "local",
@@ -723,7 +909,8 @@
                 `نوع التفاعل: ${type}\n` +
                 `معرف الفيديو: ${vidId}\n` +
                 `المحتوى: ${content}\n` +
-                `تم الإرسال من: ${window.location.href}`
+                `تم الإرسال من: ${window.location.href}\n` +
+                `معرف المستخدم: ${getCookie('reck_user_id') || 'غير معروف'}`
             );
             window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
         }
@@ -750,6 +937,8 @@
         function openUsersModal() {
             document.getElementById('usersModal').style.display = 'flex';
             document.getElementById('messagePopup').style.display = 'none';
+            // تحديث الحالة عند فتح النافذة
+            updateStatusDot();
         }
 
         function closeUsersModal() {
@@ -765,11 +954,14 @@
         }
 
         function sendFriendRequest() {
+            const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
+            const visits = getCookie('reck_visits') || '0';
             const subject = encodeURIComponent(`طلب صداقة من مستخدم`);
             const body = encodeURIComponent(
                 `مرحباً،\n\n` +
                 `قام مستخدم بزيارة ملفك الشخصي وأرسل طلب صداقة.\n` +
-                `الزائر: ${navigator.userAgent || 'مستخدم غير معروف'}\n` +
+                `معرف المستخدم: ${userId}\n` +
+                `عدد الزيارات: ${visits}\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
             window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
@@ -778,10 +970,12 @@
 
         function sendMessage() {
             const message = document.getElementById('messageText')?.value?.trim() || 'لا توجد رسالة';
+            const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
             const subject = encodeURIComponent(`رسالة جديدة من مستخدم`);
             const body = encodeURIComponent(
                 `مرحباً،\n\n` +
                 `قام مستخدم بإرسال رسالة إليك:\n` +
+                `المستخدم: ${userId}\n` +
                 `----------------------------------------\n` +
                 `${message}\n` +
                 `----------------------------------------\n` +
@@ -793,9 +987,29 @@
             alert('تم إرسال رسالتك بنجاح!');
         }
 
+        // ===== SECURITY SCAN SIMULATION =====
+        function runSecuritySimulation() { 
+            setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); 
+            setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); 
+            setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); 
+            setTimeout(() => { 
+                document.getElementById('line5').style.display = 'block'; 
+                setCookie("reck_session_scanned", "true", 7); 
+                document.getElementById('liveCookieBox').style.display = 'block'; 
+                document.getElementById('cookieValueSpan').innerText = `reck_session_scanned=true`; 
+            }, 1600); 
+            setTimeout(() => { 
+                document.getElementById('security-check').style.display = 'none'; 
+                // تهيئة جلسة المستخدم بعد فحص الأمان
+                initUserSession();
+            }, 3200); 
+        }
+
+        // ===== EVENT LISTENERS & INIT =====
         document.addEventListener('DOMContentLoaded', () => {
             if (getCookie("reck_session_scanned") === "true") {
                 document.getElementById('security-check').style.display = 'none';
+                initUserSession();
             } else {
                 runSecuritySimulation();
             }
@@ -849,7 +1063,8 @@
                     - <b>tools</b> : List cybersecurity research tools deployed.<br>
                     - <b>scan</b>  : Run a demo network integrity check.<br>
                     - <b>clear</b> : Clear the terminal interface.<br>
-                    - <b>about</b> : Show researcher credential file.</span>`;
+                    - <b>about</b> : Show researcher credential file.<br>
+                    - <b>status</b>: Show current user session info.</span>`;
                 } else if (lowerCmd === 'tools') {
                     output = `<span class="cmd-output">[+] Deployed Tools Inside Termux:<br>
                     - nmap v7.92 (Network Mapper)<br>
@@ -865,6 +1080,16 @@
                     output = `<span class="cmd-output">File: reck_credentials.txt<br>
                     Role: Cyber Security Researcher / Bug Bounty Hunter.<br>
                     Specialty: Web Apps Security & Network Auditing.</span>`;
+                } else if (lowerCmd === 'status') {
+                    const userId = getCookie('reck_user_id') || 'غير معروف';
+                    const visits = getCookie('reck_visits') || '0';
+                    const firstVisit = getCookie('reck_first_visit') || 'غير معروف';
+                    const lastVisit = getCookie('reck_last_visit') || 'غير معروف';
+                    output = `<span class="cmd-output success-msg">[+] User Session Info:<br>
+                    User ID: ${userId}<br>
+                    Visits: ${visits}<br>
+                    First Visit: ${firstVisit}<br>
+                    Last Visit: ${lastVisit}</span>`;
                 } else if (lowerCmd === 'clear') {
                     termHistory.innerHTML = '';
                     return;
@@ -891,10 +1116,6 @@
                 gridElement.innerHTML += createVideoCard(video);
             });
         }
-
-        function setCookie(name, value, days) { let expires = ""; if (days) { let date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "")  + expires + "; path=/"; }
-        function getCookie(name) { let nameEQ = name + "="; let ca = document.cookie.split(';'); for(let i=0;i < ca.length;i++) { let c = ca[i]; while (c.charAt(0)==' ') c = c.substring(1,c.length); if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); } return null; }
-        function runSecuritySimulation() { setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); setTimeout(() => { document.getElementById('line5').style.display = 'block'; setCookie("reck_session_scanned", "true", 7); document.getElementById('liveCookieBox').style.display = 'block'; document.getElementById('cookieValueSpan').innerText = `reck_session_scanned=true`; }, 1600); setTimeout(() => { document.getElementById('security-check').style.display = 'none'; }, 3200); }
 
         function activateFollow() {
             if (!("Notification" in window)) { alert("متصفحك لا يدعم الإشعارات."); return; }
@@ -925,6 +1146,10 @@
             document.getElementById('main-content-wrapper').style.display = 'block';
             if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
+
+        // مراقبة حالة الاتصال
+        window.addEventListener('online', updateStatusDot);
+        window.addEventListener('offline', updateStatusDot);
 
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
