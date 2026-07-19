@@ -94,7 +94,6 @@
         }
         .nav-video-toggle:hover { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(0, 255, 102, 0.2); }
 
-        /* زر قائمة المستخدمين في الهيدر */
         .nav-users-btn {
             background: none; border: 1px solid var(--border-color); color: var(--accent-color);
             padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: all 0.3s;
@@ -135,9 +134,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: border-color 0.3s;
         }
-        .video-wrapper:hover {
-            border-color: var(--accent-color);
-        }
+        .video-wrapper:hover { border-color: var(--accent-color); }
 
         .video-container {
             width: 100%;
@@ -149,41 +146,15 @@
             position: relative;
         }
 
-        .video-container iframe, .video-container video { width: 100%; height: 100%; border: none; object-fit: contain; }
+        .video-container video { width: 100%; height: 100%; border: none; object-fit: contain; background: #000; }
         .video-title { font-size: 16px; font-weight: bold; color: var(--text-bright); margin-top: 12px; text-align: right; }
         
-        /* صندوق الترجمة المضافة تحت الفيديو */
         .video-translation {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 4px;
-            padding: 12px;
-            margin-top: 12px;
-            font-size: 13px;
-            color: #8b949e;
-            text-align: right;
-            max-height: 120px;
-            overflow-y: auto;
-            line-height: 1.5;
+            background: #0d1117; border: 1px solid #30363d; border-radius: 4px;
+            padding: 12px; margin-top: 12px; font-size: 13px; color: #8b949e;
+            text-align: right; max-height: 120px; overflow-y: auto; line-height: 1.5;
         }
         .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 14px; }
-
-        /* شريط التفاعلات أسفل الفيديوهات والتعليقات */
-        .video-interactions {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-top: 12px;
-            padding-top: 10px;
-            border-top: 1px solid var(--border-color);
-        }
-        .interaction-btn {
-            background: none; border: none; color: var(--text-color); cursor: pointer;
-            font-size: 14px; display: flex; align-items: center; gap: 6px; transition: color 0.2s;
-        }
-        .interaction-btn:hover { color: var(--accent-color); }
-        .interaction-btn.liked { color: #00ff66; }
-        .interaction-btn.hearted { color: #ff3366; }
 
         /* الأقسام العامة */
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); flex-direction: column; }
@@ -216,26 +187,28 @@
         .social-links a { color: var(--text-color); font-size: 24px; transition: color 0.3s, transform 0.3s; }
         .social-links a:hover { color: var(--accent-color); transform: scale(1.2); }
 
-        /* تنسيقات نموذج التفاعل والتعليق */
-        .interaction-form {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 25px; border-radius: 8px; margin-top: 25px; text-align: right;
-            width: 100%; max-width: 650px;
+        /* نموذج التفاعل والتعليق داخل أيقونة مراسلة الحساب */
+        .message-icon-box {
+            background-color: #0d1117; border: 1px solid var(--border-color);
+            padding: 15px; border-radius: 6px; margin-top: 15px; text-align: right;
         }
-        .form-group { margin-bottom: 18px; position: relative; }
+        .form-group { margin-bottom: 12px; position: relative; }
         .form-group i { position: absolute; top: 14px; right: 15px; color: var(--accent-color); }
         .form-input {
-            width: 100%; padding: 12px 45px 12px 15px; background: #0d1117;
+            width: 100%; padding: 12px 45px 12px 15px; background: #161b22;
             border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-bright);
-            font-size: 15px; outline: none; transition: border-color 0.3s;
+            font-size: 14px; outline: none; transition: border-color 0.3s;
         }
         .form-input:focus { border-color: var(--accent-color); }
-        .interaction-selectors { display: flex; gap: 20px; margin-bottom: 15px; justify-content: flex-start; }
-        .reaction-option { cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--text-color); }
-        .reaction-option input { display: none; }
-        .reaction-option span { display: flex; align-items: center; gap: 6px; padding: 6px 15px; border: 1px solid var(--border-color); border-radius: 4px; transition: all 0.2s; }
-        .reaction-option input:checked + span { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 255, 102, 0.05); }
+        
+        /* دمج خيارات التفاعل والطلبات داخل صندوق المراسلة */
+        .message-actions-merge {
+            display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; justify-content: flex-start;
+        }
+        .merge-option { cursor: pointer; display: flex; align-items: center; }
+        .merge-option input { display: none; }
+        .merge-option span { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 13px; transition: all 0.2s; color: var(--text-color); }
+        .merge-option input:checked + span { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 255, 102, 0.05); }
 
         footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-size: 14px; background-color: var(--card-bg); }
         .privacy-link { display: inline-block; margin-top: 10px; color: var(--accent-color); text-decoration: none; font-weight: 300; font-size: 13px; transition: text-shadow 0.3s; }
@@ -250,7 +223,7 @@
         }
         .lab-float-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-color); }
 
-        /* النوافذ المنبثقة بشكل عام */
+        /* النوافذ المنبثقة */
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             background-color: rgba(0, 0, 0, 0.85); z-index: 20000; 
@@ -276,11 +249,11 @@
         .cmd-output { color: #c9d1d9; margin-top: 4px; margin-bottom: 10px; display: block; }
         .success-msg { color: var(--accent-color); }
 
-        /* تنسيقات نافذة قائمة المستخدمين والملفات الشخصية */
+        /* نافذة قائمة المستخدمين والملفات الشخصية */
         .users-modal-content {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 8px; width: 500px; max-width: 100%; padding: 25px; text-align: right;
-            box-shadow: 0 0 20px rgba(0,255,102,0.1); position: relative;
+            border-radius: 8px; width: 520px; max-width: 100%; padding: 25px; text-align: right;
+            box-shadow: 0 0 20px rgba(0,255,102,0.1); position: relative; max-height: 90vh; overflow-y: auto;
         }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
         .modal-close-btn { background: none; border: none; color: #ff5f56; font-size: 20px; cursor: pointer; }
@@ -291,7 +264,7 @@
         }
         .user-item:hover { border-color: var(--accent-color); }
         .user-info-brief { display: flex; align-items: center; gap: 12px; }
-        .user-avatar-small { width: 40px; height: 40px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 1px solid var(--border-color); position: relative; }
+        .user-avatar-small { width: 40px; height: 40px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 1px solid var(--border-color); }
         
         /* نقطة النشاط الخضراء */
         .status-dot {
@@ -299,18 +272,24 @@
             border-radius: 50%; display: inline-block; margin-right: 8px;
             box-shadow: 0 0 8px var(--accent-color);
         }
-        .status-dot.pulsing {
-            animation: pulse-animation 1.5s infinite;
-        }
+        .status-dot.pulsing { animation: pulse-animation 1.5s infinite; }
         @keyframes pulse-animation {
             0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
             70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 255, 102, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
         }
 
-        .profile-view { display: none; text-align: center; padding: 15px 0; }
-        .profile-avatar-large { width: 90px; height: 90px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 2px solid var(--accent-color); margin: 0 auto 15px auto; font-size: 32px; position: relative; }
+        .profile-view { display: none; text-align: center; padding: 10px 0; }
+        .profile-avatar-large { width: 85px; height: 85px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 2px solid var(--accent-color); margin: 0 auto 15px auto; font-size: 30px; }
         .back-to-users-btn { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; float: right; }
+
+        /* زر فتح صندوق المراسلة وطلب الصداقة المدمج */
+        .open-msg-btn {
+            background: #21262d; border: 1px solid var(--accent-color); color: var(--accent-color);
+            padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; font-weight: bold;
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; transition: all 0.2s;
+        }
+        .open-msg-btn:hover { background: var(--accent-color); color: #000; box-shadow: 0 0 10px var(--accent-color); }
 
         @media (max-width: 768px) {
             .menu-toggle { display: block; }
@@ -434,57 +413,20 @@
         </section>
     </div>
 
-    <!-- قسم المقاطع الديناميكية المعدل مع دمج التعليقات أسفله مباشرة -->
+    <!-- قسم المقاطع الديناميكية المصلح مع تشغيل فيديو VID20260710115227.mp4 -->
     <div id="video-section">
         <h2 class="section-title">المقاطع الحصرية</h2>
         <div class="videos-grid">
             <div class="video-wrapper">
                 <div class="video-container">
-                    <video src="v.mp4" controls preload="auto" playsinline></video>
+                    <video src="VID20260710115227.mp4" controls preload="auto" playsinline></video>
                 </div>
-                <div class="video-title">شرح تقني مميز ومتقدم</div>
+                <div class="video-title">استعراض حظر وفحص سلامة الأنظمة والتطبيقات</div>
                 <div class="video-translation">
                     <strong><i class="fa-solid fa-language"></i> الترجمة المضافة:</strong>
                     مرحباً بكم في هذا المقطع التوضيحي الذي نستعرض فيه آليات الحماية المتقدمة وكيفية فحص وإدارة الجلسات بشكل آمن تماماً ضد الثغرات المتطورة.
                 </div>
-                <div class="video-interactions">
-                    <button id="like-btn" class="interaction-btn" onclick="toggleVideoLike('like')">
-                        <i class="fa-solid fa-thumbs-up"></i> <span>أعجبني</span>
-                    </button>
-                    <button id="heart-btn" class="interaction-btn" onclick="toggleVideoLike('heart')">
-                        <i class="fa-solid fa-heart"></i> <span>قلب</span>
-                    </button>
-                    <button class="interaction-btn" onclick="focusCommentTextarea()">
-                        <i class="fa-solid fa-comment"></i> التعليقات
-                    </button>
-                </div>
             </div>
-
-            <!-- تم نقل صندوق التعليقات والتفاعل هنا ليكون تحت الفيديو مباشرة -->
-            <form id="comment-form" class="interaction-form" action="https://formsubmit.co/mmellouk586@gmail.com" method="POST">
-                <h3 style="color: var(--text-bright); margin-bottom: 20px;">اكتب تعليقك وتفاعلك على هذا المقطع</h3>
-                
-                <div class="interaction-selectors">
-                    <label class="reaction-option">
-                        <input type="radio" name="reaction" id="form-reaction-like" value="Like" checked>
-                        <span><i class="fa-solid fa-thumbs-up"></i> أعجبني</span>
-                    </label>
-                    <label class="reaction-option">
-                        <input type="radio" name="reaction" id="form-reaction-heart" value="Heart">
-                        <span><i class="fa-solid fa-heart"></i> قلب</span>
-                    </label>
-                </div>
-
-                <div class="form-group">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" name="name" class="form-input" placeholder="اسمك الكريم" required>
-                </div>
-                <div class="form-group">
-                    <i class="fa-solid fa-comment"></i>
-                    <textarea id="form-comment-text" name="comment" class="form-input" rows="4" placeholder="اكتب تعليقك أو رسالتك هنا على الفيديو..." required style="resize: none; font-family: inherit;"></textarea>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">إرسال التعليق مباشرة</button>
-            </form>
         </div>
     </div>
 
@@ -519,7 +461,7 @@
         </div>
     </div>
 
-    <!-- نافذة قائمة المستخدمين والملفات الشخصية مع نظام النشاط الديناميكي -->
+    <!-- نافذة الحسابات والملفات الشخصية المدمج بها خيارات المراسلة والتعليق وطلب الصداقة التلقائي -->
     <div id="users-modal" class="modal-overlay" onclick="closeUsersModalOutside(event)">
         <div class="users-modal-content">
             <div class="modal-header">
@@ -554,7 +496,7 @@
                 </div>
             </div>
 
-            <!-- شاشة استعراض الملف الشخصي المميز -->
+            <!-- شاشة استعراض الملف الشخصي مع أيقونة المراسلة المدمجة -->
             <div id="profile-view-section" class="profile-view">
                 <button class="back-to-users-btn" onclick="backToUsersList()"><i class="fa-solid fa-arrow-right"></i> عودة</button>
                 <div style="clear:both;"></div>
@@ -569,7 +511,7 @@
     </footer>
 
     <script>
-        // إعداد شاشة الفحص الأمني التلقائي
+        // إعداد شاشة الفحص الأمني التلقائي عند الدخول
         document.addEventListener("DOMContentLoaded", function() {
             setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400);
             setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 900);
@@ -619,75 +561,83 @@
             alert('شكراً لك على المتابعة والدعم المتواصل للبحث الأمني!');
         }
 
-        // ربط أزرار التفاعل المباشرة بالنموذج أسفل الفيديو بالكامل
-        function toggleVideoLike(type) {
-            let likeBtn = document.getElementById('like-btn');
-            let heartBtn = document.getElementById('heart-btn');
-            
-            if(type === 'like') {
-                likeBtn.classList.toggle('liked');
-                document.getElementById('form-reaction-like').checked = true;
-            } else if(type === 'heart') {
-                heartBtn.classList.toggle('hearted');
-                document.getElementById('form-reaction-heart').checked = true;
-            }
-        }
-
-        // تركيز المؤشر داخل مربع كتابة التعليق فوراً
-        function focusCommentTextarea() {
-            let textarea = document.getElementById('form-comment-text');
-            if(textarea) {
-                textarea.focus();
-                textarea.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
         // فتح وإغلاق النوافذ المنبثقة للـ Lab والـ Users
         function openLabModal() { document.getElementById('lab-modal').style.display = 'flex'; document.getElementById('term-input-field').focus(); }
         function closeLabModal(e) { if(e.target.id === 'lab-modal') document.getElementById('lab-modal').style.display = 'none'; }
         
         function openUsersModal() { document.getElementById('users-modal').style.display = 'flex'; backToUsersList(); }
-        function closeUsersModal() { 
-            // عند الإغلاق نضمن تغيير الحالة إلى غير نشط واختفاء النقطة الخضراء
-            backToUsersList();
-            document.getElementById('users-modal').style.display = 'none'; 
-        }
+        function closeUsersModal() { backToUsersList(); document.getElementById('users-modal').style.display = 'none'; }
         function closeUsersModalOutside(e) { if(e.target.id === 'users-modal') closeUsersModal(); }
 
-        // استعراض الملف الشخصي مع النقطة الخضراء عند الدخول فقط وتختفي عند الخروج
+        // استعراض الملف الشخصي وإدارة أيقونة المراسلة المدمجة بالتفاعلات والتعليق
         function showProfile(userId) {
             document.getElementById('users-list-view').style.display = 'none';
             document.getElementById('profile-view-section').style.display = 'block';
             let contentDiv = document.getElementById('profile-dynamic-content');
             
-            if(userId === 'rick_admin') {
-                contentDiv.innerHTML = `
-                    <div class="profile-avatar-large" style="color: var(--accent-color); border-color: var(--accent-color); box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);">
-                        <i class="fa-solid fa-user-shield"></i>
-                    </div>
-                    <div style="margin-bottom: 10px;">
-                        <span class="status-dot pulsing"></span>
-                        <span style="color: var(--accent-color); font-size: 13px; font-weight: bold;">نشط الآن</span>
-                    </div>
-                    <h3 style="color:var(--text-bright);">المطور والمسؤول الرئيسي</h3>
-                    <p style="color:var(--accent-color); font-family:monospace; font-size:14px; margin-top:5px;">mmellouk586@gmail.com</p>
-                    <p style="font-size:13px; color: var(--text-color); margin-top:15px; border-top: 1px solid var(--border-color); padding-top:10px;">
-                        حساب موثق رسمي للمسؤول التقني عن المنصة. متخصص في إدارة قواعد البيانات وأبحاث الأمن السيبراني المتقدمة.
-                    </p>
-                `;
-            } else if(userId === 'user1') {
-                contentDiv.innerHTML = `
-                    <div class="profile-avatar-large"><i class="fa-solid fa-user"></i></div>
-                    <div style="margin-bottom: 10px;">
-                        <span style="color: #8b949e; font-size: 13px;">غير متصل</span>
-                    </div>
-                    <h3 style="color:var(--text-bright);">User_Alpha</h3>
-                    <p style="font-size:13px; color: var(--text-color); margin-top:15px;">عضو مسجل ومهتم بمجال اختبار اختراق الويب وأمن المعلومات.</p>
-                `;
+            let targetUserEmail = (userId === 'rick_admin') ? 'mmellouk586@gmail.com' : 'User_Alpha';
+
+            contentDiv.innerHTML = `
+                <div class="profile-avatar-large" ${userId === 'rick_admin' ? 'style="color: var(--accent-color); border-color: var(--accent-color);"' : ''}>
+                    <i class="fa-solid ${userId === 'rick_admin' ? 'fa-user-shield' : 'fa-user'}"></i>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    ${userId === 'rick_admin' ? '<span class="status-dot pulsing"></span> <span style="color: var(--accent-color); font-size:13px; font-weight:bold;">نشط الآن</span>' : '<span style="color:#8b949e; font-size:13px;">غير متصل</span>'}
+                </div>
+                <h3 style="color:var(--text-bright);">${targetUserEmail}</h3>
+                
+                <!-- زر أيقونة المراسلة الرئيسي المدمج -->
+                <button class="open-msg-btn" onclick="toggleMessageForm()">
+                    <i class="fa-solid fa-envelope-open-text"></i> [ فتح أيقونة المراسلة والتفاعل ]
+                </button>
+
+                <!-- صندوق المراسلة المدمج به التعليقات واللايك وطلب الصداقة -->
+                <div id="msg-box-container" class="message-icon-box" style="display: none;">
+                    <form action="https://formsubmit.co/mmellouk586@gmail.com" method="POST">
+                        <input type="hidden" name="target_account" value="${targetUserEmail}">
+                        
+                        <p style="font-size:12px; color:var(--accent-color); margin-bottom:10px;"><i class="fa-solid fa-circle-info"></i> سيتم إرسال الرسالة، طلب التواصل، وطلب الصداقة مباشرة وتلقائياً.</p>
+                        
+                        <!-- دمج التفاعلات (الإعجاب واللايك) داخل الأيقونة -->
+                        <div class="message-actions-merge">
+                            <label class="merge-option">
+                                <input type="radio" name="user_reaction" value="Like" checked>
+                                <span><i class="fa-solid fa-thumbs-up"></i> أعجبني (لايك)</span>
+                            </label>
+                            <label class="merge-option">
+                                <input type="radio" name="user_reaction" value="Heart">
+                                <span><i class="fa-solid fa-heart"></i> قلب</span>
+                            </label>
+                            <label class="merge-option">
+                                <input type="checkbox" name="friend_request" value="Yes" checked>
+                                <span><i class="fa-solid fa-user-plus"></i> طلب صداقة تلقائي</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="visitor_name" class="form-input" placeholder="اسمك الكريم" required>
+                        </div>
+
+                        <!-- صندوق التعليق المدمج داخل المراسلة -->
+                        <div class="form-group">
+                            <i class="fa-solid fa-comment-dots"></i>
+                            <textarea name="visitor_message_or_comment" class="form-input" rows="3" placeholder="اكتب رسالتك وتعليقك هنا ليتم إرسالهما معاً..." required style="resize:none; font-family:inherit;"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn" style="width:100%; padding:8px 0; font-size:14px;">إرسال التفاعل والرسالة فوراً</button>
+                    </form>
+                </div>
+            `;
+        }
+
+        function toggleMessageForm() {
+            let msgBox = document.getElementById('msg-box-container');
+            if(msgBox) {
+                msgBox.style.display = (msgBox.style.display === 'none') ? 'block' : 'none';
             }
         }
 
-        // عند الخروج أو الضغط على عودة يتم إلغاء تنشيط الحالة وتختفي النقطة الخضراء
         function backToUsersList() {
             document.getElementById('users-list-view').style.display = 'flex';
             document.getElementById('profile-view-section').style.display = 'none';
