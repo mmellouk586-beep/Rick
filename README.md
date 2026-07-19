@@ -20,6 +20,9 @@
             --border-color: #30363d;
             --online-color: #00ff66;
             --offline-color: #ff4757;
+            --chat-bg: #0d1117;
+            --chat-msg-sent: #00ff66;
+            --chat-msg-received: #161b22;
         }
 
         * {
@@ -119,6 +122,24 @@
         }
         .header-users-btn:hover { background: #58a6ff; color: #000; box-shadow: 0 0 10px #58a6ff; }
 
+        /* زر الشات الجديد */
+        .header-chat-btn {
+            background: #21262d; border: 1px solid #ff6b6b; color: #ff6b6b;
+            padding: 3px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .header-chat-btn:hover { background: #ff6b6b; color: #000; box-shadow: 0 0 10px #ff6b6b; }
+        .header-chat-btn .chat-notification {
+            background: #ff6b6b;
+            color: #000;
+            border-radius: 50%;
+            padding: 0 5px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
         .nav-video-toggle {
             background: none; border: 1px solid var(--border-color); color: var(--accent-color);
             padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: all 0.3s;
@@ -131,7 +152,154 @@
         nav ul li a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 24px; color: var(--text-bright); cursor: pointer; }
 
-        /* قسم المقاطع اليوتيوب الديناميكية */
+        /* ===== نافذة الشات ===== */
+        .chat-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.85);
+            z-index: 40000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .chat-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            height: 80vh;
+            max-height: 600px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 40px rgba(255,107,107,0.15);
+        }
+        .chat-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(13,17,23,0.9);
+            border-radius: 12px 12px 0 0;
+        }
+        .chat-header h3 {
+            color: var(--text-bright);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chat-header h3 i { color: #ff6b6b; }
+        .chat-close-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .chat-close-btn:hover { color: #ff6b6b; transform: rotate(90deg); }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: var(--bg-color);
+        }
+        .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .chat-msg {
+            max-width: 80%;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            word-wrap: break-word;
+            animation: msgAppear 0.3s ease;
+        }
+        @keyframes msgAppear {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-msg.sent {
+            background: var(--accent-color);
+            color: #000;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-msg.received {
+            background: var(--card-bg);
+            color: var(--text-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        .chat-msg .msg-time {
+            font-size: 9px;
+            opacity: 0.6;
+            display: block;
+            margin-top: 4px;
+        }
+        .chat-msg .msg-sender {
+            font-size: 10px;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 2px;
+            font-weight: bold;
+        }
+
+        .chat-input-area {
+            padding: 12px 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 10px;
+            background: rgba(13,17,23,0.9);
+            border-radius: 0 0 12px 12px;
+        }
+        .chat-input-area input {
+            flex: 1;
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: var(--text-color);
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+            font-size: 13px;
+        }
+        .chat-input-area input:focus { border-color: var(--accent-color); }
+        .chat-input-area .chat-send-btn {
+            background: var(--accent-color);
+            border: none;
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 13px;
+        }
+        .chat-input-area .chat-send-btn:hover { opacity: 0.8; transform: scale(1.02); }
+
+        .chat-empty {
+            text-align: center;
+            color: #8b949e;
+            font-size: 13px;
+            margin: auto;
+        }
+        .chat-empty i { font-size: 40px; color: var(--border-color); display: block; margin-bottom: 10px; }
+
+        /* ===== باقي الأقسام ===== */
         #video-section {
             display: none;
             padding: 120px 20px 80px 20px;
@@ -240,7 +408,7 @@
         }
         .comment-area button:hover { opacity: 0.8; }
 
-        /* نافذة المستخدمين - تصميم شبيه بفيسبوك */
+        /* نافذة المستخدمين */
         .users-modal {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -267,7 +435,6 @@
             font-size: 22px;
         }
 
-        /* الملف الشخصي */
         .profile-card {
             background: #0d1117;
             border: 1px solid var(--border-color);
@@ -294,7 +461,6 @@
             border: 3px solid var(--accent-color);
             box-shadow: 0 0 20px rgba(0,255,102,0.2);
         }
-        /* نقطة الحالة - online/offline */
         .status-dot {
             position: absolute;
             bottom: 6px;
@@ -339,12 +505,12 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* أزرار التفاعل في الملف الشخصي - صغيرة جداً */
         .profile-actions {
             display: flex;
             gap: 6px;
             justify-content: center;
             margin-top: 12px;
+            flex-wrap: wrap;
         }
         .profile-action-btn {
             background: #21262d;
@@ -370,7 +536,6 @@
         .profile-action-btn.message-btn { border-color: #ffcc00; color: #ffcc00; }
         .profile-action-btn.message-btn:hover { background: #ffcc00; color: #000; }
 
-        /* نافذة الرسالة المنبثقة */
         .message-popup {
             display: none;
             margin-top: 12px;
@@ -498,6 +663,7 @@
             .profile-actions { flex-direction: row; flex-wrap: wrap; justify-content: center; }
             .network-speed { font-size: 8px; padding: 1px 5px; }
             .network-speed .speed-value { min-width: 30px; }
+            .chat-box { max-height: 90vh; height: 90vh; }
         }
     </style>
 </head>
@@ -520,7 +686,6 @@
         <div class="nav-container">
             <div class="logo-area">
                 <div class="logo"><span>[</span> RICK <span>]</span></div>
-                <!-- عداد سرعة الشبكة -->
                 <div class="network-speed" id="networkSpeed">
                     <i class="fa-solid fa-wifi"></i>
                     <span class="speed-value" id="speedValue">0</span>
@@ -528,6 +693,12 @@
                 </div>
                 <button class="header-follow-btn" onclick="activateFollow()">[ Follow ]</button>
                 <button class="header-users-btn" onclick="openUsersModal()"><i class="fa-solid fa-users"></i> [ المستخدمين ]</button>
+                <!-- زر الشات الجديد -->
+                <button class="header-chat-btn" onclick="openChat()">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    <span>[ شات ]</span>
+                    <span class="chat-notification" id="chatNotif" style="display:none;">0</span>
+                </button>
                 <button class="nav-video-toggle" onclick="toggleView()">
                     <i class="fa-solid fa-video"></i> <span>[ المقاطع ]</span>
                 </button>
@@ -602,7 +773,27 @@
         <div class="videos-grid" id="youtubeVideosGrid"></div>
     </section>
 
-    <!-- نافذة المستخدمين - ملف شخصي شبيه بفيسبوك -->
+    <!-- ===== نافذة الشات ===== -->
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-box">
+            <div class="chat-header">
+                <h3><i class="fa-solid fa-comment-dots"></i> غرفة الشات</h3>
+                <button class="chat-close-btn" onclick="closeChat()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-empty">
+                    <i class="fa-regular fa-comment"></i>
+                    <p>لا توجد رسائل بعد<br>ابدأ المحادثة الآن!</p>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="اكتب رسالتك..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+                <button class="chat-send-btn" onclick="sendChatMessage()"><i class="fa-regular fa-paper-plane"></i> إرسال</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة المستخدمين -->
     <div class="users-modal" id="usersModal">
         <div class="users-modal-box">
             <h2><i class="fa-solid fa-user"></i> الملف الشخصي</h2>
@@ -612,7 +803,6 @@
                     <div class="profile-avatar">
                         <i class="fa-solid fa-user-secret"></i>
                     </div>
-                    <!-- نقطة الحالة - تعمل بشكل حقيقي -->
                     <div class="status-dot" id="statusDot" title="الحالة"></div>
                 </div>
                 <div class="profile-name">Reck</div>
@@ -634,7 +824,6 @@
                 </button>
             </div>
 
-            <!-- نافذة الرسالة المنبثقة -->
             <div class="message-popup" id="messagePopup">
                 <textarea id="messageText" placeholder="اكتب رسالتك هنا..."></textarea>
                 <button class="send-msg-btn" onclick="sendMessage()">
@@ -674,6 +863,164 @@
     </footer>
 
     <script>
+        // ===== CHAT SYSTEM =====
+        let chatMessages = [];
+        const CHAT_STORAGE_KEY = 'reck_chat_messages';
+
+        function loadChatMessages() {
+            try {
+                const stored = localStorage.getItem(CHAT_STORAGE_KEY);
+                if (stored) {
+                    chatMessages = JSON.parse(stored);
+                }
+            } catch(e) {}
+        }
+
+        function saveChatMessages() {
+            try {
+                localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(chatMessages));
+            } catch(e) {}
+        }
+
+        function renderChatMessages() {
+            const container = document.getElementById('chatMessages');
+            if (!container) return;
+
+            if (chatMessages.length === 0) {
+                container.innerHTML = `
+                    <div class="chat-empty">
+                        <i class="fa-regular fa-comment"></i>
+                        <p>لا توجد رسائل بعد<br>ابدأ المحادثة الآن!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            chatMessages.forEach((msg, index) => {
+                const div = document.createElement('div');
+                div.className = `chat-msg ${msg.type || 'received'}`;
+                
+                let senderHtml = '';
+                if (msg.sender && msg.type === 'received') {
+                    senderHtml = `<span class="msg-sender">${msg.sender}</span>`;
+                }
+                
+                div.innerHTML = `
+                    ${senderHtml}
+                    ${msg.text}
+                    <span class="msg-time">${msg.time || new Date().toLocaleTimeString('ar')}</span>
+                `;
+                container.appendChild(div);
+            });
+            container.scrollTop = container.scrollHeight;
+
+            // تحديث عداد الإشعارات
+            updateChatNotification();
+        }
+
+        function updateChatNotification() {
+            const notif = document.getElementById('chatNotif');
+            if (!notif) return;
+            
+            const unread = chatMessages.filter(m => !m.read && m.type === 'received').length;
+            if (unread > 0) {
+                notif.style.display = 'inline';
+                notif.textContent = unread;
+            } else {
+                notif.style.display = 'none';
+            }
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            if (!input || !input.value.trim()) return;
+
+            const text = input.value.trim();
+            const userId = getCookie('reck_user_id') || 'مستخدم';
+            const msg = {
+                id: Date.now(),
+                text: text,
+                type: 'sent',
+                sender: userId,
+                time: new Date().toLocaleTimeString('ar'),
+                read: true,
+                timestamp: new Date().toISOString()
+            };
+
+            chatMessages.push(msg);
+            saveChatMessages();
+            renderChatMessages();
+            input.value = '';
+
+            // إرسال عبر البريد الإلكتروني (API محاكي)
+            sendChatViaEmail(text, userId);
+        }
+
+        function receiveChatMessage(text, sender) {
+            const msg = {
+                id: Date.now() + Math.random(),
+                text: text,
+                type: 'received',
+                sender: sender || 'صديق',
+                time: new Date().toLocaleTimeString('ar'),
+                read: false,
+                timestamp: new Date().toISOString()
+            };
+            chatMessages.push(msg);
+            saveChatMessages();
+            renderChatMessages();
+            
+            // إشعار صوتي بسيط
+            try {
+                const audio = new Audio('data:audio/wav;base64,UklGRnoAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoAAACBhYqFhYWFiYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhYOFhQ==');
+                audio.volume = 0.3;
+                audio.play().catch(() => {});
+            } catch(e) {}
+        }
+
+        function sendChatViaEmail(text, userId) {
+            // إرسال عبر البريد الإلكتروني في الخلفية
+            const subject = encodeURIComponent(`رسالة جديدة من ${userId} في الشات`);
+            const body = encodeURIComponent(
+                `مرحباً،\n\n` +
+                `قام المستخدم "${userId}" بإرسال رسالة في غرفة الشات:\n` +
+                `----------------------------------------\n` +
+                `${text}\n` +
+                `----------------------------------------\n` +
+                `تم الإرسال من: ${window.location.href}`
+            );
+            
+            // فتح البريد في نافذة خلفية
+            const mailWindow = window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
+            
+            // محاكاة استجابة من الطرف الآخر بعد 3-5 ثواني
+            setTimeout(() => {
+                const responses = [
+                    "شكراً لرسالتك! سأرد عليك قريباً.",
+                    "تم استلام رسالتك بنجاح 👍",
+                    "مرحباً! كيف يمكنني مساعدتك؟",
+                    "أهلاً بك في غرفة الشات!",
+                    "رسالتك وصلت، شكراً لك 🙏"
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                receiveChatMessage(randomResponse, 'Reck');
+            }, 3000 + Math.random() * 2000);
+        }
+
+        function openChat() {
+            document.getElementById('chatModal').style.display = 'flex';
+            document.getElementById('chatInput').focus();
+            // تعليم جميع الرسائل كمقروءة
+            chatMessages.forEach(m => m.read = true);
+            saveChatMessages();
+            updateChatNotification();
+        }
+
+        function closeChat() {
+            document.getElementById('chatModal').style.display = 'none';
+        }
+
         // ===== COOKIE MANAGEMENT =====
         function setCookie(name, value, days) { 
             let expires = ""; 
@@ -696,18 +1043,12 @@
             return null; 
         }
 
-        function deleteCookie(name) {
-            document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        }
-
-        // ===== REAL STATUS DOT (Online/Offline) =====
+        // ===== REAL STATUS DOT =====
         function updateStatusDot() {
             const dot = document.getElementById('statusDot');
             if (!dot) return;
 
-            // حالة حقيقية: تحقق من اتصال الشبكة
             if (navigator.onLine) {
-                // تحقق من سرعة الاستجابة (ping حقيقي)
                 const startTime = Date.now();
                 fetch('https://www.google.com/favicon.ico', { 
                     mode: 'no-cors',
@@ -736,16 +1077,14 @@
             }
         }
 
-        // تحديث الحالة كل 5 ثواني
         setInterval(updateStatusDot, 5000);
 
-        // ===== REAL NETWORK SPEED TEST =====
+        // ===== REAL NETWORK SPEED =====
         function measureNetworkSpeed() {
             const speedSpan = document.getElementById('speedValue');
             if (!speedSpan) return;
 
             const startTime = Date.now();
-            const fileSize = 100000; // 100KB
             const url = 'https://www.google.com/images/phd/px.gif';
 
             fetch(url, { 
@@ -754,8 +1093,9 @@
             })
             .then(() => {
                 const endTime = Date.now();
-                const duration = (endTime - startTime) / 1000; // بالثواني
+                const duration = (endTime - startTime) / 1000;
                 if (duration > 0) {
+                    const fileSize = 100000;
                     const speedKbps = (fileSize * 8) / (duration * 1000);
                     const displaySpeed = speedKbps > 1024 ? (speedKbps / 1024).toFixed(1) : speedKbps.toFixed(0);
                     const unit = speedKbps > 1024 ? 'Mbps' : 'Kbps';
@@ -769,11 +1109,10 @@
             });
         }
 
-        // قياس السرعة كل 15 ثانية
         setInterval(measureNetworkSpeed, 15000);
         measureNetworkSpeed();
 
-        // ===== USER SESSION WITH COOKIES =====
+        // ===== USER SESSION =====
         function initUserSession() {
             let userId = getCookie('reck_user_id');
             if (!userId) {
@@ -781,18 +1120,9 @@
                 setCookie('reck_user_id', userId, 30);
                 setCookie('reck_first_visit', new Date().toISOString(), 30);
             }
-            
-            // تخزين وقت الزيارة الحالي
             setCookie('reck_last_visit', new Date().toISOString(), 30);
-            
-            // زيادة عدد الزيارات
             let visits = parseInt(getCookie('reck_visits') || '0') + 1;
             setCookie('reck_visits', visits.toString(), 30);
-            
-            // عرض معلومات الجلسة (للتطوير)
-            console.log('👤 User ID:', userId);
-            console.log('📊 Visits:', visits);
-            console.log('📅 First visit:', getCookie('reck_first_visit'));
         }
 
         // ===== MY PRESET VIDEOS =====
@@ -904,13 +1234,14 @@
         }
 
         function sendInteractionEmail(type, vidId, content) {
+            const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
             const subject = encodeURIComponent(`تفاعل جديد - ${type} على فيديو`);
             const body = encodeURIComponent(
                 `نوع التفاعل: ${type}\n` +
                 `معرف الفيديو: ${vidId}\n` +
                 `المحتوى: ${content}\n` +
-                `تم الإرسال من: ${window.location.href}\n` +
-                `معرف المستخدم: ${getCookie('reck_user_id') || 'غير معروف'}`
+                `المستخدم: ${userId}\n` +
+                `تم الإرسال من: ${window.location.href}`
             );
             window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
         }
@@ -919,9 +1250,9 @@
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel(); 
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ar-SA';       
-                utterance.rate = 0.95;          
-                utterance.pitch = 1.0;          
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.95;
+                utterance.pitch = 1.0;
                 window.speechSynthesis.speak(utterance);
             }
         }
@@ -937,7 +1268,6 @@
         function openUsersModal() {
             document.getElementById('usersModal').style.display = 'flex';
             document.getElementById('messagePopup').style.display = 'none';
-            // تحديث الحالة عند فتح النافذة
             updateStatusDot();
         }
 
@@ -955,13 +1285,10 @@
 
         function sendFriendRequest() {
             const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
-            const visits = getCookie('reck_visits') || '0';
             const subject = encodeURIComponent(`طلب صداقة من مستخدم`);
             const body = encodeURIComponent(
                 `مرحباً،\n\n` +
-                `قام مستخدم بزيارة ملفك الشخصي وأرسل طلب صداقة.\n` +
-                `معرف المستخدم: ${userId}\n` +
-                `عدد الزيارات: ${visits}\n` +
+                `قام المستخدم "${userId}" بإرسال طلب صداقة.\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
             window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
@@ -971,11 +1298,10 @@
         function sendMessage() {
             const message = document.getElementById('messageText')?.value?.trim() || 'لا توجد رسالة';
             const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
-            const subject = encodeURIComponent(`رسالة جديدة من مستخدم`);
+            const subject = encodeURIComponent(`رسالة جديدة من ${userId}`);
             const body = encodeURIComponent(
                 `مرحباً،\n\n` +
-                `قام مستخدم بإرسال رسالة إليك:\n` +
-                `المستخدم: ${userId}\n` +
+                `المرسل: ${userId}\n` +
                 `----------------------------------------\n` +
                 `${message}\n` +
                 `----------------------------------------\n` +
@@ -987,7 +1313,7 @@
             alert('تم إرسال رسالتك بنجاح!');
         }
 
-        // ===== SECURITY SCAN SIMULATION =====
+        // ===== SECURITY SCAN =====
         function runSecuritySimulation() { 
             setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); 
             setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); 
@@ -1000,19 +1326,36 @@
             }, 1600); 
             setTimeout(() => { 
                 document.getElementById('security-check').style.display = 'none'; 
-                // تهيئة جلسة المستخدم بعد فحص الأمان
                 initUserSession();
+                loadChatMessages();
+                renderChatMessages();
+                // محاكاة رسالة ترحيبية بعد 2 ثانية
+                setTimeout(() => {
+                    receiveChatMessage('مرحباً بك في غرفة الشات! أنا هنا لمساعدتك.', 'Reck');
+                }, 2000);
             }, 3200); 
         }
 
-        // ===== EVENT LISTENERS & INIT =====
+        // ===== EVENT LISTENERS =====
         document.addEventListener('DOMContentLoaded', () => {
             if (getCookie("reck_session_scanned") === "true") {
                 document.getElementById('security-check').style.display = 'none';
                 initUserSession();
+                loadChatMessages();
+                renderChatMessages();
+                setTimeout(() => {
+                    receiveChatMessage('مرحباً بك في غرفة الشات! أنا هنا لمساعدتك.', 'Reck');
+                }, 1000);
             } else {
                 runSecuritySimulation();
             }
+
+            // إغلاق الشات بالضغط على ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeChat();
+                }
+            });
 
             const labModal = document.getElementById('labModal');
             const openLabBtn = document.getElementById('openLabBtn');
@@ -1064,7 +1407,8 @@
                     - <b>scan</b>  : Run a demo network integrity check.<br>
                     - <b>clear</b> : Clear the terminal interface.<br>
                     - <b>about</b> : Show researcher credential file.<br>
-                    - <b>status</b>: Show current user session info.</span>`;
+                    - <b>status</b>: Show current user session info.<br>
+                    - <b>chat</b>  : Open the chat window.</span>`;
                 } else if (lowerCmd === 'tools') {
                     output = `<span class="cmd-output">[+] Deployed Tools Inside Termux:<br>
                     - nmap v7.92 (Network Mapper)<br>
@@ -1090,6 +1434,9 @@
                     Visits: ${visits}<br>
                     First Visit: ${firstVisit}<br>
                     Last Visit: ${lastVisit}</span>`;
+                } else if (lowerCmd === 'chat') {
+                    openChat();
+                    output = `<span class="cmd-output success-msg">[+] Opening chat window...</span>`;
                 } else if (lowerCmd === 'clear') {
                     termHistory.innerHTML = '';
                     return;
@@ -1147,7 +1494,6 @@
             if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
-        // مراقبة حالة الاتصال
         window.addEventListener('online', updateStatusDot);
         window.addEventListener('offline', updateStatusDot);
 
