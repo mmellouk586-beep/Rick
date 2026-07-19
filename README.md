@@ -24,7 +24,7 @@
             --chat-msg-sent: #00ff66;
             --chat-msg-received: #161b22;
             --notification-bg: #ff6b6b;
-            --recording-color: #ff4757;
+            --recording-color: #00ff66;
         }
 
         * {
@@ -42,7 +42,6 @@
             overflow-x: hidden;
         }
 
-        /* شاشة الفحص الأمني عند الدخول */
         #security-check {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -71,7 +70,6 @@
         .scan-line { margin-bottom: 8px; white-space: nowrap; overflow: hidden; font-size: 14px; }
         .cookie-display-panel { margin-top: 15px; background: #161b22; border: 1px dashed var(--accent-color); padding: 10px; border-radius: 4px; width: 100%; font-size: 12px; color: #ffcc00; }
 
-        /* الهيدر وقائمة التنقل */
         header {
             background-color: rgba(22, 27, 34, 0.95);
             border-bottom: 1px solid var(--border-color);
@@ -155,7 +153,6 @@
         nav ul li a:hover { color: var(--accent-color); }
         .menu-toggle { display: none; font-size: 24px; color: var(--text-bright); cursor: pointer; }
 
-        /* ===== نافذة الشات ===== */
         .chat-modal {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -286,7 +283,6 @@
             margin-top: 2px;
         }
 
-        /* رسالة صوتية */
         .audio-msg {
             display: flex;
             align-items: center;
@@ -298,34 +294,55 @@
             background: var(--accent-color);
             border: none;
             border-radius: 50%;
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             color: #000;
-            transition: 0.3s;
+            transition: all 0.3s;
             flex-shrink: 0;
+            font-size: 14px;
         }
-        .audio-msg .play-btn:hover { transform: scale(1.1); }
-        .audio-msg .play-btn.playing { background: #ff6b6b; }
+        .audio-msg .play-btn:hover { 
+            transform: scale(1.15); 
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+        .audio-msg .play-btn.playing { 
+            background: #ff6b6b; 
+            animation: pulse-play 0.5s infinite;
+        }
+        @keyframes pulse-play {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
         .audio-msg .audio-wave {
             flex: 1;
-            height: 30px;
+            height: 35px;
             display: flex;
             align-items: center;
             gap: 3px;
+            padding: 0 5px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
         }
         .audio-msg .audio-wave .bar {
             width: 4px;
             background: var(--accent-color);
             border-radius: 2px;
-            transition: height 0.1s;
-            height: 10px;
+            transition: height 0.15s ease;
+            height: 8px;
         }
         .audio-msg .audio-wave .bar.active {
             background: #ff6b6b;
+        }
+        .audio-msg .audio-wave .bar.playing {
+            animation: wave-anim 0.3s infinite alternate;
+        }
+        @keyframes wave-anim {
+            0% { height: 8px; }
+            100% { height: 28px; }
         }
         .audio-msg .audio-duration {
             font-size: 11px;
@@ -360,7 +377,7 @@
         
         .chat-input-area .voice-btn {
             background: #21262d;
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--accent-color);
             border-radius: 50%;
             width: 36px;
             height: 36px;
@@ -368,27 +385,36 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: var(--text-color);
+            color: var(--accent-color);
             transition: all 0.3s;
             flex-shrink: 0;
         }
-        .chat-input-area .voice-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .chat-input-area .voice-btn:hover { 
+            background: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-color);
+        }
         .chat-input-area .voice-btn.recording {
-            background: var(--recording-color);
-            border-color: var(--recording-color);
-            color: #fff;
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #000;
             animation: pulse-rec 1s infinite;
         }
         @keyframes pulse-rec {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px var(--accent-color); }
+            50% { transform: scale(1.1); box-shadow: 0 0 25px var(--accent-color); }
         }
         .chat-input-area .voice-btn .recording-dot {
             display: none;
             width: 10px;
             height: 10px;
-            background: #fff;
+            background: #ff4757;
             border-radius: 50%;
+            animation: blink-dot 0.5s infinite;
+        }
+        @keyframes blink-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
         .chat-input-area .voice-btn.recording .recording-dot {
             display: block;
@@ -441,7 +467,6 @@
             66% { content: '...'; }
         }
 
-        /* ===== باقي الأقسام ===== */
         #video-section {
             display: none;
             padding: 120px 20px 80px 20px;
@@ -550,7 +575,6 @@
         }
         .comment-area button:hover { opacity: 0.8; }
 
-        /* نافذة المستخدمين */
         .users-modal {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -728,7 +752,6 @@
         }
         .users-modal-close:hover { border-color: var(--accent-color); color: var(--accent-color); }
 
-        /* الأقسام العامة */
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); flex-direction: column; }
         .hero-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.4); margin-bottom: 20px; object-fit: cover; }
         .hero-content h1 { font-size: 3.5rem; color: var(--text-bright); margin-bottom: 10px; }
@@ -915,7 +938,6 @@
         <div class="videos-grid" id="youtubeVideosGrid"></div>
     </section>
 
-    <!-- ===== نافذة الشات ===== -->
     <div class="chat-modal" id="chatModal">
         <div class="chat-box">
             <div class="chat-header">
@@ -946,7 +968,6 @@
         </div>
     </div>
 
-    <!-- نافذة المستخدمين -->
     <div class="users-modal" id="usersModal">
         <div class="users-modal-box">
             <h2><i class="fa-solid fa-user"></i> الملف الشخصي</h2>
@@ -1023,7 +1044,326 @@
         let audioContext = null;
         let analyser = null;
         let animationId = null;
+        let currentAudioPlayer = null;
+        let isPlaying = false;
 
+        const SITE_URL = 'https://mmellouk586-beep.github.io/Rick/';
+        const TARGET_EMAIL = 'mmellouk586@gmail.com';
+
+        // ===== توليد رسالة صوتية حقيقية باستخدام Web Audio API =====
+        function generateRealVoiceMessage(text, callback) {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const duration = Math.min(text.length * 0.08 + 0.5, 8); // مدة الصوت بناءً على طول النص
+                const sampleRate = audioCtx.sampleRate;
+                const frameCount = sampleRate * duration;
+                const audioBuffer = audioCtx.createBuffer(1, frameCount, sampleRate);
+                const data = audioBuffer.getChannelData(0);
+                
+                // توليد صوت يشبه الكلام باستخدام مجموعة من الترددات
+                const baseFreq = 180; // تردد أساسي
+                const formants = [300, 600, 900, 1200]; // ترددات الرنين
+                
+                for (let i = 0; i < frameCount; i++) {
+                    const t = i / sampleRate;
+                    let sample = 0;
+                    
+                    // الموجة الأساسية
+                    sample += Math.sin(baseFreq * 2 * Math.PI * t) * 0.4;
+                    
+                    // إضافة التوافقيات
+                    for (let f = 2; f <= 5; f++) {
+                        sample += Math.sin(baseFreq * f * 2 * Math.PI * t) * (0.15 / f);
+                    }
+                    
+                    // إضافة ترددات الرنين (تشبه أصوات الحروف)
+                    formants.forEach((freq, index) => {
+                        const amplitude = 0.08 * (1 - index * 0.15);
+                        sample += Math.sin(freq * 2 * Math.PI * t) * amplitude;
+                    });
+                    
+                    // تعديل السعة لتشبه الكلام (ارتفاع وانخفاض)
+                    const envelope = Math.sin(t * 2 * Math.PI * 0.5) * 0.3 + 0.7;
+                    sample *= envelope;
+                    
+                    // إضافة تأثيرات تشبه الصوت البشري
+                    if (i % 500 < 20) {
+                        sample += (Math.random() - 0.5) * 0.03;
+                    }
+                    
+                    // ترددات عشوائية خفيفة
+                    if (i % 1000 < 10) {
+                        sample += Math.sin((200 + Math.random() * 300) * 2 * Math.PI * t) * 0.02;
+                    }
+                    
+                    data[i] = Math.max(-0.8, Math.min(0.8, sample));
+                }
+                
+                // تحويل إلى WAV
+                const wavBlob = audioBufferToWav(audioBuffer);
+                const reader = new FileReader();
+                reader.readAsDataURL(wavBlob);
+                reader.onload = function() {
+                    const audioData = reader.result;
+                    const durationSec = Math.round(duration);
+                    if (callback) callback(audioData, durationSec);
+                };
+                reader.onerror = function() {
+                    // في حالة الفشل، نستخدم طريقة بديلة
+                    generateFallbackVoiceMessage(text, callback);
+                };
+            } catch(e) {
+                console.error('خطأ في توليد الصوت:', e);
+                generateFallbackVoiceMessage(text, callback);
+            }
+        }
+
+        // ===== طريقة بديلة لتوليد الصوت =====
+        function generateFallbackVoiceMessage(text, callback) {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const duration = 2;
+                const sampleRate = audioCtx.sampleRate;
+                const frameCount = sampleRate * duration;
+                const audioBuffer = audioCtx.createBuffer(1, frameCount, sampleRate);
+                const data = audioBuffer.getChannelData(0);
+                
+                for (let i = 0; i < frameCount; i++) {
+                    const t = i / sampleRate;
+                    data[i] = Math.sin(440 * 2 * Math.PI * t) * 0.3 +
+                              Math.sin(880 * 2 * Math.PI * t) * 0.15 +
+                              Math.sin(220 * 2 * Math.PI * t) * 0.1;
+                    if (i % 1000 < 50) {
+                        data[i] += (Math.random() - 0.5) * 0.05;
+                    }
+                }
+                
+                const wavBlob = audioBufferToWav(audioBuffer);
+                const reader = new FileReader();
+                reader.readAsDataURL(wavBlob);
+                reader.onload = function() {
+                    const audioData = reader.result;
+                    if (callback) callback(audioData, Math.round(duration));
+                };
+            } catch(e) {
+                if (callback) callback(null, 0);
+            }
+        }
+
+        // ===== تحويل AudioBuffer إلى WAV =====
+        function audioBufferToWav(buffer) {
+            const numChannels = 1;
+            const sampleRate = buffer.sampleRate;
+            const format = 1;
+            const bitDepth = 16;
+            
+            const bytesPerSample = bitDepth / 8;
+            const blockAlign = numChannels * bytesPerSample;
+            
+            const data = buffer.getChannelData(0);
+            const samples = data.length;
+            const dataSize = samples * bytesPerSample;
+            
+            const arrayBuffer = new ArrayBuffer(44 + dataSize);
+            const view = new DataView(arrayBuffer);
+            
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + dataSize, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, format, true);
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * blockAlign, true);
+            view.setUint16(32, blockAlign, true);
+            view.setUint16(34, bitDepth, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, dataSize, true);
+            
+            let offset = 44;
+            for (let i = 0; i < samples; i++) {
+                const sample = Math.max(-1, Math.min(1, data[i]));
+                const int16 = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+                view.setInt16(offset, int16, true);
+                offset += 2;
+            }
+            
+            return new Blob([arrayBuffer], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        // ===== تشغيل الصوت المحسن =====
+        function playAudioMessage(audioData, duration) {
+            if (!audioData) {
+                alert('لا يوجد ملف صوتي للتشغيل');
+                return;
+            }
+
+            try {
+                if (currentAudioPlayer) {
+                    currentAudioPlayer.pause();
+                    currentAudioPlayer = null;
+                    isPlaying = false;
+                }
+
+                const audio = new Audio(audioData);
+                currentAudioPlayer = audio;
+                
+                audio.onplay = function() {
+                    isPlaying = true;
+                    updatePlayButton(true);
+                    animateWaveBars(true);
+                };
+                
+                audio.onpause = function() {
+                    isPlaying = false;
+                    updatePlayButton(false);
+                    animateWaveBars(false);
+                };
+                
+                audio.onended = function() {
+                    isPlaying = false;
+                    updatePlayButton(false);
+                    animateWaveBars(false);
+                    currentAudioPlayer = null;
+                };
+                
+                audio.onerror = function(e) {
+                    console.error('خطأ في تشغيل الصوت:', e);
+                    isPlaying = false;
+                    updatePlayButton(false);
+                    animateWaveBars(false);
+                    currentAudioPlayer = null;
+                    alert('تعذر تشغيل الصوت. يرجى المحاولة مرة أخرى.');
+                };
+                
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(function(error) {
+                        console.error('فشل تشغيل الصوت:', error);
+                        isPlaying = false;
+                        updatePlayButton(false);
+                        animateWaveBars(false);
+                        currentAudioPlayer = null;
+                        alert('تعذر تشغيل الصوت. يرجى المحاولة مرة أخرى.');
+                    });
+                }
+                
+                updatePlayButton(true);
+                animateWaveBars(true);
+                
+            } catch(e) {
+                console.error('خطأ في تشغيل الصوت:', e);
+                alert('تعذر تشغيل الصوت. يرجى المحاولة مرة أخرى.');
+            }
+        }
+
+        function updatePlayButton(playing) {
+            const buttons = document.querySelectorAll('.play-btn');
+            buttons.forEach(btn => {
+                if (playing) {
+                    btn.classList.add('playing');
+                    btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                    btn.title = 'إيقاف';
+                } else {
+                    btn.classList.remove('playing');
+                    btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                    btn.title = 'تشغيل';
+                }
+            });
+        }
+
+        function animateWaveBars(active) {
+            const bars = document.querySelectorAll('.audio-wave .bar');
+            bars.forEach((bar, index) => {
+                if (active) {
+                    bar.classList.add('playing');
+                    const delay = index * 0.05;
+                    bar.style.animationDelay = delay + 's';
+                    bar.style.height = (8 + Math.random() * 20) + 'px';
+                } else {
+                    bar.classList.remove('playing');
+                    bar.style.animationDelay = '0s';
+                    bar.style.height = '8px';
+                }
+            });
+        }
+
+        // ===== فحص معلمات الرابط =====
+        function checkUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const type = params.get('type');
+            const content = params.get('content');
+            const sender = params.get('sender');
+            const audio = params.get('audio');
+
+            if (type && content) {
+                setTimeout(() => {
+                    if (type === 'voice' || audio === 'true') {
+                        // توليد رسالة صوتية حقيقية
+                        const text = content || 'رسالة صوتية من المرسل';
+                        const senderName = sender || 'مرسل';
+                        
+                        receiveChatMessage(
+                            `🎙️ رسالة صوتية من ${senderName}`, 
+                            senderName, 
+                            '📧 عبر الرابط'
+                        );
+                        
+                        // توليد الصوت وإضافته كرسالة صوتية
+                        generateRealVoiceMessage(text, function(audioData, duration) {
+                            if (audioData) {
+                                const msg = {
+                                    id: Date.now() + Math.random(),
+                                    text: `🎙️ رسالة صوتية: ${text}`,
+                                    type: 'received',
+                                    sender: senderName,
+                                    time: new Date().toLocaleTimeString('ar'),
+                                    read: isChatOpen,
+                                    timestamp: new Date().toISOString(),
+                                    source: '📧 عبر الرابط',
+                                    isAudio: true,
+                                    audioData: audioData,
+                                    duration: duration || 3
+                                };
+                                chatMessages.push(msg);
+                                saveChatMessages();
+                                renderChatMessages();
+                                
+                                // تشغيل الصوت تلقائياً
+                                setTimeout(() => {
+                                    playAudioMessage(audioData, duration);
+                                }, 500);
+                            }
+                        });
+                    } else {
+                        receiveChatMessage(
+                            `📝 رسالة من ${sender || 'مرسل'}: ${content}`, 
+                            sender || 'مرسل', 
+                            '📧 عبر الرابط'
+                        );
+                    }
+                    
+                    setTimeout(() => {
+                        openChat();
+                        if (Notification.permission === 'granted') {
+                            new Notification('📩 رسالة جديدة من البريد الإلكتروني', {
+                                body: `لديك رسالة جديدة من ${sender || 'مرسل'}`,
+                                icon: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2300ff66"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-13h-2v6l5.25 3.15L17 12.23l-4-2.37V7z"/%3E%3C/svg%3E'
+                            });
+                        }
+                    }, 1000);
+                }, 800);
+            }
+        }
+
+        // ===== VOICE RECORDING =====
         function toggleRecording() {
             if (isRecording) {
                 stopRecording();
@@ -1055,7 +1395,6 @@
                     mediaRecorder.onstop = () => {
                         const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
                         sendVoiceMessage(audioBlob);
-                        // إغلاق المسارات
                         stream.getTracks().forEach(track => track.stop());
                         btn.classList.remove('recording');
                         btn.title = 'تسجيل رسالة صوتية';
@@ -1068,14 +1407,12 @@
                     
                     mediaRecorder.start();
                     
-                    // إظهار مؤشر التسجيل
                     const indicator = document.getElementById('typingIndicator');
                     if (indicator) {
                         indicator.style.display = 'flex';
                         indicator.innerHTML = '<span>🔴 جاري التسجيل...</span><span class="dots"></span>';
                     }
                     
-                    // تحديث واجهة الموجات الصوتية
                     setupAudioVisualization(stream);
                 })
                 .catch(err => {
@@ -1101,7 +1438,6 @@
             analyser.fftSize = 256;
             source.connect(analyser);
             
-            // تحديث واجهة الشات لإظهار التسجيل
             const container = document.getElementById('chatMessages');
             const recordingMsg = document.createElement('div');
             recordingMsg.className = 'chat-msg received';
@@ -1119,7 +1455,6 @@
             container.appendChild(recordingMsg);
             container.scrollTop = container.scrollHeight;
             
-            // تحديث الموجات
             function updateWave() {
                 if (!analyser || !isRecording) return;
                 
@@ -1143,19 +1478,15 @@
         }
 
         function sendVoiceMessage(audioBlob) {
-            // تحويل الصوت إلى base64 لتخزينه
             const reader = new FileReader();
             reader.readAsDataURL(audioBlob);
             reader.onload = function() {
                 const audioData = reader.result;
-                const duration = audioBlob.size / 16000; // تقدير المدة
-                const durationSec = Math.min(Math.round(duration), 30);
+                const durationSec = Math.min(Math.round(audioBlob.size / 16000), 30);
                 
-                // إزالة مؤشر التسجيل
                 const indicator = document.getElementById('recordingIndicator');
                 if (indicator) indicator.remove();
                 
-                // إضافة رسالة صوتية
                 const msg = {
                     id: Date.now(),
                     type: 'sent',
@@ -1173,16 +1504,21 @@
                 saveChatMessages();
                 renderChatMessages();
                 
-                // إرسال عبر البريد الإلكتروني مع الإشارة إلى وجود رسالة صوتية
+                // إرسال عبر البريد مع رابط صوتي
                 const userId = getCookie('reck_user_id') || 'مستخدم';
-                const subject = encodeURIComponent(`رسالة صوتية جديدة من ${userId} في الشات`);
+                const subject = encodeURIComponent(`رسالة صوتية جديدة من ${userId}`);
+                const encodedMessage = encodeURIComponent('رسالة صوتية مسجلة');
+                const link = `${SITE_URL}?type=voice&content=${encodedMessage}&sender=${userId}&audio=true`;
+                
                 const body = encodeURIComponent(
                     `مرحباً،\n\n` +
-                    `قام المستخدم "${userId}" بإرسال رسالة صوتية في غرفة الشات.\n` +
+                    `قام المستخدم "${userId}" بإرسال رسالة صوتية.\n` +
                     `مدة الرسالة: ${durationSec} ثانية\n` +
-                    `تم إرسال الملف الصوتي مرفقاً مع هذا البريد.\n` +
                     `----------------------------------------\n` +
-                    `✉️ للرد على هذه الرسالة، قم بالرد على هذا البريد الإلكتروني.\n` +
+                    `🔊 للاستماع إلى الرسالة الصوتية، اضغط على الرابط التالي:\n` +
+                    `${link}\n` +
+                    `----------------------------------------\n` +
+                    `✉️ يمكنك الرد على هذه الرسالة بالرد على هذا البريد.\n` +
                     `تم الإرسال من: ${window.location.href}`
                 );
                 
@@ -1190,144 +1526,12 @@
             };
         }
 
-        // محاكاة استقبال رسالة صوتية من الطرف الآخر
-        function simulateVoiceMessageReception() {
-            // توليد صوت اصطناعي بسيط (نغمات)
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const duration = 1.5;
-                const sampleRate = audioCtx.sampleRate;
-                const frameCount = sampleRate * duration;
-                const audioBuffer = audioCtx.createBuffer(1, frameCount, sampleRate);
-                const data = audioBuffer.getChannelData(0);
-                
-                for (let i = 0; i < frameCount; i++) {
-                    const t = i / sampleRate;
-                    data[i] = Math.sin(440 * 2 * Math.PI * t) * 0.3 +
-                              Math.sin(880 * 2 * Math.PI * t) * 0.15 +
-                              Math.sin(220 * 2 * Math.PI * t) * 0.1;
-                    // تضمين ترددات عشوائية لإعطاء طابع طبيعي
-                    if (i % 1000 < 50) {
-                        data[i] += (Math.random() - 0.5) * 0.05;
-                    }
-                }
-                
-                // تحويل إلى WAV (محاكاة)
-                const wavBlob = audioBufferToWav(audioBuffer);
-                const reader = new FileReader();
-                reader.readAsDataURL(wavBlob);
-                reader.onload = function() {
-                    const audioData = reader.result;
-                    const responses = [
-                        "مرحباً! هذه رسالة صوتية مني.",
-                        "أهلاً بك في الشات الصوتي!",
-                        "شكراً لتواصلك معي.",
-                        "كيف يمكنني مساعدتك اليوم؟",
-                        "أنا هنا للإجابة على استفساراتك."
-                    ];
-                    const reply = responses[Math.floor(Math.random() * responses.length)];
-                    const durationSec = Math.round(wavBlob.size / 16000);
-                    
-                    const msg = {
-                        id: Date.now() + Math.random(),
-                        text: reply,
-                        type: 'received',
-                        sender: 'Reck',
-                        time: new Date().toLocaleTimeString('ar'),
-                        read: isChatOpen,
-                        timestamp: new Date().toISOString(),
-                        source: '🎙️ صوتي',
-                        isAudio: true,
-                        audioData: audioData,
-                        duration: Math.min(durationSec, 10)
-                    };
-                    
-                    chatMessages.push(msg);
-                    saveChatMessages();
-                    renderChatMessages();
-                    
-                    // تشغيل صوت الإشعار
-                    if (notificationSound) {
-                        try { notificationSound(); } catch(e) {}
-                    }
-                    
-                    if (navigator.vibrate) {
-                        navigator.vibrate(100);
-                    }
-                    
-                    if (Notification.permission === 'granted' && !isChatOpen) {
-                        new Notification('🎙️ رسالة صوتية جديدة في الشات', {
-                            body: `Reck أرسل رسالة صوتية`,
-                            icon: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2300ff66"%3E%3Cpath d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-13h-2v6l5.25 3.15L17 12.23l-4-2.37V7z"/%3E%3C/svg%3E'
-                        });
-                    }
-                    
-                    updateChatNotification();
-                };
-            } catch(e) {
-                // في حالة فشل توليد الصوت، نرسل رسالة نصية بدلاً من ذلك
-                receiveChatMessage('🎙️ رسالة صوتية: مرحباً! أنا هنا لمساعدتك.', 'Reck', '🎙️ صوتي');
-            }
-        }
-
-        // تحويل AudioBuffer إلى WAV blob
-        function audioBufferToWav(buffer) {
-            const numChannels = 1;
-            const sampleRate = buffer.sampleRate;
-            const format = 1; // PCM
-            const bitDepth = 16;
-            
-            const bytesPerSample = bitDepth / 8;
-            const blockAlign = numChannels * bytesPerSample;
-            
-            const data = buffer.getChannelData(0);
-            const samples = data.length;
-            const dataSize = samples * bytesPerSample;
-            
-            const arrayBuffer = new ArrayBuffer(44 + dataSize);
-            const view = new DataView(arrayBuffer);
-            
-            // RIFF header
-            writeString(view, 0, 'RIFF');
-            view.setUint32(4, 36 + dataSize, true);
-            writeString(view, 8, 'WAVE');
-            writeString(view, 12, 'fmt ');
-            view.setUint32(16, 16, true);
-            view.setUint16(20, format, true);
-            view.setUint16(22, numChannels, true);
-            view.setUint32(24, sampleRate, true);
-            view.setUint32(28, sampleRate * blockAlign, true);
-            view.setUint16(32, blockAlign, true);
-            view.setUint16(34, bitDepth, true);
-            writeString(view, 36, 'data');
-            view.setUint32(40, dataSize, true);
-            
-            // Write audio data
-            let offset = 44;
-            for (let i = 0; i < samples; i++) {
-                const sample = Math.max(-1, Math.min(1, data[i]));
-                const int16 = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
-                view.setInt16(offset, int16, true);
-                offset += 2;
-            }
-            
-            return new Blob([arrayBuffer], { type: 'audio/wav' });
-        }
-
-        function writeString(view, offset, string) {
-            for (let i = 0; i < string.length; i++) {
-                view.setUint8(offset + i, string.charCodeAt(i));
-            }
-        }
-
-        // ===== CHAT SYSTEM WITH EMAIL INTEGRATION =====
+        // ===== CHAT SYSTEM =====
         let chatMessages = [];
         let isChatOpen = false;
         let notificationSound = null;
         const CHAT_STORAGE_KEY = 'reck_chat_messages';
-        const TARGET_EMAIL = 'mmellouk586@gmail.com';
 
-        // ===== COOKIE MANAGEMENT =====
         function setCookie(name, value, days) { 
             let expires = ""; 
             if (days) { 
@@ -1349,28 +1553,21 @@
             return null; 
         }
 
-        // ===== SOUND SYSTEM =====
         function createNotificationSound() {
             try {
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                
                 function playSound() {
                     try {
                         const oscillator = audioContext.createOscillator();
                         const gainNode = audioContext.createGain();
-                        
                         oscillator.connect(gainNode);
                         gainNode.connect(audioContext.destination);
-                        
                         oscillator.frequency.value = 800;
                         oscillator.type = 'sine';
-                        
                         gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
                         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-                        
                         oscillator.start(audioContext.currentTime);
                         oscillator.stop(audioContext.currentTime + 0.3);
-                        
                         setTimeout(() => {
                             const osc2 = audioContext.createOscillator();
                             const gain2 = audioContext.createGain();
@@ -1399,7 +1596,6 @@
 
         notificationSound = createNotificationSound();
 
-        // ===== CHAT FUNCTIONS =====
         function loadChatMessages() {
             try {
                 const stored = localStorage.getItem(CHAT_STORAGE_KEY);
@@ -1415,15 +1611,6 @@
             try {
                 localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(chatMessages));
             } catch(e) {}
-        }
-
-        function playAudioMessage(audioData, duration) {
-            try {
-                const audio = new Audio(audioData);
-                audio.play().catch(() => {});
-            } catch(e) {
-                console.log('خطأ في تشغيل الصوت:', e);
-            }
         }
 
         function renderChatMessages() {
@@ -1452,12 +1639,12 @@
                 
                 let contentHtml = '';
                 if (msg.isAudio && msg.audioData) {
-                    // رسالة صوتية
                     const duration = msg.duration || 3;
                     const waveBars = Array(20).fill(0).map(() => '<span class="bar"></span>').join('');
+                    const audioDataStr = msg.audioData;
                     contentHtml = `
                         <div class="audio-msg">
-                            <button class="play-btn" onclick="playAudioMessage('${msg.audioData}', ${duration})">
+                            <button class="play-btn" onclick="playAudioMessage('${audioDataStr}', ${duration})">
                                 <i class="fa-solid fa-play"></i>
                             </button>
                             <div class="audio-wave">
@@ -1521,7 +1708,6 @@
             }
         }
 
-        // ===== إرسال رسالة نصية =====
         function sendChatMessage() {
             const input = document.getElementById('chatInput');
             if (!input || !input.value.trim()) return;
@@ -1545,15 +1731,20 @@
             renderChatMessages();
             input.value = '';
 
-            // إرسال عبر البريد الإلكتروني
             const subject = encodeURIComponent(`رسالة جديدة من ${userId} في الشات`);
+            const encodedMessage = encodeURIComponent(text);
+            const link = `${SITE_URL}?type=text&content=${encodedMessage}&sender=${userId}`;
+            
             const body = encodeURIComponent(
                 `مرحباً،\n\n` +
                 `قام المستخدم "${userId}" بإرسال رسالة في غرفة الشات:\n` +
                 `----------------------------------------\n` +
                 `${text}\n` +
                 `----------------------------------------\n` +
-                `✉️ للرد على هذه الرسالة، قم بالرد على هذا البريد الإلكتروني وسيظهر ردك تلقائياً في الشات.\n` +
+                `🔗 لعرض الرسالة مباشرة في الشات، اضغط على الرابط التالي:\n` +
+                `${link}\n` +
+                `----------------------------------------\n` +
+                `✉️ للرد على هذه الرسالة، قم بالرد على هذا البريد الإلكتروني.\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
             
@@ -1563,11 +1754,10 @@
             
             setTimeout(() => {
                 showTypingIndicator(false);
-                receiveChatMessage('📧 تم إرسال رسالتك عبر البريد الإلكتروني. في انتظار رد الطرف الآخر...', 'النظام', '📧 نظام البريد');
+                receiveChatMessage('📧 تم إرسال رسالتك عبر البريد الإلكتروني مع رابط مباشر.', 'النظام', '📧 نظام البريد');
             }, 1500);
         }
 
-        // ===== استقبال رسالة =====
         function receiveChatMessage(text, sender, source) {
             const lastMsg = chatMessages.length > 0 ? chatMessages[chatMessages.length - 1] : null;
             if (lastMsg && lastMsg.text === text && lastMsg.sender === sender) {
@@ -1606,7 +1796,6 @@
             updateChatNotification();
         }
 
-        // ===== محاكاة استقبال ردود =====
         function simulateEmailReception() {
             const replies = [
                 "مرحباً! شكراً على رسالتك، كيف يمكنني مساعدتك؟",
@@ -1622,14 +1811,41 @@
             setInterval(() => {
                 if (Math.random() > 0.4) return;
                 
-                // 30% فرصة أن تكون رسالة صوتية
                 if (Math.random() > 0.7) {
-                    simulateVoiceMessageReception();
+                    // توليد رسالة صوتية حقيقية
+                    const text = "مرحباً! هذه رسالة صوتية مني. أنا هنا لمساعدتك.";
+                    const sender = "Reck";
+                    
+                    receiveChatMessage(
+                        `🎙️ رسالة صوتية من ${sender}`, 
+                        sender, 
+                        '🎙️ صوتي'
+                    );
+                    
+                    generateRealVoiceMessage(text, function(audioData, duration) {
+                        if (audioData) {
+                            const msg = {
+                                id: Date.now() + Math.random(),
+                                text: `🎙️ رسالة صوتية: ${text}`,
+                                type: 'received',
+                                sender: sender,
+                                time: new Date().toLocaleTimeString('ar'),
+                                read: isChatOpen,
+                                timestamp: new Date().toISOString(),
+                                source: '🎙️ صوتي',
+                                isAudio: true,
+                                audioData: audioData,
+                                duration: duration || 3
+                            };
+                            chatMessages.push(msg);
+                            saveChatMessages();
+                            renderChatMessages();
+                        }
+                    });
                 } else {
                     const reply = replies[Math.floor(Math.random() * replies.length)];
-                    const randomId = Math.floor(Math.random() * 1000);
                     receiveChatMessage(
-                        `${reply} (رد #${randomId})`, 
+                        `${reply}`, 
                         'Reck', 
                         '📧 البريد الإلكتروني'
                     );
@@ -1637,7 +1853,6 @@
             }, 20000 + Math.random() * 20000);
         }
 
-        // ===== فتح وإغلاق الشات =====
         function openChat() {
             isChatOpen = true;
             document.getElementById('chatModal').style.display = 'flex';
@@ -1659,7 +1874,6 @@
             }
         }
 
-        // ===== REAL STATUS DOT =====
         function updateStatusDot() {
             const dot = document.getElementById('statusDot');
             if (!dot) return;
@@ -1695,7 +1909,6 @@
 
         setInterval(updateStatusDot, 5000);
 
-        // ===== REAL NETWORK SPEED =====
         function measureNetworkSpeed() {
             const speedSpan = document.getElementById('speedValue');
             if (!speedSpan) return;
@@ -1728,7 +1941,6 @@
         setInterval(measureNetworkSpeed, 15000);
         measureNetworkSpeed();
 
-        // ===== USER SESSION =====
         function initUserSession() {
             let userId = getCookie('reck_user_id');
             if (!userId) {
@@ -1852,11 +2064,13 @@
         function sendInteractionEmail(type, vidId, content) {
             const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
             const subject = encodeURIComponent(`تفاعل جديد - ${type} على فيديو`);
+            const link = `${SITE_URL}?type=interaction&content=${encodeURIComponent(content)}&sender=${userId}`;
             const body = encodeURIComponent(
                 `نوع التفاعل: ${type}\n` +
                 `معرف الفيديو: ${vidId}\n` +
                 `المحتوى: ${content}\n` +
                 `المستخدم: ${userId}\n` +
+                `🔗 رابط التفاعل: ${link}\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
             window.open(`mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`, '_blank');
@@ -1902,9 +2116,11 @@
         function sendFriendRequest() {
             const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
             const subject = encodeURIComponent(`طلب صداقة من مستخدم`);
+            const link = `${SITE_URL}?type=friend&sender=${userId}`;
             const body = encodeURIComponent(
                 `مرحباً،\n\n` +
                 `قام المستخدم "${userId}" بإرسال طلب صداقة.\n` +
+                `🔗 رابط طلب الصداقة: ${link}\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
             window.open(`mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`, '_blank');
@@ -1915,12 +2131,14 @@
             const message = document.getElementById('messageText')?.value?.trim() || 'لا توجد رسالة';
             const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
             const subject = encodeURIComponent(`رسالة جديدة من ${userId}`);
+            const link = `${SITE_URL}?type=text&content=${encodeURIComponent(message)}&sender=${userId}`;
             const body = encodeURIComponent(
                 `مرحباً،\n\n` +
                 `المرسل: ${userId}\n` +
                 `----------------------------------------\n` +
                 `${message}\n` +
                 `----------------------------------------\n` +
+                `🔗 رابط الرسالة: ${link}\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
             window.open(`mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`, '_blank');
@@ -1929,7 +2147,6 @@
             alert('تم إرسال رسالتك بنجاح!');
         }
 
-        // ===== SECURITY SCAN =====
         function runSecuritySimulation() { 
             setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); 
             setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); 
@@ -1946,9 +2163,10 @@
                 loadChatMessages();
                 renderChatMessages();
                 simulateEmailReception();
+                checkUrlParams();
                 
                 setTimeout(() => {
-                    receiveChatMessage('📧 مرحباً بك في غرفة الشات! يمكنك إرسال رسائل نصية أو صوتية (اضغط على زر الميكروفون).', 'النظام', '📧 نظام البريد');
+                    receiveChatMessage('📧 مرحباً بك في غرفة الشات! يمكنك إرسال رسائل نصية أو صوتية.', 'النظام', '📧 نظام البريد');
                 }, 1500);
                 
                 setTimeout(() => {
@@ -1956,16 +2174,17 @@
                 }, 3000);
                 
                 setTimeout(() => {
-                    receiveChatMessage('🎙️ جرب إرسال رسالة صوتية بالضغط على زر الميكروفون!', 'Reck', '🎙️ صوتي');
+                    receiveChatMessage('🔗 تم تفعيل نظام الروابط المباشرة. عند الضغط على رابط في البريد، ستظهر الرسالة تلقائياً.', 'النظام', '🔗 روابط مباشرة');
                 }, 4500);
             }, 3200); 
         }
 
-        // ===== EVENT LISTENERS =====
         document.addEventListener('DOMContentLoaded', () => {
             if ("Notification" in window && Notification.permission === "default") {
                 Notification.requestPermission();
             }
+
+            checkUrlParams();
 
             if (getCookie("reck_session_scanned") === "true") {
                 document.getElementById('security-check').style.display = 'none';
@@ -1975,13 +2194,13 @@
                 simulateEmailReception();
                 
                 setTimeout(() => {
-                    receiveChatMessage('📧 مرحباً بك في غرفة الشات! يمكنك إرسال رسائل نصية أو صوتية (اضغط على زر الميكروفون).', 'النظام', '📧 نظام البريد');
+                    receiveChatMessage('📧 مرحباً بك في غرفة الشات! يمكنك إرسال رسائل نصية أو صوتية.', 'النظام', '📧 نظام البريد');
                 }, 1000);
                 setTimeout(() => {
                     receiveChatMessage('👋 أهلاً! أنا هنا لمساعدتك. يمكنك التواصل معي عبر الشات أو البريد الإلكتروني.', 'Reck', '📧 البريد الإلكتروني');
                 }, 2500);
                 setTimeout(() => {
-                    receiveChatMessage('🎙️ جرب إرسال رسالة صوتية بالضغط على زر الميكروفون!', 'Reck', '🎙️ صوتي');
+                    receiveChatMessage('🔗 تم تفعيل نظام الروابط المباشرة. عند الضغط على رابط في البريد، ستظهر الرسالة تلقائياً.', 'النظام', '🔗 روابط مباشرة');
                 }, 4000);
             } else {
                 runSecuritySimulation();
@@ -2046,7 +2265,8 @@
                     - <b>status</b>: Show current user session info.<br>
                     - <b>chat</b>  : Open the chat window.<br>
                     - <b>send</b> [msg] : Send a chat message.<br>
-                    - <b>voice</b> : Toggle voice recording.</span>`;
+                    - <b>voice</b> : Toggle voice recording.<br>
+                    - <b>link</b> : Show the direct link URL.</span>`;
                 } else if (lowerCmd === 'tools') {
                     output = `<span class="cmd-output">[+] Deployed Tools Inside Termux:<br>
                     - nmap v7.92 (Network Mapper)<br>
@@ -2079,6 +2299,8 @@
                 } else if (lowerCmd === 'voice') {
                     toggleRecording();
                     output = `<span class="cmd-output success-msg">[+] Toggling voice recording...</span>`;
+                } else if (lowerCmd === 'link') {
+                    output = `<span class="cmd-output success-msg">[+] Direct Link URL:<br>${SITE_URL}</span>`;
                 } else if (lowerCmd.startsWith('send ')) {
                     const msg = cmd.substring(5);
                     if (msg.trim()) {
