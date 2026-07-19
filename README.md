@@ -94,6 +94,14 @@
         }
         .nav-video-toggle:hover { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(0, 255, 102, 0.2); }
 
+        /* زر قائمة المستخدمين في الهيدر */
+        .nav-users-btn {
+            background: none; border: 1px solid var(--border-color); color: var(--accent-color);
+            padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: all 0.3s;
+            margin-left: 10px;
+        }
+        .nav-users-btn:hover { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(0, 255, 102, 0.2); }
+
         nav ul { display: flex; list-style: none; align-items: center; }
         nav ul li { margin-right: 25px; }
         nav ul li a { color: var(--text-color); text-decoration: none; font-size: 16px; transition: color 0.3s ease; }
@@ -158,6 +166,23 @@
         }
         .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 13px; }
 
+        /* شريط التفاعلات أسفل الفيديوهات والتعليقات */
+        .video-interactions {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+        .interaction-btn {
+            background: none; border: none; color: var(--text-color); cursor: pointer;
+            font-size: 14px; display: flex; align-items: center; gap: 6px; transition: color 0.2s;
+        }
+        .interaction-btn:hover { color: var(--accent-color); }
+        .interaction-btn.liked { color: #ff3366; }
+        .interaction-btn.hearted { color: #ff3366; }
+
         /* الأقسام العامة */
         .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: radial-gradient(circle at center, #1f293d 0%, var(--bg-color) 70%); flex-direction: column; }
         .hero-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--accent-color); box-shadow: 0 0 20px rgba(0, 255, 102, 0.4); margin-bottom: 20px; object-fit: cover; }
@@ -189,6 +214,26 @@
         .social-links a { color: var(--text-color); font-size: 24px; transition: color 0.3s, transform 0.3s; }
         .social-links a:hover { color: var(--accent-color); transform: scale(1.2); }
 
+        /* تنسيقات نموذج التفاعل والتعليق */
+        .interaction-form {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px; border-radius: 8px; margin-top: 40px; text-align: right;
+        }
+        .form-group { margin-bottom: 20px; position: relative; }
+        .form-group i { position: absolute; top: 14px; right: 15px; color: var(--accent-color); }
+        .form-input {
+            width: 100%; padding: 12px 45px 12px 15px; background: #0d1117;
+            border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-bright);
+            font-size: 15px; outline: none; transition: border-color 0.3s;
+        }
+        .form-input:focus { border-color: var(--accent-color); }
+        .interaction-selectors { display: flex; gap: 20px; margin-bottom: 20px; justify-content: flex-start; }
+        .reaction-option { cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 16px; color: var(--text-color); }
+        .reaction-option input { display: none; }
+        .reaction-option span { display: flex; align-items: center; gap: 6px; padding: 6px 15px; border: 1px solid var(--border-color); border-radius: 4px; transition: all 0.2s; }
+        .reaction-option input:checked + span { border-color: var(--accent-color); color: var(--accent-color); background: rgba(0, 255, 102, 0.05); }
+
         footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-size: 14px; background-color: var(--card-bg); }
         .privacy-link { display: inline-block; margin-top: 10px; color: var(--accent-color); text-decoration: none; font-weight: 300; font-size: 13px; transition: text-shadow 0.3s; }
         .privacy-link:hover { text-shadow: 0 0 8px var(--accent-color); }
@@ -202,7 +247,7 @@
         }
         .lab-float-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-color); }
 
-        /* نافذة بيئة الاختبار (Lab) */
+        /* نافذة بيئة الاختبار (Lab) والنوافذ المنبثقة بشكل عام */
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             background-color: rgba(0, 0, 0, 0.85); z-index: 20000; 
@@ -228,12 +273,34 @@
         .cmd-output { color: #c9d1d9; margin-top: 4px; margin-bottom: 10px; display: block; }
         .success-msg { color: var(--accent-color); }
 
+        /* تنسيقات نافذة قائمة المستخدمين والملفات الشخصية */
+        .users-modal-content {
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 8px; width: 500px; max-width: 100%; padding: 25px; text-align: right;
+            box-shadow: 0 0 20px rgba(0,255,102,0.1); position: relative;
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .modal-close-btn { background: none; border: none; color: #ff5f56; font-size: 20px; cursor: pointer; }
+        .users-list { display: flex; flex-direction: column; gap: 12px; }
+        .user-item {
+            display: flex; align-items: center; justify-content: space-between; padding: 10px;
+            background: #0d1117; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; transition: 0.2s;
+        }
+        .user-item:hover { border-color: var(--accent-color); }
+        .user-info-brief { display: flex; align-items: center; gap: 12px; }
+        .user-avatar-small { width: 40px; height: 40px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 1px solid var(--border-color); }
+        
+        .profile-view { display: none; text-align: center; padding: 15px 0; }
+        .profile-avatar-large { width: 90px; height: 90px; border-radius: 50%; background: #21262d; display: flex; align-items: center; justify-content: center; color: var(--accent-color); border: 2px solid var(--accent-color); margin: 0 auto 15px auto; font-size: 32px; }
+        .back-to-users-btn { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; float: right; }
+
         @media (max-width: 768px) {
             .menu-toggle { display: block; }
             nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background-color: var(--card-bg); padding: 20px; gap: 10px; }
             nav ul.active { display: flex; }
             nav ul li { margin-right: 0; text-align: center; }
             .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .logo-area { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -259,6 +326,9 @@
                 <button class="header-follow-btn" onclick="activateFollow()">[ Follow ]</button>
                 <button class="nav-video-toggle" onclick="toggleView()">
                     <i class="fa-solid fa-video"></i> <span>[ المقاطع ]</span>
+                </button>
+                <button class="nav-users-btn" onclick="openUsersModal()">
+                    <i class="fa-solid fa-users"></i> <span>[ المستخدمين ]</span>
                 </button>
             </div>
             <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
@@ -320,8 +390,34 @@
             <div class="contact-info">
                 <div class="social-links">
                     <a href="https://www.tiktok.com/@rick_6000?_r=1&_t=ZS-97ujNamvHms" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="mailto:rick@example.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="mailto:mmellouk586@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
                 </div>
+            </div>
+
+            <!-- نموذج إضافة التعليقات والتفاعل وإرساله إلى البريد الموحد -->
+            <div class="interaction-form">
+                <h3 style="color: var(--text-bright); margin-bottom: 15px;"><i class="fa-solid fa-comments" style="color: var(--accent-color); margin-left: 8px;"></i> أضف تعليقك وتفاعلك</h3>
+                <form onsubmit="sendInteractionEmail(event)">
+                    <div class="form-group">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="interact-email" class="form-input" placeholder="بريدك الإلكتروني" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        <input type="text" id="interact-message" class="form-input" placeholder="اكتب رسالتك أو تعليقك هنا" required>
+                    </div>
+                    <div class="interaction-selectors">
+                        <label class="reaction-option">
+                            <input type="radio" name="user-reaction" value="لايك (Like)" checked>
+                            <span><i class="fa-solid fa-thumbs-up"></i> لايك</span>
+                        </label>
+                        <label class="reaction-option">
+                            <input type="radio" name="user-reaction" value="قلب (Heart)">
+                            <span><i class="fa-solid fa-heart"></i> قلب</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">إرسال التفاعل والتعليق</button>
+                </form>
             </div>
         </section>
     </div>
@@ -330,6 +426,50 @@
         <h2 class="section-title">المقاطع المنشورة</h2>
         <div class="videos-grid" id="youtubeVideosGrid"></div>
     </section>
+
+    <!-- نافذة منبثقة مخصصة لعرض قائمة المستخدمين وملفاتهم الشخصية -->
+    <div class="modal-overlay" id="usersModal">
+        <div class="users-modal-content">
+            <div class="modal-header">
+                <button class="modal-close-btn" onclick="closeUsersModal()"><i class="fa-solid fa-xmark"></i></button>
+                <h3 style="color: var(--text-bright);" id="usersModalTitle">[ دليل مستخدمي المنصة ]</h3>
+            </div>
+            
+            <!-- واجهة القائمة الرئيسية للمستخدمين -->
+            <div id="usersListContainer" class="users-list">
+                <div class="user-item" onclick="viewUserProfile('أحمد العربي', 'ahmed@example.com')">
+                    <div class="user-info-brief">
+                        <div class="user-avatar-small"><i class="fa-solid fa-user"></i></div>
+                        <div>
+                            <h4 style="color: var(--text-bright);">أحمد العربي</h4>
+                            <p style="font-size: 12px; color: #8b949e;">ahmed@example.com</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left" style="color: var(--accent-color);"></i>
+                </div>
+                <div class="user-item" onclick="viewUserProfile('سارة السيبرانية', 'sara@example.com')">
+                    <div class="user-info-brief">
+                        <div class="user-avatar-small"><i class="fa-solid fa-user"></i></div>
+                        <div>
+                            <h4 style="color: var(--text-bright);">سارة السيبرانية</h4>
+                            <p style="font-size: 12px; color: #8b949e;">sara@example.com</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left" style="color: var(--accent-color);"></i>
+                </div>
+            </div>
+
+            <!-- واجهة البروفايل الافتراضي لكل مستخدم -->
+            <div id="userProfileContainer" class="profile-view">
+                <button class="back-to-users-btn" onclick="showUsersList()"><i class="fa-solid fa-arrow-right"></i> عودة للقائمة</button>
+                <div style="clear: both;"></div>
+                <div class="profile-avatar-large"><i class="fa-solid fa-user-shield"></i></div>
+                <h3 id="profileName" style="color: var(--text-bright); margin-bottom: 5px;">اسم المستخدم</h3>
+                <p id="profileEmail" style="color: var(--accent-color); font-family: monospace; margin-bottom: 25px;">user@example.com</p>
+                <button id="friendRequestBtn" class="btn" style="width: 100%;">طلب صداقة</button>
+            </div>
+        </div>
+    </div>
 
     <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
 
@@ -362,7 +502,6 @@
         const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
         const YOUTUBE_CHANNEL_ID = "UCwFk399Vw8Xq3K_R-3-zOtw";
 
-        // إضافة الفيديو المخصص وتشغيله محلياً بشكل تلقائي واحترافي
         const MY_PRESET_VIDEOS = [
             {
                 type: "local",
@@ -509,8 +648,73 @@
                         <strong><i class="fa-solid fa-language"></i> الوصف والترجمة:</strong>
                         ${video.translation}
                     </div>
+                    <div class="video-interactions">
+                        <button class="interaction-btn" onclick="toggleReaction(this, 'like')"><i class="fa-solid fa-thumbs-up"></i> إعجاب</button>
+                        <button class="interaction-btn" onclick="toggleReaction(this, 'heart')"><i class="fa-solid fa-heart"></i> قلب</button>
+                        <button class="interaction-btn" onclick="focusCommentSection()"><i class="fa-solid fa-comment"></i> تعليق</button>
+                    </div>
                 </div>
             `;
+        }
+
+        function toggleReaction(element, type) {
+            if (type === 'like') {
+                element.classList.toggle('liked');
+            } else if (type === 'heart') {
+                element.classList.toggle('hearted');
+            }
+        }
+
+        function focusCommentSection() {
+            document.getElementById('contact').scrollIntoView();
+            document.getElementById('interact-message').focus();
+        }
+
+        // دالة إرسال التفاعلات إلى بريدك الموحد المحدث
+        function sendInteractionEmail(event) {
+            event.preventDefault();
+            const userEmail = document.getElementById('interact-email').value;
+            const userMsg = document.getElementById('interact-message').value;
+            const selectedReaction = document.querySelector('input[name="user-reaction"]:checked').value;
+            
+            const targetMail = "mmellouk586@gmail.com";
+            const subject = encodeURIComponent("تفاعل وتعليق جديد من الموقع الشخصي");
+            const body = encodeURIComponent(`بريد المرسل: ${userEmail}\n\nنوع التفاعل: ${selectedReaction}\n\nالرسالة والتعليق:\n${userMsg}`);
+            
+            window.location.href = `mailto:${targetMail}?subject=${subject}&body=${body}`;
+        }
+
+        function openUsersModal() {
+            document.getElementById('usersModal').style.display = 'flex';
+            showUsersList();
+        }
+
+        function closeUsersModal() {
+            document.getElementById('usersModal').style.display = 'none';
+        }
+
+        function showUsersList() {
+            document.getElementById('usersListContainer').style.display = 'flex';
+            document.getElementById('userProfileContainer').style.display = 'none';
+            document.getElementById('usersModalTitle').innerText = "[ دليل مستخدمي المنصة ]";
+        }
+
+        function viewUserProfile(name, email) {
+            document.getElementById('usersListContainer').style.display = 'none';
+            document.getElementById('userProfileContainer').style.display = 'block';
+            document.getElementById('usersModalTitle').innerText = `[ ملف: ${name} ]`;
+            
+            document.getElementById('profileName').innerText = name;
+            document.getElementById('profileEmail').innerText = email;
+            
+            // تعديل دالة زر طلب الصداقة ليرسل لبريدك الموحد بدلاً من بريد المستخدم الافتراضي
+            const friendBtn = document.getElementById('friendRequestBtn');
+            friendBtn.onclick = function() {
+                const targetMail = "mmellouk586@gmail.com";
+                const subject = encodeURIComponent("طلب صداقة جديد عبر المنصة");
+                const body = encodeURIComponent(`أهلاً ريك،\n\nهناك مستخدم يود إرسال طلب صداقة لك.\nالمستهدف بالطلب: ${name} (${email})\n\nالرسالة التلقائية: اريد صداقة معك`);
+                window.location.href = `mailto:${targetMail}?subject=${subject}&body=${body}`;
+            };
         }
 
         function sendSystemNotification(title, body) {
