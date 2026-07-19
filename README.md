@@ -355,412 +355,343 @@
         </section>
 
         <section id="about">
-            <h2 class="section-title">من أنا</h2>
+            <div class="section-title">من أنا</div>
             <div class="about-grid">
                 <div class="profile-img-container">
-                    <img src="IMG_20260710_104918.png" alt="Reck Profile" class="avatar-placeholder">
+                    <div class="avatar-placeholder">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
                 </div>
                 <div>
-                    <p style="font-size: 18px; margin-bottom: 20px;">أنا <strong>Reck</strong>، باحث متخصص في الأمن السيبراني.</p>
-                    <p>مرحباً بك في بوابتي الشخصية لتتبع وتحليل البيانات وفحص الأنظمة المتقدمة.</p>
+                    <h2>الباحث الأمني RICK</h2>
+                    <p style="margin-top:15px;">متخصص في اختبار الاختراق واكتشاف الثغرات الأمنية في تطبيقات الويب وأنظمة الشبكات. أعمل على تقديم حلول واستشارات أمنية متقدمة لحماية البيانات وتأمين البنى التحتية الرقمية من التهديدات السيبرانية المتطورة.</p>
                 </div>
             </div>
         </section>
 
         <section id="services">
-            <h2 class="section-title">الخدمات الأمنية</h2>
+            <div class="section-title">الخدمات الأمنية</div>
             <div class="grid-3">
-                <div class="card"><i class="fa-solid fa-network-wired"></i><h3>اختبار اختراق الشبكات</h3><p>فحص شامل للشبكات الداخلية والخارجية للمؤسسات.</p></div>
-                <div class="card"><i class="fa-solid fa-code-bug"></i><h3>فحص تطبيقات الويب</h3><p>تحليل أمني دقيق للتطبيقات ومواقع الويب.</p></div>
-                <div class="card"><i class="fa-solid fa-shield-halved"></i><h3>الاستجابة للحوادث</h3><p>تقديم الدعم السريع وتأمين النظام مجدداً.</p></div>
+                <div class="card">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>اختبار الاختراق</h3>
+                    <p>محاكاة الهجمات السيبرانية الحقيقية لتحديد نقاط الضعف في التطبيقات والأنظمة قبل استغلالها.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-bug"></i>
+                    <h3>تحليل الكود الأمني</h3>
+                    <p>مراجعة شاملة للأكواد البرمجية البرمجيات للتأكد من خلوها من الأخطاء المنطقية والثغرات.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-lock"></i>
+                    <h3>الاستشارات والدعم</h3>
+                    <p>تقديم استراتيجيات أمنية متكاملة للشركات والأفراد لتعزيز خطوط الدفاع الرقمية.</p>
+                </div>
             </div>
         </section>
 
         <section id="skills">
-            <h2 class="section-title">المهارات والأدوات</h2>
-            <div class="grid-3">
-                <div class="card"><h3>أنظمة التشغيل</h3><div class="skills-container"><span class="skill-badge">Linux (Kali / Parrot)</span></div></div>
-                <div class="card"><h3>أدوات الفحص</h3><div class="skills-container"><span class="skill-badge">Nmap / Burp Suite</span></div></div>
-                <div class="card"><h3>الشبكات</h3><div class="skills-container"><span class="skill-badge">TCP/IP / Canarytokens</span></div></div>
+            <div class="section-title">المهارات التقنية</div>
+            <div class="skills-container">
+                <span class="skill-badge">Web Pentesting</span>
+                <span class="skill-badge">Network Security</span>
+                <span class="skill-badge">Vulnerability Assessment</span>
+                <span class="skill-badge">Linux System Admin</span>
+                <span class="skill-badge">Python Scripting</span>
+                <span class="skill-badge">Reverse Engineering</span>
             </div>
         </section>
 
         <section id="contact">
-            <h2 class="section-title">تواصل معي</h2>
+            <div class="section-title">اتصال وتفاعل</div>
             <div class="contact-info">
+                <p>إذا كنت بحاجة إلى استشارة أمنية أو تود الإبلاغ عن مشكلة، لا تتردد في مراسلتي.</p>
                 <div class="social-links">
-                    <a href="https://www.tiktok.com/@rick_6000?_r=1&_t=ZS-97ujNamvHms" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="mailto:mmellouk586@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="mailto:mmellouk586@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
 
-            <!-- نموذج إضافة التعليقات والتفاعل وإرساله إلى البريد الموحد -->
-            <div class="interaction-form">
-                <h3 style="color: var(--text-bright); margin-bottom: 15px;"><i class="fa-solid fa-comments" style="color: var(--accent-color); margin-left: 8px;"></i> أضف تعليقك وتفاعلك</h3>
-                <form onsubmit="sendInteractionEmail(event)">
-                    <div class="form-group">
-                        <i class="fa-solid fa-envelope"></i>
-                        <input type="email" id="interact-email" class="form-input" placeholder="بريدك الإلكتروني" required>
-                    </div>
-                    <div class="form-group">
-                        <i class="fa-solid fa-comment-dots"></i>
-                        <input type="text" id="interact-message" class="form-input" placeholder="اكتب رسالتك أو تعليقك هنا" required>
-                    </div>
-                    <div class="interaction-selectors">
-                        <label class="reaction-option">
-                            <input type="radio" name="user-reaction" value="لايك (Like)" checked>
-                            <span><i class="fa-solid fa-thumbs-up"></i> لايك</span>
-                        </label>
-                        <label class="reaction-option">
-                            <input type="radio" name="user-reaction" value="قلب (Heart)">
-                            <span><i class="fa-solid fa-heart"></i> قلب</span>
-                        </label>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">إرسال التفاعل والتعليق</button>
-                </form>
-            </div>
+            <!-- نموذج التفاعل والتعليق المحدث -->
+            <form id="comment-form" class="interaction-form" action="https://formsubmit.co/mmellouk586@gmail.com" method="POST">
+                <h3 style="color: var(--text-bright); margin-bottom: 20px;">اترك تعليقاً أو تفاعلاً</h3>
+                
+                <div class="interaction-selectors">
+                    <label class="reaction-option">
+                        <input type="radio" name="reaction" value="Like" checked>
+                        <span><i class="fa-solid fa-thumbs-up"></i> أعجبني</span>
+                    </label>
+                    <label class="reaction-option">
+                        <input type="radio" name="reaction" value="Heart">
+                        <span><i class="fa-solid fa-heart"></i> قلب</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" name="name" class="form-input" placeholder="اسمك الكريم" required>
+                </div>
+                <div class="form-group">
+                    <i class="fa-solid fa-comment"></i>
+                    <textarea name="comment" class="form-input" rows="4" placeholder="اكتب تعليقك أو رسالتك هنا..." required style="resize: none; font-family: inherit;"></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">إرسال التعليق</button>
+            </form>
         </section>
     </div>
 
-    <section id="video-section">
-        <h2 class="section-title">المقاطع المنشورة</h2>
-        <div class="videos-grid" id="youtubeVideosGrid"></div>
-    </section>
-
-    <!-- نافذة منبثقة مخصصة لعرض قائمة المستخدمين وملفاتهم الشخصية -->
-    <div class="modal-overlay" id="usersModal">
-        <div class="users-modal-content">
-            <div class="modal-header">
-                <button class="modal-close-btn" onclick="closeUsersModal()"><i class="fa-solid fa-xmark"></i></button>
-                <h3 style="color: var(--text-bright);" id="usersModalTitle">[ دليل مستخدمي المنصة ]</h3>
-            </div>
-            
-            <!-- واجهة القائمة الرئيسية للمستخدمين -->
-            <div id="usersListContainer" class="users-list">
-                <div class="user-item" onclick="viewUserProfile('أحمد العربي', 'ahmed@example.com')">
-                    <div class="user-info-brief">
-                        <div class="user-avatar-small"><i class="fa-solid fa-user"></i></div>
-                        <div>
-                            <h4 style="color: var(--text-bright);">أحمد العربي</h4>
-                            <p style="font-size: 12px; color: #8b949e;">ahmed@example.com</p>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-left" style="color: var(--accent-color);"></i>
+    <!-- قسم المقاطع الديناميكية -->
+    <div id="video-section">
+        <h2 class="section-title">المقاطع الحصرية</h2>
+        <div class="videos-grid">
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <video src="v.mp4" controls></video>
                 </div>
-                <div class="user-item" onclick="viewUserProfile('سارة السيبرانية', 'sara@example.com')">
-                    <div class="user-info-brief">
-                        <div class="user-avatar-small"><i class="fa-solid fa-user"></i></div>
-                        <div>
-                            <h4 style="color: var(--text-bright);">سارة السيبرانية</h4>
-                            <p style="font-size: 12px; color: #8b949e;">sara@example.com</p>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-left" style="color: var(--accent-color);"></i>
+                <div class="video-title">شرح تقني مميز ومتقدم</div>
+                <div class="video-translation">
+                    <strong><i class="fa-solid fa-language"></i> الترجمة المضافة:</strong>
+                    مرحباً بكم في هذا المقطع التوضيحي الذي نستعرض فيه آليات الحماية المتقدمة وكيفية فحص وإدارة الجلسات بشكل آمن تماماً ضد الثغرات المتطورة.
                 </div>
-            </div>
-
-            <!-- واجهة البروفايل الافتراضي لكل مستخدم -->
-            <div id="userProfileContainer" class="profile-view">
-                <button class="back-to-users-btn" onclick="showUsersList()"><i class="fa-solid fa-arrow-right"></i> عودة للقائمة</button>
-                <div style="clear: both;"></div>
-                <div class="profile-avatar-large"><i class="fa-solid fa-user-shield"></i></div>
-                <h3 id="profileName" style="color: var(--text-bright); margin-bottom: 5px;">اسم المستخدم</h3>
-                <p id="profileEmail" style="color: var(--accent-color); font-family: monospace; margin-bottom: 25px;">user@example.com</p>
-                <button id="friendRequestBtn" class="btn" style="width: 100%;">طلب صداقة</button>
+                <div class="video-interactions">
+                    <button class="interaction-btn" onclick="handleVideoInteraction(this, 'like')">
+                        <i class="fa-solid fa-thumbs-up"></i> <span class="count">أعجبني</span>
+                    </button>
+                    <button class="interaction-btn" onclick="handleVideoInteraction(this, 'heart')">
+                        <i class="fa-solid fa-heart"></i> <span class="count">قلب</span>
+                    </button>
+                    <button class="interaction-btn" onclick="scrollToComments()">
+                        <i class="fa-solid fa-comment"></i> التعليقات
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
+    <!-- زر المحاكي العائم -->
+    <button class="lab-float-btn" onclick="openLabModal()">
+        <i class="fa-solid fa-terminal"></i> <span>Security Lab</span>
+    </button>
 
-    <div class="modal-overlay" id="labModal">
+    <!-- نافذة المحاكي السيبراني -->
+    <div id="lab-modal" class="modal-overlay" onclick="closeLabModal(event)">
         <div class="laptop">
             <div class="screen">
                 <div class="title-bar">
-                    <div class="window-controls"><div class="control close" id="closeLabBtn"></div></div>
-                    <div class="title-bar-text">Termux-SecLab v3.1</div>
+                    <div class="window-controls">
+                        <div class="control close" onclick="document.getElementById('lab-modal').style.display='none'"></div>
+                    </div>
+                    <div class="title-bar-text">rick@cyber-lab:~</div>
                 </div>
                 <div class="simulator-content">
-                    <div class="terminal-box" id="terminalBoxContainer">
-                        <div id="termHistory" class="history-container"><span class="system-msg">Welcome to Termux-SecLab. Type 'help' to see available commands.</span></div>
+                    <div class="terminal-box">
+                        <div class="history-container" id="term-history">
+                            <span class="system-msg">Welcome to RICK Security Simulator v1.0.0</span><br>
+                            <span class="system-msg">Type 'help' to see available commands.</span><br><br>
+                        </div>
                         <div class="input-line">
-                            <span class="prompt">reck@seclab:~$</span>
-                            <input type="text" id="textCmd" class="term-input" autocomplete="off" autofocus>
+                            <span class="prompt">guest@rick-lab:~$</span>
+                            <input type="text" id="term-input-field" class="term-input" autofocus onkeydown="processCommand(event)">
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة قائمة المستخدمين والملفات الشخصية -->
+    <div id="users-modal" class="modal-overlay" onclick="closeUsersModalOutside(event)">
+        <div class="users-modal-content">
+            <div class="modal-header">
+                <h3 style="color:var(--text-bright);"><i class="fa-solid fa-users"></i> الحسابات المسجلة</h3>
+                <button class="modal-close-btn" onclick="closeUsersModal()">&times;</button>
+            </div>
+            
+            <!-- شاشة القائمة الرئيسية -->
+            <div id="users-list-view" class="users-list">
+                <!-- حسابك البريدي المميز والجديد -->
+                <div class="user-item" onclick="showProfile('rick_admin')">
+                    <div class="user-info-brief">
+                        <div class="user-avatar-small" style="color: var(--accent-color); border-color: var(--accent-color);">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <div>
+                            <span style="color:var(--text-bright); font-weight:bold; display:block;">mmellouk586@gmail.com <i class="fa-solid fa-circle-check" style="color: var(--accent-color); font-size:12px;"></i></span>
+                            <span style="font-size:11px; color:#8b949e;">المسؤول والمطور الرئيسي</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left" style="font-size:12px; color:#8b949e;"></i>
+                </div>
+
+                <div class="user-item" onclick="showProfile('user1')">
+                    <div class="user-info-brief">
+                        <div class="user-avatar-small"><i class="fa-solid fa-user"></i></div>
+                        <div>
+                            <span style="color:var(--text-bright); font-weight:bold; display:block;">User_Alpha</span>
+                            <span style="font-size:11px; color:#8b949e;">عضو نشط</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left" style="font-size:12px; color:#8b949e;"></i>
+                </div>
+            </div>
+
+            <!-- شاشة استعراض الملف الشخصي المميز -->
+            <div id="profile-view-section" class="profile-view">
+                <button class="back-to-users-btn" onclick="backToUsersList()"><i class="fa-solid fa-arrow-right"></i> عودة</button>
+                <div style="clear:both;"></div>
+                <div id="profile-dynamic-content"></div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Reck. جميع الحقوق محفوظة</p>
-        <a href="#privacy" class="privacy-link" onclick="alert('سياسة الخصوصية:\nنحن نحترم خصوصيتك بالكامل. جميع عمليات المحاكاة والفحص الأمني داخل هذا الموقع تجري محلياً في بيئة اختبار آمنة تماماً، ولا نقوم بجمع أو مشاركة أي بيانات حساسة تخص الزوار.')">سياسة الخصوصية</a>
+        <p>&copy; 2026 RICK. All Rights Reserved. Designed for Cybersecurity Integrity.</p>
+        <a href="#" class="privacy-link">سياسة الخصوصية وأمن البيانات</a>
     </footer>
 
     <script>
-        const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
-        const YOUTUBE_CHANNEL_ID = "UCwFk399Vw8Xq3K_R-3-zOtw";
-
-        const MY_PRESET_VIDEOS = [
-            {
-                type: "local",
-                id: "VID20260710115227.mp4",
-                title: "يوميات ريك",
-                translation: "مقطع فيديو حصري من يوميات ريك، يوثق الأنشطة اليومية والتجارب الميدانية في الأبحاث الأمنية والتقنية."
-            },
-            { 
-                type: "youtube",
-                id: "wAzR14CknzU", 
-                title: "The story of Noah's Ark (قصة سفينة نوح)",
-                translation: "منذ زمن طويل، دعا الله نوحاً، وهو رجل صالح، لبناء سفينة - ملاذ للخلاص. ورغم سخرية العالم، أطاع نوح دون تردد، واثقاً في الوعد الإلهي بالحماية. من كل ركن من أركان الأرض، سارت المخلوقات كبيرة وصغيرة إلى السفينة؛ الأسود والحملان مشوا جنباً إلى جنب، مستجيبين لنداء صامت للحفظ. وعندما تراجعت المياه، قدم نوح الامتنان لله، ورداً على ذلك، امتد قوس قزح في السماء كعهد أبدي بين الله والبشرية، واعداً بعدم غمر الأرض بالفيضان مرة أخرى."
-            }
-        ];
-
-        function speakVideoTitle(text) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); 
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ar-SA';       
-                utterance.rate = 0.95;          
-                utterance.pitch = 1.0;          
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            if (getCookie("reck_session_scanned") === "true") {
-                document.getElementById('security-check').style.display = 'none';
-            } else {
-                runSecuritySimulation();
-            }
-
-            const labModal = document.getElementById('labModal');
-            const openLabBtn = document.getElementById('openLabBtn');
-            const closeLabBtn = document.getElementById('closeLabBtn');
-            const textCmd = document.getElementById('textCmd');
-            const termHistory = document.getElementById('termHistory');
-            const terminalBoxContainer = document.getElementById('terminalBoxContainer');
-
-            if (openLabBtn) {
-                openLabBtn.onclick = function(e) {
-                    e.preventDefault();
-                    labModal.style.display = 'flex';
-                    if(textCmd) textCmd.focus();
-                };
-            }
-
-            if (closeLabBtn) {
-                closeLabBtn.onclick = function() {
-                    labModal.style.display = 'none';
-                };
-            }
-
-            if (terminalBoxContainer && textCmd) {
-                terminalBoxContainer.onclick = function() {
-                    textCmd.focus();
-                };
-            }
-
-            if (textCmd) {
-                textCmd.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') {
-                        const command = textCmd.value.trim();
-                        if (command.length > 0) {
-                            executeCommand(command);
-                        }
-                        textCmd.value = '';
-                    }
-                });
-            }
-
-            function executeCommand(cmd) {
-                termHistory.innerHTML += `<div><span class="prompt">reck@seclab:~$</span> <span style="color: #fff">${cmd}</span></div>`;
-                let output = '';
-                const lowerCmd = cmd.toLowerCase();
-
-                if (lowerCmd === 'help') {
-                    output = `<span class="cmd-output">Available Commands:<br>
-                    - <b>tools</b> : List cybersecurity research tools deployed.<br>
-                    - <b>scan</b>  : Run a demo network integrity check.<br>
-                    - <b>clear</b> : Clear the terminal interface.<br>
-                    - <b>about</b> : Show researcher credential file.</span>`;
-                } else if (lowerCmd === 'tools') {
-                    output = `<span class="cmd-output">[+] Deployed Tools Inside Termux:<br>
-                    - nmap v7.92 (Network Mapper)<br>
-                    - hping3 (Packet Generator)<br>
-                    - sqlmap v1.6 (Automation Exploit)</span>`;
-                } else if (lowerCmd === 'scan') {
-                    output = `<span class="cmd-output success-msg">[*] Scanning target loopback...<br>
-                    [+] Host 127.0.0.1 is UP.<br>
-                    [+] Port 80/tcp OPEN (http)<br>
-                    [+] Port 443/tcp OPEN (https)<br>
-                    [+] Scan finished. No vulnerability found on current interface.</span>`;
-                } else if (lowerCmd === 'about') {
-                    output = `<span class="cmd-output">File: reck_credentials.txt<br>
-                    Role: Cyber Security Researcher / Bug Bounty Hunter.<br>
-                    Specialty: Web Apps Security & Network Auditing.</span>`;
-                } else if (lowerCmd === 'clear') {
-                    termHistory.innerHTML = '';
-                    return;
-                } else {
-                    output = `<span class="cmd-output" style="color: #ff5f56">Command '${cmd}' not found. Type 'help' for options.</span>`;
-                }
-
-                termHistory.innerHTML += output;
-                termHistory.scrollTop = termHistory.scrollHeight;
-            }
-
-            fetchLatestYouTubeVideos();
+        // إعداد شاشة الفحص الأمني التلقائي
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400);
+            setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 900);
+            setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1400);
+            setTimeout(() => { 
+                document.getElementById('line5').style.display = 'block';
+                document.getElementById('liveCookieBox').style.display = 'block';
+                document.getElementById('cookieValueSpan').innerText = "integrity_token_dev_2026_secured";
+            }, 1900);
+            setTimeout(() => {
+                let loader = document.getElementById('security-check');
+                loader.style.transition = 'opacity 0.5s ease';
+                loader.style.opacity = '0';
+                setTimeout(() => loader.remove(), 500);
+            }, 2800);
         });
 
-        function fetchLatestYouTubeVideos() {
-            const grid = document.getElementById('youtubeVideosGrid');
-            if (!grid) return;
-
-            loadPresetVideos(grid);
-        }
-
-        function loadPresetVideos(gridElement) {
-            gridElement.innerHTML = '';
-            MY_PRESET_VIDEOS.forEach(video => {
-                gridElement.innerHTML += createVideoCard(video);
+        // القائمة المتجاوبة للجوال
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+        if(mobileMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navList.classList.toggle('active');
             });
         }
 
-        function createVideoCard(video) {
-            const cleanTitle = video.title.replace(/['"\\]/g, "");
-            let mediaHtml = '';
-
-            if (video.type === "local") {
-                mediaHtml = `<video src="${video.id}" controls autoplay muted playsinline loop></video>`;
-            } else {
-                mediaHtml = `<iframe src="https://www.youtube.com/embed/${video.id}?autoplay=1&mute=0&rel=0&modestbranding=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            }
-
-            return `
-                <div class="video-wrapper" onmouseenter="speakVideoTitle('${cleanTitle}')">
-                    <div class="video-container">
-                        ${mediaHtml}
-                    </div>
-                    <div class="video-title">${video.title}</div>
-                    <div class="video-translation">
-                        <strong><i class="fa-solid fa-language"></i> الوصف والترجمة:</strong>
-                        ${video.translation}
-                    </div>
-                    <div class="video-interactions">
-                        <button class="interaction-btn" onclick="toggleReaction(this, 'like')"><i class="fa-solid fa-thumbs-up"></i> إعجاب</button>
-                        <button class="interaction-btn" onclick="toggleReaction(this, 'heart')"><i class="fa-solid fa-heart"></i> قلب</button>
-                        <button class="interaction-btn" onclick="focusCommentSection()"><i class="fa-solid fa-comment"></i> تعليق</button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function toggleReaction(element, type) {
-            if (type === 'like') {
-                element.classList.toggle('liked');
-            } else if (type === 'heart') {
-                element.classList.toggle('hearted');
-            }
-        }
-
-        function focusCommentSection() {
-            document.getElementById('contact').scrollIntoView();
-            document.getElementById('interact-message').focus();
-        }
-
-        // دالة إرسال التفاعلات إلى بريدك الموحد المحدث
-        function sendInteractionEmail(event) {
-            event.preventDefault();
-            const userEmail = document.getElementById('interact-email').value;
-            const userMsg = document.getElementById('interact-message').value;
-            const selectedReaction = document.querySelector('input[name="user-reaction"]:checked').value;
-            
-            const targetMail = "mmellouk586@gmail.com";
-            const subject = encodeURIComponent("تفاعل وتعليق جديد من الموقع الشخصي");
-            const body = encodeURIComponent(`بريد المرسل: ${userEmail}\n\nنوع التفاعل: ${selectedReaction}\n\nالرسالة والتعليق:\n${userMsg}`);
-            
-            window.location.href = `mailto:${targetMail}?subject=${subject}&body=${body}`;
-        }
-
-        function openUsersModal() {
-            document.getElementById('usersModal').style.display = 'flex';
-            showUsersList();
-        }
-
-        function closeUsersModal() {
-            document.getElementById('usersModal').style.display = 'none';
-        }
-
-        function showUsersList() {
-            document.getElementById('usersListContainer').style.display = 'flex';
-            document.getElementById('userProfileContainer').style.display = 'none';
-            document.getElementById('usersModalTitle').innerText = "[ دليل مستخدمي المنصة ]";
-        }
-
-        function viewUserProfile(name, email) {
-            document.getElementById('usersListContainer').style.display = 'none';
-            document.getElementById('userProfileContainer').style.display = 'block';
-            document.getElementById('usersModalTitle').innerText = `[ ملف: ${name} ]`;
-            
-            document.getElementById('profileName').innerText = name;
-            document.getElementById('profileEmail').innerText = email;
-            
-            // تعديل دالة زر طلب الصداقة ليرسل لبريدك الموحد بدلاً من بريد المستخدم الافتراضي
-            const friendBtn = document.getElementById('friendRequestBtn');
-            friendBtn.onclick = function() {
-                const targetMail = "mmellouk586@gmail.com";
-                const subject = encodeURIComponent("طلب صداقة جديد عبر المنصة");
-                const body = encodeURIComponent(`أهلاً ريك،\n\nهناك مستخدم يود إرسال طلب صداقة لك.\nالمستهدف بالطلب: ${name} (${email})\n\nالرسالة التلقائية: اريد صداقة معك`);
-                window.location.href = `mailto:${targetMail}?subject=${subject}&body=${body}`;
-            };
-        }
-
-        function sendSystemNotification(title, body) {
-            if ("Notification" in window && Notification.permission === "granted") {
-                new Notification(title, { body: body, icon: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/svgs/solid/user-shield.svg" });
-            }
-        }
-
-        function activateFollow() {
-            if (!("Notification" in window)) { alert("متصفحك لا يدعم الإشعارات."); return; }
-            Notification.requestPermission().then(permission => {
-                if (permission === "granted") {
-                    localStorage.setItem('notifications_enabled', 'true');
-                    sendSystemNotification("Reck System Control", "تم تفعيل نظام المتابعة الذكي وقناتك متصلة حالياً!");
-                }
-            });
-        }
-
+        // التبديل بين الأقسام الرئيسية وقسم المقاطع
         function toggleView() {
-            const mainWrapper = document.getElementById('main-content-wrapper');
-            const videoSection = document.getElementById('video-section');
-            if (videoSection.style.display === 'block') {
-                videoSection.style.display = 'none';
-                mainWrapper.style.display = 'block';
-                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-            } else {
-                mainWrapper.style.display = 'none';
+            let mainWrapper = document.getElementById('main-content-wrapper');
+            let videoSection = document.getElementById('video-section');
+            if(videoSection.style.display === 'none' || videoSection.style.display === '') {
                 videoSection.style.display = 'block';
-                speakVideoTitle("مرحباً بك في مركز العمليات، جاري عرض أحدث المقاطع الأمنية وتشغيلها تلقائياً بالصوت.");
+                mainWrapper.style.display = 'none';
+                navList.classList.remove('active');
+            } else {
+                resetToHome();
             }
         }
 
         function resetToHome() {
-            document.getElementById('video-section').style.display = 'none';
             document.getElementById('main-content-wrapper').style.display = 'block';
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            document.getElementById('video-section').style.display = 'none';
+            navList.classList.remove('active');
         }
 
-        function setCookie(name, value, days) { let expires = ""; if (days) { let date = new Date(); date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); expires = "; expires=" + date.toUTCString(); } document.cookie = name + "=" + (value || "")  + expires + "; path=/"; }
-        function getCookie(name) { let nameEQ = name + "="; let ca = document.cookie.split(';'); for(let i=0;i < ca.length;i++) { let c = ca[i]; while (c.charAt(0)==' ') c = c.substring(1,c.length); if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); } return null; }
-        function runSecuritySimulation() { setTimeout(() => { document.getElementById('line2').style.display = 'block'; }, 400); setTimeout(() => { document.getElementById('line3').style.display = 'block'; }, 800); setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200); setTimeout(() => { document.getElementById('line5').style.display = 'block'; setCookie("reck_session_scanned", "true", 7); document.getElementById('liveCookieBox').style.display = 'block'; document.getElementById('cookieValueSpan').innerText = `reck_session_scanned=true`; }, 1600); setTimeout(() => { document.getElementById('security-check').style.display = 'none'; }, 3200); }
+        // تفعيل زر المتابعة
+        function activateFollow() {
+            alert('شكراً لك على المتابعة والدعم المتواصل للبحث الأمني!');
+        }
 
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navList = document.getElementById('nav-list');
-        if (mobileMenu) {
-            mobileMenu.addEventListener('click', () => { navList.classList.toggle('active'); });
+        // الانتقال المباشر إلى قسم التعليقات وتفعيل واختيار التفاعل تلقائياً
+        function scrollToComments() {
+            resetToHome();
+            setTimeout(() => {
+                const commentForm = document.getElementById('comment-form');
+                if (commentForm) {
+                    commentForm.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
+
+        // التعامل مع الضغط على أزرار الإعجاب والقلب أسفل الفيديوهات
+        function handleVideoInteraction(button, type) {
+            // تحديد راديو التفاعل المطابق في نموذج التعليقات تلقائياً
+            if (type === 'like') {
+                document.querySelector('input[name="reaction"][value="Like"]').checked = true;
+            } else if (type === 'heart') {
+                document.querySelector('input[name="reaction"][value="Heart"]').checked = true;
+            }
+            
+            // فتح قسم التعليقات والنزول إليه مباشرة ليكتب تعليقه ويرسله للإيميل
+            scrollToComments();
+        }
+
+        // فتح وإغلاق النوافذ المنبثقة للـ Lab والـ Users
+        function openLabModal() { document.getElementById('lab-modal').style.display = 'flex'; document.getElementById('term-input-field').focus(); }
+        function closeLabModal(e) { if(e.target.id === 'lab-modal') document.getElementById('lab-modal').style.display = 'none'; }
+        
+        function openUsersModal() { document.getElementById('users-modal').style.display = 'flex'; backToUsersList(); }
+        function closeUsersModal() { document.getElementById('users-modal').style.display = 'none'; }
+        function closeUsersModalOutside(e) { if(e.target.id === 'users-modal') closeUsersModal(); }
+
+        // استعراض الملف الشخصي داخل النافذة المنبثقة
+        function showProfile(userId) {
+            document.getElementById('users-list-view').style.display = 'none';
+            document.getElementById('profile-view-section').style.display = 'block';
+            let contentDiv = document.getElementById('profile-dynamic-content');
+            
+            if(userId === 'rick_admin') {
+                contentDiv.innerHTML = `
+                    <div class="profile-avatar-large" style="color: var(--accent-color); border-color: var(--accent-color); box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <h3 style="color:var(--text-bright);">المطور والمسؤول الرئيسي</h3>
+                    <p style="color:var(--accent-color); font-family:monospace; font-size:14px; margin-top:5px;">mmellouk586@gmail.com</p>
+                    <p style="font-size:13px; color: var(--text-color); margin-top:15px; border-top: 1px solid var(--border-color); padding-top:10px;">
+                        حساب موثق رسمي للمسؤول التقني عن المنصة. متخصص في إدارة قواعد البيانات وأبحاث الأمن السيبراني المتقدمة.
+                    </p>
+                `;
+            } else if(userId === 'user1') {
+                contentDiv.innerHTML = `
+                    <div class="profile-avatar-large"><i class="fa-solid fa-user"></i></div>
+                    <h3 style="color:var(--text-bright);">User_Alpha</h3>
+                    <p style="font-size:13px; color: var(--text-color); margin-top:15px;">عضو مسجل ومهتم بمجال اختبار اختراق الويب وأمن المعلومات.</p>
+                `;
+            }
+        }
+
+        function backToUsersList() {
+            document.getElementById('users-list-view').style.display = 'flex';
+            document.getElementById('profile-view-section').style.display = 'none';
+        }
+
+        // أوامر محاكي الـ Terminal (Lab)
+        function processCommand(e) {
+            if(e.key === 'Enter') {
+                let inputField = document.getElementById('term-input-field');
+                let cmd = inputField.value.trim().toLowerCase();
+                let history = document.getElementById('term-history');
+                
+                if(cmd === '') return;
+                
+                history.innerHTML += `<span class="prompt">guest@rick-lab:~$</span> <span style="color:#fff">${inputField.value}</span><br>`;
+                
+                if(cmd === 'help') {
+                    history.innerHTML += `<span class="cmd-output">Available commands:<br> - info : About this lab<br> - clear : Clear terminal<br> - scan : Simulate system vulnerability check</span>`;
+                } else if(cmd === 'info') {
+                    history.innerHTML += `<span class="cmd-output">RICK Security Lab Environment v1.0.0. Secured simulator channel.</span>`;
+                } else if(cmd === 'clear') {
+                    history.innerHTML = '';
+                } else if(cmd === 'scan') {
+                    history.innerHTML += `<span class="system-msg">Scanning target internal structures...</span><br>`;
+                    history.innerHTML += `<span class="success-msg">[OK] No dangerous exploits detected. Framework is highly patched.</span><br>`;
+                } else {
+                    history.innerHTML += `<span class="cmd-output" style="color:#ff5f56;">Command not found: ${cmd}</span>`;
+                }
+                
+                inputField.value = '';
+                document.getElementById('term-history').scrollTop = document.getElementById('term-history').scrollHeight;
+            }
         }
     </script>
 </body>
