@@ -78,7 +78,7 @@
             display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;
         }
 
-        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .logo { font-size: 24px; font-weight: 700; color: var(--text-bright); letter-spacing: 1px; }
         .logo span { color: var(--accent-color); }
 
@@ -88,7 +88,6 @@
         }
         .header-follow-btn:hover { background: var(--accent-color); color: #000; box-shadow: 0 0 10px var(--accent-color); }
 
-        /* زر المستخدمين الجديد */
         .header-users-btn {
             background: #21262d; border: 1px solid #58a6ff; color: #58a6ff;
             padding: 3px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; transition: all 0.2s; margin-left: 10px;
@@ -149,7 +148,6 @@
         .video-container iframe, .video-container video { width: 100%; height: 100%; border: none; object-fit: cover; }
         .video-title { font-size: 15px; font-weight: bold; color: var(--text-bright); margin-top: 10px; text-align: right; }
         
-        /* صندوق الترجمة المضافة تحت الفيديو */
         .video-translation {
             background: #0d1117;
             border: 1px solid #30363d;
@@ -165,7 +163,6 @@
         }
         .video-translation strong { color: var(--accent-color); display: block; margin-bottom: 4px; font-size: 13px; }
 
-        /* أزرار التفاعل في الفيديو */
         .interaction-buttons {
             display: flex;
             gap: 12px;
@@ -218,7 +215,7 @@
         }
         .comment-area button:hover { opacity: 0.8; }
 
-        /* نافذة المستخدمين */
+        /* نافذة المستخدمين - تصميم شبيه بفيسبوك */
         .users-modal {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -234,7 +231,7 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 30px;
-            max-width: 450px;
+            max-width: 480px;
             width: 100%;
             text-align: center;
             box-shadow: 0 0 40px rgba(0,255,102,0.1);
@@ -244,60 +241,121 @@
             margin-bottom: 20px;
             font-size: 22px;
         }
-        .users-modal-box .email-display {
+
+        /* الملف الشخصي */
+        .profile-card {
             background: #0d1117;
-            padding: 12px;
-            border-radius: 6px;
             border: 1px solid var(--border-color);
-            color: #58a6ff;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.3s;
+            border-radius: 12px;
+            padding: 25px 20px;
             margin-bottom: 20px;
         }
-        .users-modal-box .email-display:hover {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px rgba(0,255,102,0.15);
-        }
-        .users-modal-box .friend-request-area {
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00ff66, #00ccff);
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 36px;
+            color: #0d1117;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(0,255,102,0.2);
+        }
+        .profile-name {
+            color: var(--text-bright);
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .profile-email {
+            color: #58a6ff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .profile-email:hover {
+            text-shadow: 0 0 10px rgba(88,166,255,0.3);
+        }
+        .profile-bio {
+            color: #8b949e;
+            font-size: 13px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* أزرار التفاعل في الملف الشخصي */
+        .profile-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
             margin-top: 15px;
         }
-        .users-modal-box .friend-request-area input,
-        .users-modal-box .friend-request-area textarea {
+        .profile-action-btn {
+            background: #21262d;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .profile-action-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        .profile-action-btn i { font-size: 16px; }
+        .profile-action-btn.friend-btn { border-color: #58a6ff; color: #58a6ff; }
+        .profile-action-btn.friend-btn:hover { background: #58a6ff; color: #000; }
+        .profile-action-btn.message-btn { border-color: #ffcc00; color: #ffcc00; }
+        .profile-action-btn.message-btn:hover { background: #ffcc00; color: #000; }
+
+        /* نافذة الرسالة المنبثقة */
+        .message-popup {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
             background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+        .message-popup textarea {
+            width: 100%;
+            background: #161b22;
             border: 1px solid var(--border-color);
             border-radius: 4px;
             padding: 10px;
             color: var(--text-color);
             font-family: 'Cairo', sans-serif;
-            outline: none;
-            width: 100%;
-        }
-        .users-modal-box .friend-request-area input:focus,
-        .users-modal-box .friend-request-area textarea:focus {
-            border-color: var(--accent-color);
-        }
-        .users-modal-box .friend-request-area textarea {
-            height: 70px;
             resize: vertical;
+            min-height: 60px;
+            outline: none;
         }
-        .users-modal-box .friend-request-area button {
+        .message-popup textarea:focus { border-color: var(--accent-color); }
+        .message-popup .send-msg-btn {
+            margin-top: 10px;
             background: var(--accent-color);
             border: none;
             color: #000;
-            padding: 10px;
+            padding: 8px 20px;
             border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 14px;
             transition: 0.3s;
+            width: 100%;
         }
-        .users-modal-box .friend-request-area button:hover { opacity: 0.8; }
+        .message-popup .send-msg-btn:hover { opacity: 0.8; }
+
         .users-modal-close {
-            margin-top: 20px;
+            margin-top: 15px;
             background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-color);
@@ -343,7 +401,6 @@
         .privacy-link { display: inline-block; margin-top: 10px; color: var(--accent-color); text-decoration: none; font-weight: 300; font-size: 13px; transition: text-shadow 0.3s; }
         .privacy-link:hover { text-shadow: 0 0 8px var(--accent-color); }
 
-        /* الأيقونة العائمة للمحاكي (Lab) */
         .lab-float-btn { 
             position: fixed; bottom: 30px; left: 30px; background-color: var(--card-bg); 
             border: 2px solid var(--accent-color); color: var(--accent-color); padding: 12px 20px; 
@@ -352,7 +409,6 @@
         }
         .lab-float-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-color); }
 
-        /* نافذة بيئة الاختبار (Lab) */
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             background-color: rgba(0, 0, 0, 0.85); z-index: 20000; 
@@ -384,6 +440,7 @@
             nav ul.active { display: flex; }
             nav ul li { margin-right: 0; text-align: center; }
             .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .profile-actions { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -407,7 +464,6 @@
             <div class="logo-area">
                 <div class="logo"><span>[</span> RICK <span>]</span></div>
                 <button class="header-follow-btn" onclick="activateFollow()">[ Follow ]</button>
-                <!-- زر المستخدمين الجديد -->
                 <button class="header-users-btn" onclick="openUsersModal()"><i class="fa-solid fa-users"></i> [ المستخدمين ]</button>
                 <button class="nav-video-toggle" onclick="toggleView()">
                     <i class="fa-solid fa-video"></i> <span>[ المقاطع ]</span>
@@ -483,19 +539,42 @@
         <div class="videos-grid" id="youtubeVideosGrid"></div>
     </section>
 
-    <!-- نافذة المستخدمين -->
+    <!-- نافذة المستخدمين - ملف شخصي شبيه بفيسبوك -->
     <div class="users-modal" id="usersModal">
         <div class="users-modal-box">
-            <h2><i class="fa-solid fa-users"></i> قائمة المستخدمين</h2>
-            <div class="email-display" onclick="copyEmail()">
-                <i class="fa-regular fa-envelope"></i> mmellouk586@gmail.com
-                <span style="display:block;font-size:12px;color:#8b949e;margin-top:4px;">(اضغط لنسخ البريد)</span>
+            <h2><i class="fa-solid fa-user"></i> الملف الشخصي</h2>
+            
+            <div class="profile-card">
+                <div class="profile-avatar">
+                    <i class="fa-solid fa-user-secret"></i>
+                </div>
+                <div class="profile-name">Reck</div>
+                <div class="profile-email" onclick="copyEmail()">
+                    <i class="fa-regular fa-envelope"></i> mmellouk586@gmail.com
+                </div>
+                <div class="profile-bio">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--accent-color);"></i>
+                    باحث في الأمن السيبراني | متخصص في اختبار الاختراق
+                </div>
             </div>
-            <div class="friend-request-area">
-                <input type="text" id="friendName" placeholder="اسم المستخدم الذي تريد إضافته...">
-                <textarea id="friendMessage" placeholder="رسالة طلب الصداقة..."></textarea>
-                <button onclick="sendFriendRequest()"><i class="fa-regular fa-paper-plane"></i> إرسال طلب الصداقة</button>
+
+            <div class="profile-actions">
+                <button class="profile-action-btn friend-btn" onclick="sendFriendRequest()">
+                    <i class="fa-solid fa-user-plus"></i> طلب صداقة
+                </button>
+                <button class="profile-action-btn message-btn" onclick="toggleMessagePopup()">
+                    <i class="fa-regular fa-paper-plane"></i> إرسال رسالة
+                </button>
             </div>
+
+            <!-- نافذة الرسالة المنبثقة -->
+            <div class="message-popup" id="messagePopup">
+                <textarea id="messageText" placeholder="اكتب رسالتك هنا..."></textarea>
+                <button class="send-msg-btn" onclick="sendMessage()">
+                    <i class="fa-regular fa-paper-plane"></i> إرسال الرسالة
+                </button>
+            </div>
+
             <button class="users-modal-close" onclick="closeUsersModal()">إغلاق</button>
         </div>
     </div>
@@ -531,7 +610,6 @@
         const YOUTUBE_API_KEY = "ضغ_مفتاح_الـ_API_الخاص_بجل_هنا"; 
         const YOUTUBE_CHANNEL_ID = "UCwFk399Vw8Xq3K_R-3-zOtw";
 
-        // إضافة الفيديو المخصص وتشغيله محلياً بشكل تلقائي واحترافي
         const MY_PRESET_VIDEOS = [
             {
                 type: "local",
@@ -547,7 +625,6 @@
             }
         ];
 
-        // حالة التفاعل لكل فيديو
         let videoInteractions = {};
 
         function getVideoId(video) {
@@ -606,7 +683,6 @@
             if (countSpan) {
                 countSpan.textContent = interaction.liked ? 1 : 0;
             }
-            // تحديث المظهر
             const btn = document.querySelector(`#like-count-${vidId}`)?.closest('.interaction-btn');
             if (btn) {
                 btn.classList.toggle('liked');
@@ -615,8 +691,6 @@
                     icon.className = interaction.liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
                 }
             }
-            
-            // إرسال تفاعل إلى البريد الإلكتروني
             sendInteractionEmail('إعجاب', vidId, interaction.liked ? 'أعجبني' : 'إلغاء الإعجاب');
         }
 
@@ -638,9 +712,7 @@
                 countSpan.textContent = interaction.comments.length;
             }
             
-            // إرسال التعليق إلى البريد الإلكتروني
             sendInteractionEmail('تعليق', vidId, comment);
-            
             input.value = '';
             alert('تم إرسال تعليقك بنجاح!');
         }
@@ -677,29 +749,48 @@
 
         function openUsersModal() {
             document.getElementById('usersModal').style.display = 'flex';
+            document.getElementById('messagePopup').style.display = 'none';
         }
 
         function closeUsersModal() {
             document.getElementById('usersModal').style.display = 'none';
         }
 
+        function toggleMessagePopup() {
+            const popup = document.getElementById('messagePopup');
+            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+            if (popup.style.display === 'block') {
+                document.getElementById('messageText').focus();
+            }
+        }
+
         function sendFriendRequest() {
-            const name = document.getElementById('friendName')?.value?.trim() || 'مستخدم غير معروف';
-            const message = document.getElementById('friendMessage')?.value?.trim() || 'لا توجد رسالة';
-            
-            const subject = encodeURIComponent(`طلب صداقة من ${name}`);
+            const subject = encodeURIComponent(`طلب صداقة من مستخدم`);
             const body = encodeURIComponent(
                 `مرحباً،\n\n` +
-                `قام المستخدم "${name}" بإرسال طلب صداقة.\n` +
-                `الرسالة: ${message}\n` +
+                `قام مستخدم بزيارة ملفك الشخصي وأرسل طلب صداقة.\n` +
+                `الزائر: ${navigator.userAgent || 'مستخدم غير معروف'}\n` +
                 `تم الإرسال من: ${window.location.href}`
             );
-            
             window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
-            
-            document.getElementById('friendName').value = '';
-            document.getElementById('friendMessage').value = '';
             alert('تم إرسال طلب الصداقة بنجاح!');
+        }
+
+        function sendMessage() {
+            const message = document.getElementById('messageText')?.value?.trim() || 'لا توجد رسالة';
+            const subject = encodeURIComponent(`رسالة جديدة من مستخدم`);
+            const body = encodeURIComponent(
+                `مرحباً،\n\n` +
+                `قام مستخدم بإرسال رسالة إليك:\n` +
+                `----------------------------------------\n` +
+                `${message}\n` +
+                `----------------------------------------\n` +
+                `تم الإرسال من: ${window.location.href}`
+            );
+            window.open(`mailto:mmellouk586@gmail.com?subject=${subject}&body=${body}`, '_blank');
+            document.getElementById('messageText').value = '';
+            document.getElementById('messagePopup').style.display = 'none';
+            alert('تم إرسال رسالتك بنجاح!');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
