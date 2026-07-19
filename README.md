@@ -22,9 +22,10 @@
             --offline-color: #ff4757;
             --chat-bg: #0d1117;
             --chat-msg-sent: #00ff66;
-            --chat-msg-received: #161b22;
+            --chat-msg-received: #1a2a1a;
             --notification-bg: #ff6b6b;
             --recording-color: #00ff66;
+            --chat-accent: #00ff66;
         }
 
         * {
@@ -122,14 +123,14 @@
         .header-users-btn:hover { background: #58a6ff; color: #000; box-shadow: 0 0 10px #58a6ff; }
 
         .header-chat-btn {
-            background: #21262d; border: 1px solid #ff6b6b; color: #ff6b6b;
+            background: #21262d; border: 1px solid #00ff66; color: #00ff66;
             padding: 3px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; transition: all 0.2s;
             display: flex;
             align-items: center;
             gap: 4px;
             position: relative;
         }
-        .header-chat-btn:hover { background: #ff6b6b; color: #000; box-shadow: 0 0 10px #ff6b6b; }
+        .header-chat-btn:hover { background: #00ff66; color: #000; box-shadow: 0 0 10px #00ff66; }
         .header-chat-btn .chat-notification {
             background: #ff6b6b;
             color: #000;
@@ -165,7 +166,7 @@
         }
         .chat-box {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--accent-color);
             border-radius: 12px;
             width: 100%;
             max-width: 500px;
@@ -173,16 +174,16 @@
             max-height: 600px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 40px rgba(255,107,107,0.15);
+            box-shadow: 0 0 40px rgba(0,255,102,0.2);
         }
         .chat-header {
             padding: 15px 20px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 2px solid var(--accent-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: rgba(13,17,23,0.9);
-            border-radius: 12px 12px 0 0;
+            border-radius: 10px 10px 0 0;
         }
         .chat-header h3 {
             color: var(--text-bright);
@@ -191,7 +192,7 @@
             align-items: center;
             gap: 8px;
         }
-        .chat-header h3 i { color: #ff6b6b; }
+        .chat-header h3 i { color: var(--accent-color); }
         .chat-header .chat-status {
             font-size: 11px;
             color: var(--online-color);
@@ -219,7 +220,7 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        .chat-close-btn:hover { color: #ff6b6b; transform: rotate(90deg); }
+        .chat-close-btn:hover { color: var(--accent-color); transform: rotate(90deg); }
 
         .chat-messages {
             flex: 1;
@@ -234,7 +235,7 @@
             width: 4px;
         }
         .chat-messages::-webkit-scrollbar-thumb {
-            background: var(--border-color);
+            background: var(--accent-color);
             border-radius: 4px;
         }
 
@@ -257,11 +258,11 @@
             border-bottom-right-radius: 4px;
         }
         .chat-msg.received {
-            background: var(--card-bg);
+            background: var(--chat-msg-received);
             color: var(--text-color);
             align-self: flex-start;
             border-bottom-left-radius: 4px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--accent-color);
         }
         .chat-msg .msg-time {
             font-size: 9px;
@@ -324,8 +325,9 @@
             align-items: center;
             gap: 3px;
             padding: 0 5px;
-            background: rgba(255,255,255,0.05);
+            background: rgba(0,255,102,0.05);
             border-radius: 4px;
+            border: 1px solid rgba(0,255,102,0.1);
         }
         .audio-msg .audio-wave .bar {
             width: 4px;
@@ -353,18 +355,18 @@
 
         .chat-input-area {
             padding: 12px 20px;
-            border-top: 1px solid var(--border-color);
+            border-top: 2px solid var(--accent-color);
             display: flex;
             gap: 8px;
             align-items: center;
             background: rgba(13,17,23,0.9);
-            border-radius: 0 0 12px 12px;
+            border-radius: 0 0 10px 10px;
             flex-wrap: wrap;
         }
         .chat-input-area input {
             flex: 1;
             background: #0d1117;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--accent-color);
             border-radius: 20px;
             padding: 8px 16px;
             color: var(--text-color);
@@ -373,7 +375,7 @@
             font-size: 13px;
             min-width: 100px;
         }
-        .chat-input-area input:focus { border-color: var(--accent-color); }
+        .chat-input-area input:focus { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(0,255,102,0.2); }
         
         .chat-input-area .voice-btn {
             background: #21262d;
@@ -443,18 +445,18 @@
             font-size: 13px;
             margin: auto;
         }
-        .chat-empty i { font-size: 40px; color: var(--border-color); display: block; margin-bottom: 10px; }
+        .chat-empty i { font-size: 40px; color: var(--accent-color); display: block; margin-bottom: 10px; opacity: 0.3; }
 
         .typing-indicator {
             display: none;
             align-self: flex-start;
             padding: 8px 14px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            background: var(--chat-msg-received);
+            border: 1px solid var(--accent-color);
             border-radius: 12px;
             border-bottom-left-radius: 4px;
             font-size: 13px;
-            color: #8b949e;
+            color: var(--accent-color);
             animation: msgAppear 0.3s ease;
         }
         .typing-indicator .dots {
@@ -465,6 +467,24 @@
             0% { content: '.'; }
             33% { content: '..'; }
             66% { content: '...'; }
+        }
+
+        /* زر معاينة الصوت */
+        .preview-btn {
+            background: #21262d;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 5px;
+        }
+        .preview-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 10px var(--accent-color);
         }
 
         #video-section {
@@ -587,7 +607,7 @@
         }
         .users-modal-box {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--accent-color);
             border-radius: 12px;
             padding: 30px;
             max-width: 480px;
@@ -603,7 +623,7 @@
 
         .profile-card {
             background: #0d1117;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--accent-color);
             border-radius: 12px;
             padding: 25px 20px;
             margin-bottom: 20px;
@@ -668,7 +688,7 @@
             font-size: 13px;
             margin-top: 8px;
             padding-top: 8px;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--accent-color);
         }
 
         .profile-actions {
@@ -707,13 +727,13 @@
             margin-top: 12px;
             padding: 12px;
             background: #0d1117;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--accent-color);
             border-radius: 8px;
         }
         .message-popup textarea {
             width: 100%;
             background: #161b22;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--accent-color);
             border-radius: 4px;
             padding: 8px;
             color: var(--text-color);
@@ -742,7 +762,7 @@
         .users-modal-close {
             margin-top: 12px;
             background: transparent;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--accent-color);
             color: var(--text-color);
             padding: 5px 16px;
             border-radius: 4px;
@@ -782,7 +802,7 @@
         .social-links a { color: var(--text-color); font-size: 24px; transition: color 0.3s, transform 0.3s; }
         .social-links a:hover { color: var(--accent-color); transform: scale(1.2); }
 
-        footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-size: 14px; background-color: var(--card-bg); }
+        footer { text-align: center; padding: 30px; border-top: 1px solid var(--accent-color); font-size: 14px; background-color: var(--card-bg); }
         .privacy-link { display: inline-block; margin-top: 10px; color: var(--accent-color); text-decoration: none; font-weight: 300; font-size: 13px; transition: text-shadow 0.3s; }
         .privacy-link:hover { text-shadow: 0 0 8px var(--accent-color); }
 
@@ -808,10 +828,10 @@
         .title-bar-text { flex-grow: 1; text-align: center; font-size: 13px; font-family: monospace; }
         
         .simulator-content { flex: 1; display: flex; flex-direction: column; background-color: #0d1117; padding: 10px; }
-        .terminal-box { flex: 1; border: 1px solid var(--border-color); background-color: #0c0f14; border-radius: 6px; display: flex; flex-direction: column; direction: ltr; overflow: hidden; }
+        .terminal-box { flex: 1; border: 1px solid var(--accent-color); background-color: #0c0f14; border-radius: 6px; display: flex; flex-direction: column; direction: ltr; overflow: hidden; }
         .history-container { flex: 1; overflow-y: auto; white-space: pre-wrap; color: #58a6ff; font-family: monospace; font-size: 13px; padding: 15px; text-align: left; }
         
-        .input-line { display: flex; align-items: center; padding: 10px; border-top: 1px solid var(--border-color); background: #090d13; }
+        .input-line { display: flex; align-items: center; padding: 10px; border-top: 1px solid var(--accent-color); background: #090d13; }
         .prompt { color: var(--accent-color); margin-right: 8px; font-family: monospace; font-size: 14px; white-space: nowrap; }
         .term-input { background: none; border: none; color: #c9d1d9; width: 100%; outline: none; font-family: monospace; font-size: 14px; }
         
@@ -958,7 +978,12 @@
                 <span class="dots">...</span>
             </div>
             <div class="chat-input-area">
-                <input type="text" id="chatInput" placeholder="اكتب رسالتك..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+                <div style="display:flex; flex:1; gap:5px; align-items:center; flex-wrap:wrap;">
+                    <input type="text" id="chatInput" placeholder="اكتب رسالتك..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+                    <button class="preview-btn" onclick="previewTextMessage()" title="استماع للرسالة قبل الإرسال">
+                        <i class="fa-solid fa-ear-listen"></i> استماع
+                    </button>
+                </div>
                 <button class="voice-btn" id="voiceBtn" onclick="toggleRecording()" title="تسجيل رسالة صوتية">
                     <i class="fa-solid fa-microphone"></i>
                     <span class="recording-dot"></span>
@@ -1046,52 +1071,99 @@
         let animationId = null;
         let currentAudioPlayer = null;
         let isPlaying = false;
+        let recordedAudioData = null;
+        let recordedDuration = 0;
 
         const SITE_URL = 'https://mmellouk586-beep.github.io/Rick/';
         const TARGET_EMAIL = 'mmellouk586@gmail.com';
 
-        // ===== توليد رسالة صوتية حقيقية باستخدام Web Audio API =====
+        // ===== معاينة الرسالة النصية (استماع قبل الإرسال) =====
+        function previewTextMessage() {
+            const input = document.getElementById('chatInput');
+            if (!input || !input.value.trim()) {
+                alert('الرجاء كتابة رسالة أولاً');
+                return;
+            }
+
+            const text = input.value.trim();
+            
+            // استخدام Web Speech API لقراءة النص
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.9;
+                utterance.pitch = 1.0;
+                utterance.volume = 1;
+                
+                // اختيار صوت عربي إذا كان متاحاً
+                const voices = window.speechSynthesis.getVoices();
+                const arabicVoice = voices.find(v => v.lang === 'ar-SA' || v.lang === 'ar-EG' || v.lang === 'ar');
+                if (arabicVoice) {
+                    utterance.voice = arabicVoice;
+                }
+                
+                window.speechSynthesis.speak(utterance);
+                
+                // إشعار المستخدم
+                const btn = document.querySelector('.preview-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> جاري التشغيل...';
+                btn.style.background = 'var(--accent-color)';
+                btn.style.color = '#000';
+                
+                utterance.onend = function() {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                };
+                
+                utterance.onerror = function() {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                    alert('تعذر تشغيل الصوت. يرجى المحاولة مرة أخرى.');
+                };
+            } else {
+                alert('متصفحك لا يدعم خاصية تحويل النص إلى صوت');
+            }
+        }
+
+        // ===== توليد رسالة صوتية حقيقية =====
         function generateRealVoiceMessage(text, callback) {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const duration = Math.min(text.length * 0.08 + 0.5, 8); // مدة الصوت بناءً على طول النص
+                const duration = Math.min(text.length * 0.08 + 0.5, 8);
                 const sampleRate = audioCtx.sampleRate;
                 const frameCount = sampleRate * duration;
                 const audioBuffer = audioCtx.createBuffer(1, frameCount, sampleRate);
                 const data = audioBuffer.getChannelData(0);
                 
-                // توليد صوت يشبه الكلام باستخدام مجموعة من الترددات
-                const baseFreq = 180; // تردد أساسي
-                const formants = [300, 600, 900, 1200]; // ترددات الرنين
+                const baseFreq = 180;
+                const formants = [300, 600, 900, 1200];
                 
                 for (let i = 0; i < frameCount; i++) {
                     const t = i / sampleRate;
                     let sample = 0;
                     
-                    // الموجة الأساسية
                     sample += Math.sin(baseFreq * 2 * Math.PI * t) * 0.4;
                     
-                    // إضافة التوافقيات
                     for (let f = 2; f <= 5; f++) {
                         sample += Math.sin(baseFreq * f * 2 * Math.PI * t) * (0.15 / f);
                     }
                     
-                    // إضافة ترددات الرنين (تشبه أصوات الحروف)
                     formants.forEach((freq, index) => {
                         const amplitude = 0.08 * (1 - index * 0.15);
                         sample += Math.sin(freq * 2 * Math.PI * t) * amplitude;
                     });
                     
-                    // تعديل السعة لتشبه الكلام (ارتفاع وانخفاض)
                     const envelope = Math.sin(t * 2 * Math.PI * 0.5) * 0.3 + 0.7;
                     sample *= envelope;
                     
-                    // إضافة تأثيرات تشبه الصوت البشري
                     if (i % 500 < 20) {
                         sample += (Math.random() - 0.5) * 0.03;
                     }
                     
-                    // ترددات عشوائية خفيفة
                     if (i % 1000 < 10) {
                         sample += Math.sin((200 + Math.random() * 300) * 2 * Math.PI * t) * 0.02;
                     }
@@ -1099,7 +1171,6 @@
                     data[i] = Math.max(-0.8, Math.min(0.8, sample));
                 }
                 
-                // تحويل إلى WAV
                 const wavBlob = audioBufferToWav(audioBuffer);
                 const reader = new FileReader();
                 reader.readAsDataURL(wavBlob);
@@ -1109,7 +1180,6 @@
                     if (callback) callback(audioData, durationSec);
                 };
                 reader.onerror = function() {
-                    // في حالة الفشل، نستخدم طريقة بديلة
                     generateFallbackVoiceMessage(text, callback);
                 };
             } catch(e) {
@@ -1118,7 +1188,6 @@
             }
         }
 
-        // ===== طريقة بديلة لتوليد الصوت =====
         function generateFallbackVoiceMessage(text, callback) {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1150,7 +1219,6 @@
             }
         }
 
-        // ===== تحويل AudioBuffer إلى WAV =====
         function audioBufferToWav(buffer) {
             const numChannels = 1;
             const sampleRate = buffer.sampleRate;
@@ -1198,7 +1266,6 @@
             }
         }
 
-        // ===== تشغيل الصوت المحسن =====
         function playAudioMessage(audioData, duration) {
             if (!audioData) {
                 alert('لا يوجد ملف صوتي للتشغيل');
@@ -1306,42 +1373,13 @@
             if (type && content) {
                 setTimeout(() => {
                     if (type === 'voice' || audio === 'true') {
-                        // توليد رسالة صوتية حقيقية
-                        const text = content || 'رسالة صوتية من المرسل';
+                        // عرض الرسالة النصية فقط
                         const senderName = sender || 'مرسل';
-                        
                         receiveChatMessage(
-                            `🎙️ رسالة صوتية من ${senderName}`, 
+                            `📝 رسالة من ${senderName}: ${content}`, 
                             senderName, 
                             '📧 عبر الرابط'
                         );
-                        
-                        // توليد الصوت وإضافته كرسالة صوتية
-                        generateRealVoiceMessage(text, function(audioData, duration) {
-                            if (audioData) {
-                                const msg = {
-                                    id: Date.now() + Math.random(),
-                                    text: `🎙️ رسالة صوتية: ${text}`,
-                                    type: 'received',
-                                    sender: senderName,
-                                    time: new Date().toLocaleTimeString('ar'),
-                                    read: isChatOpen,
-                                    timestamp: new Date().toISOString(),
-                                    source: '📧 عبر الرابط',
-                                    isAudio: true,
-                                    audioData: audioData,
-                                    duration: duration || 3
-                                };
-                                chatMessages.push(msg);
-                                saveChatMessages();
-                                renderChatMessages();
-                                
-                                // تشغيل الصوت تلقائياً
-                                setTimeout(() => {
-                                    playAudioMessage(audioData, duration);
-                                }, 500);
-                            }
-                        });
                     } else {
                         receiveChatMessage(
                             `📝 رسالة من ${sender || 'مرسل'}: ${content}`, 
@@ -1394,7 +1432,14 @@
                     
                     mediaRecorder.onstop = () => {
                         const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                        sendVoiceMessage(audioBlob);
+                        const reader = new FileReader();
+                        reader.readAsDataURL(audioBlob);
+                        reader.onload = function() {
+                            recordedAudioData = reader.result;
+                            recordedDuration = Math.min(Math.round(audioBlob.size / 16000), 30);
+                            // معاينة الصوت المسجل
+                            playAudioMessage(recordedAudioData, recordedDuration);
+                        };
                         stream.getTracks().forEach(track => track.stop());
                         btn.classList.remove('recording');
                         btn.title = 'تسجيل رسالة صوتية';
@@ -1477,53 +1522,52 @@
             updateWave();
         }
 
-        function sendVoiceMessage(audioBlob) {
-            const reader = new FileReader();
-            reader.readAsDataURL(audioBlob);
-            reader.onload = function() {
-                const audioData = reader.result;
-                const durationSec = Math.min(Math.round(audioBlob.size / 16000), 30);
-                
-                const indicator = document.getElementById('recordingIndicator');
-                if (indicator) indicator.remove();
-                
-                const msg = {
-                    id: Date.now(),
-                    type: 'sent',
-                    sender: 'أنت',
-                    time: new Date().toLocaleTimeString('ar'),
-                    read: true,
-                    timestamp: new Date().toISOString(),
-                    source: '🎙️ صوتي',
-                    isAudio: true,
-                    audioData: audioData,
-                    duration: durationSec
-                };
-                
-                chatMessages.push(msg);
-                saveChatMessages();
-                renderChatMessages();
-                
-                // إرسال عبر البريد مع رابط صوتي
-                const userId = getCookie('reck_user_id') || 'مستخدم';
-                const subject = encodeURIComponent(`رسالة صوتية جديدة من ${userId}`);
-                const encodedMessage = encodeURIComponent('رسالة صوتية مسجلة');
-                const link = `${SITE_URL}?type=voice&content=${encodedMessage}&sender=${userId}&audio=true`;
-                
-                const body = encodeURIComponent(
-                    `مرحباً،\n\n` +
-                    `قام المستخدم "${userId}" بإرسال رسالة صوتية.\n` +
-                    `مدة الرسالة: ${durationSec} ثانية\n` +
-                    `----------------------------------------\n` +
-                    `🔊 للاستماع إلى الرسالة الصوتية، اضغط على الرابط التالي:\n` +
-                    `${link}\n` +
-                    `----------------------------------------\n` +
-                    `✉️ يمكنك الرد على هذه الرسالة بالرد على هذا البريد.\n` +
-                    `تم الإرسال من: ${window.location.href}`
-                );
-                
-                window.open(`mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`, '_blank');
+        function sendVoiceMessage() {
+            if (!recordedAudioData) {
+                alert('الرجاء تسجيل رسالة صوتية أولاً');
+                return;
+            }
+
+            const indicator = document.getElementById('recordingIndicator');
+            if (indicator) indicator.remove();
+            
+            const msg = {
+                id: Date.now(),
+                type: 'sent',
+                sender: 'أنت',
+                time: new Date().toLocaleTimeString('ar'),
+                read: true,
+                timestamp: new Date().toISOString(),
+                source: '🎙️ صوتي',
+                isAudio: true,
+                audioData: recordedAudioData,
+                duration: recordedDuration
             };
+            
+            chatMessages.push(msg);
+            saveChatMessages();
+            renderChatMessages();
+            
+            const userId = getCookie('reck_user_id') || 'مستخدم';
+            const subject = encodeURIComponent(`رسالة صوتية جديدة من ${userId}`);
+            const encodedMessage = encodeURIComponent('رسالة صوتية مسجلة');
+            const link = `${SITE_URL}?type=voice&content=${encodedMessage}&sender=${userId}`;
+            
+            const body = encodeURIComponent(
+                `مرحباً،\n\n` +
+                `قام المستخدم "${userId}" بإرسال رسالة صوتية.\n` +
+                `مدة الرسالة: ${recordedDuration} ثانية\n` +
+                `----------------------------------------\n` +
+                `🔗 للاطلاع على الرسالة، اضغط على الرابط التالي:\n` +
+                `${link}\n` +
+                `----------------------------------------\n` +
+                `✉️ يمكنك الرد على هذه الرسالة بالرد على هذا البريد.\n` +
+                `تم الإرسال من: ${window.location.href}`
+            );
+            
+            window.open(`mailto:${TARGET_EMAIL}?subject=${subject}&body=${body}`, '_blank');
+            recordedAudioData = null;
+            recordedDuration = 0;
         }
 
         // ===== CHAT SYSTEM =====
@@ -1812,36 +1856,14 @@
                 if (Math.random() > 0.4) return;
                 
                 if (Math.random() > 0.7) {
-                    // توليد رسالة صوتية حقيقية
                     const text = "مرحباً! هذه رسالة صوتية مني. أنا هنا لمساعدتك.";
                     const sender = "Reck";
                     
                     receiveChatMessage(
-                        `🎙️ رسالة صوتية من ${sender}`, 
+                        `📝 رسالة من ${sender}: ${text}`, 
                         sender, 
-                        '🎙️ صوتي'
+                        '📧 البريد الإلكتروني'
                     );
-                    
-                    generateRealVoiceMessage(text, function(audioData, duration) {
-                        if (audioData) {
-                            const msg = {
-                                id: Date.now() + Math.random(),
-                                text: `🎙️ رسالة صوتية: ${text}`,
-                                type: 'received',
-                                sender: sender,
-                                time: new Date().toLocaleTimeString('ar'),
-                                read: isChatOpen,
-                                timestamp: new Date().toISOString(),
-                                source: '🎙️ صوتي',
-                                isAudio: true,
-                                audioData: audioData,
-                                duration: duration || 3
-                            };
-                            chatMessages.push(msg);
-                            saveChatMessages();
-                            renderChatMessages();
-                        }
-                    });
                 } else {
                     const reply = replies[Math.floor(Math.random() * replies.length)];
                     receiveChatMessage(
@@ -2184,6 +2206,14 @@
                 Notification.requestPermission();
             }
 
+            // تحميل الأصوات المتاحة
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.getVoices();
+                window.speechSynthesis.onvoiceschanged = function() {
+                    window.speechSynthesis.getVoices();
+                };
+            }
+
             checkUrlParams();
 
             if (getCookie("reck_session_scanned") === "true") {
@@ -2266,7 +2296,8 @@
                     - <b>chat</b>  : Open the chat window.<br>
                     - <b>send</b> [msg] : Send a chat message.<br>
                     - <b>voice</b> : Toggle voice recording.<br>
-                    - <b>link</b> : Show the direct link URL.</span>`;
+                    - <b>link</b> : Show the direct link URL.<br>
+                    - <b>preview</b> : Preview text message with voice.</span>`;
                 } else if (lowerCmd === 'tools') {
                     output = `<span class="cmd-output">[+] Deployed Tools Inside Termux:<br>
                     - nmap v7.92 (Network Mapper)<br>
@@ -2301,6 +2332,14 @@
                     output = `<span class="cmd-output success-msg">[+] Toggling voice recording...</span>`;
                 } else if (lowerCmd === 'link') {
                     output = `<span class="cmd-output success-msg">[+] Direct Link URL:<br>${SITE_URL}</span>`;
+                } else if (lowerCmd === 'preview') {
+                    const input = document.getElementById('chatInput');
+                    if (input && input.value.trim()) {
+                        previewTextMessage();
+                        output = `<span class="cmd-output success-msg">[+] Previewing text message...</span>`;
+                    } else {
+                        output = `<span class="cmd-output" style="color: #ff5f56">No text to preview. Write a message first.</span>`;
+                    }
                 } else if (lowerCmd.startsWith('send ')) {
                     const msg = cmd.substring(5);
                     if (msg.trim()) {
