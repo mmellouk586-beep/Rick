@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
@@ -42,8 +43,6 @@
             line-height: 1.6;
             min-height: 100vh;
             backdrop-filter: blur(2px);
-            padding-top: 70px;
-            /* مساحة للهيدر الثابت */
         }
 
         /* ===== GLASS BASE ===== */
@@ -104,9 +103,9 @@
             color: var(--accent);
         }
 
-        /* ===== HEADER (FIXED - NEVER HIDES) ===== */
+        /* ===== HEADER (STICKY WITH HIDE/SHOW ON SCROLL) ===== */
         header {
-            position: fixed;
+            position: sticky;
             top: 0;
             right: 0;
             width: 100%;
@@ -116,7 +115,16 @@
             -webkit-backdrop-filter: blur(16px) saturate(180%);
             border-bottom: 1px solid var(--glass-border);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            /* إزالة أي transition أو transform متعلق بالإخفاء */
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            /* لإخفاء/إظهار سلس */
+        }
+        header.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        header.visible {
+            transform: translateY(0);
+            opacity: 1;
         }
 
         .nav-container {
@@ -1443,7 +1451,7 @@
         </div>
     </div>
 
-    <!-- ===== HEADER (FIXED - NEVER HIDES) ===== -->
+    <!-- ===== HEADER (STICKY WITH HIDE/SHOW) ===== -->
     <header id="mainHeader">
         <div class="nav-container">
             <div class="logo-area">
@@ -1661,10 +1669,34 @@
 
     <script>
         // ============================================================
+        //  HEADER HIDE/SHOW ON SCROLL
+        // ============================================================
+        let lastScrollY = window.scrollY;
+        const header = document.getElementById('mainHeader');
+
+        window.addEventListener('scroll', function() {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY) {
+                // تمرير لأسفل → إخفاء الهيدر
+                header.classList.remove('visible');
+                header.classList.add('hidden');
+            } else {
+                // تمرير لأعلى → إظهار الهيدر
+                header.classList.remove('hidden');
+                header.classList.add('visible');
+            }
+            // منع الاختفاء عند القمة
+            if (currentScrollY === 0) {
+                header.classList.remove('hidden');
+                header.classList.add('visible');
+            }
+            lastScrollY = currentScrollY;
+        });
+
+        // ============================================================
         //  ALL ORIGINAL FUNCTIONS (RETAINED EXACTLY AS THEY WERE)
         //  (Voice, Chat, Users, Lab, Video, Cookies, Network, etc.)
         //  مع تغيير اسم "Reck" إلى "Rick" في النصوص والرسائل الترحيبية
-        //  تم إزالة كود إخفاء/إظهار الهيدر نهائياً
         // ============================================================
 
         // ---------------------- COOKIE HELPERS ----------------------
