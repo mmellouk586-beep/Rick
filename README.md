@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
@@ -19,8 +18,9 @@
             --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
             --text-dark: #1e1e2f;
             --text-muted: #4a4a5a;
-            --accent: #6c5ce7;
-            --accent-soft: #a29bfe;
+            --accent: #007bff;
+            /* أزرق */
+            --accent-soft: #66b0ff;
             --card-bg: rgba(255, 255, 255, 0.5);
             --chat-bg: rgba(255, 255, 255, 0.6);
             --online-color: #00b894;
@@ -130,13 +130,11 @@
             flex-wrap: wrap;
         }
         .logo {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
-            color: var(--text-dark);
-            letter-spacing: 1px;
-        }
-        .logo span {
             color: var(--accent);
+            /* اسم Rick باللون الأزرق */
+            letter-spacing: 1px;
         }
 
         .network-speed {
@@ -190,9 +188,9 @@
         .header-users-btn:hover,
         .header-chat-btn:hover,
         .nav-video-toggle:hover {
-            background: rgba(108, 92, 231, 0.15);
+            background: rgba(0, 123, 255, 0.15);
             border-color: var(--accent);
-            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
             transform: translateY(-1px);
         }
         .header-chat-btn .chat-notification {
@@ -222,7 +220,7 @@
             transition: 0.2s;
         }
         nav ul li a:hover {
-            background: rgba(108, 92, 231, 0.1);
+            background: rgba(0, 123, 255, 0.1);
             color: var(--accent);
         }
         .menu-toggle {
@@ -404,7 +402,7 @@
         }
         .chat-input-area input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
         }
 
         .chat-input-area .voice-btn {
@@ -526,7 +524,7 @@
             font-size: 36px;
             color: #fff;
             border: 3px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.2);
+            box-shadow: 0 8px 24px rgba(0, 123, 255, 0.2);
         }
         .status-dot {
             display: inline-block;
@@ -558,7 +556,7 @@
             transition: 0.3s;
         }
         .profile-email:hover {
-            text-shadow: 0 0 8px rgba(108, 92, 231, 0.2);
+            text-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
         }
         .profile-bio {
             color: var(--text-muted);
@@ -674,7 +672,7 @@
             justify-content: center;
             text-align: center;
             padding: 120px 20px 60px;
-            background: radial-gradient(circle at 30% 40%, rgba(108, 92, 231, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+            background: radial-gradient(circle at 30% 40%, rgba(0, 123, 255, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
             flex-direction: column;
         }
         .hero-avatar {
@@ -682,7 +680,7 @@
             height: 140px;
             border-radius: 50%;
             border: 4px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 32px rgba(108, 92, 231, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 123, 255, 0.15);
             margin-bottom: 20px;
             object-fit: cover;
             backdrop-filter: blur(4px);
@@ -716,7 +714,7 @@
             background: var(--accent);
             color: #fff;
             border-color: var(--accent);
-            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.25);
+            box-shadow: 0 8px 24px rgba(0, 123, 255, 0.25);
             transform: translateY(-2px);
         }
 
@@ -770,7 +768,6 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             justify-items: center;
-            /* توسيط البطاقات أفقياً */
         }
         .card {
             background: var(--card-bg);
@@ -782,14 +779,12 @@
             box-shadow: var(--glass-shadow);
             width: 100%;
             max-width: 360px;
-            /* عرض مناسب للهواتف */
             text-align: center;
-            /* توسيط النص داخل البطاقة */
         }
         .card:hover {
             transform: translateY(-6px);
             border-color: var(--accent-soft);
-            box-shadow: 0 12px 40px rgba(108, 92, 231, 0.08);
+            box-shadow: 0 12px 40px rgba(0, 123, 255, 0.08);
         }
         .card i {
             font-size: 32px;
@@ -864,7 +859,7 @@
             transition: 0.3s;
         }
         .privacy-link:hover {
-            text-shadow: 0 0 8px rgba(108, 92, 231, 0.2);
+            text-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
         }
 
         /* ===== VIDEO SECTION ===== */
@@ -1029,7 +1024,7 @@
         .lab-float-btn:hover {
             transform: scale(1.04);
             border-color: var(--accent);
-            box-shadow: 0 8px 32px rgba(108, 92, 231, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 123, 255, 0.15);
         }
         .lab-float-btn i {
             font-size: 18px;
@@ -1176,7 +1171,7 @@
             justify-content: center;
             font-size: 22px;
             cursor: pointer;
-            box-shadow: 0 8px 32px rgba(108, 92, 231, 0.35);
+            box-shadow: 0 8px 32px rgba(0, 123, 255, 0.35);
             z-index: 15000;
             border: none;
             transition: all 0.3s ease;
@@ -1184,7 +1179,7 @@
         }
         .ai-chatbot-toggle:hover {
             transform: scale(1.08);
-            box-shadow: 0 12px 40px rgba(108, 92, 231, 0.45);
+            box-shadow: 0 12px 40px rgba(0, 123, 255, 0.45);
         }
 
         .ai-chatbot-window {
@@ -1385,7 +1380,6 @@
                 font-size: 2.4rem;
             }
 
-            /* جعل البطاقات في وسط الشاشة للهواتف */
             .grid-3 {
                 grid-template-columns: 1fr;
                 justify-items: center;
@@ -1394,7 +1388,6 @@
                 max-width: 100%;
                 width: 100%;
             }
-            /* تصغير الأزرار العلوية */
             .header-follow-btn,
             .header-users-btn,
             .header-chat-btn,
@@ -1447,7 +1440,8 @@
     <header>
         <div class="nav-container">
             <div class="logo-area">
-                <div class="logo"><span>[</span> RICK <span>]</span></div>
+                <div class="logo">RICK</div>
+                <!-- أصبح اسماً واحداً باللون الأزرق -->
                 <div class="network-speed" id="networkSpeed">
                     <i class="fa-solid fa-wifi"></i>
                     <span class="speed-value" id="speedValue">0</span>
@@ -1524,7 +1518,8 @@
             <div class="contact-info">
                 <div class="social-links">
                     <a href="https://www.tiktok.com/@rick_6000?_r=1&_t=ZS-97ujNamvHms" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="mailto:rick@example.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <!-- تم تغيير البريد الإلكتروني إلى البريد المطلوب -->
+                    <a href="mailto:mmellouk586@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
                 </div>
             </div>
         </section>
