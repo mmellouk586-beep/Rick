@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
@@ -13,14 +14,14 @@
     <style>
         /* ===== VARIABLES ===== */
         :root {
-            --bg-glass: rgba(255, 255, 255, 0.35);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+            --bg-glass: rgba(255, 255, 255, 0.3);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
             --text-dark: #1e1e2f;
             --text-muted: #4a4a5a;
             --accent: #6c5ce7;
             --accent-soft: #a29bfe;
-            --card-bg: rgba(255, 255, 255, 0.55);
+            --card-bg: rgba(255, 255, 255, 0.5);
             --chat-bg: rgba(255, 255, 255, 0.6);
             --online-color: #00b894;
             --offline-color: #ff6b6b;
@@ -101,17 +102,17 @@
             color: var(--accent);
         }
 
-        /* ===== HEADER ===== */
+        /* ===== HEADER (FIXED) ===== */
         header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
             background: var(--bg-glass);
             backdrop-filter: blur(16px) saturate(180%);
             -webkit-backdrop-filter: blur(16px) saturate(180%);
             border-bottom: 1px solid var(--glass-border);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            right: 0;
-            z-index: 1000;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
         }
         .nav-container {
@@ -120,7 +121,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            padding: 10px 20px;
         }
         .logo-area {
             display: flex;
@@ -129,7 +130,7 @@
             flex-wrap: wrap;
         }
         .logo {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--text-dark);
             letter-spacing: 1px;
@@ -146,20 +147,20 @@
             backdrop-filter: blur(4px);
             border: 1px solid var(--glass-border);
             border-radius: 30px;
-            padding: 2px 12px;
-            font-size: 10px;
+            padding: 2px 10px;
+            font-size: 9px;
             color: var(--text-muted);
             font-family: monospace;
             direction: ltr;
         }
         .network-speed i {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--accent);
         }
         .network-speed .speed-value {
             color: var(--accent);
             font-weight: bold;
-            min-width: 40px;
+            min-width: 30px;
             text-align: center;
         }
         .network-speed .speed-unit {
@@ -174,15 +175,15 @@
             backdrop-filter: blur(8px);
             border: 1px solid var(--glass-border);
             color: var(--text-dark);
-            padding: 4px 14px;
+            padding: 3px 12px;
             border-radius: 30px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.25s ease;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
         .header-follow-btn:hover,
@@ -198,10 +199,10 @@
             background: var(--accent);
             color: #fff;
             border-radius: 50%;
-            padding: 0 6px;
-            font-size: 9px;
+            padding: 0 5px;
+            font-size: 8px;
             font-weight: bold;
-            min-width: 18px;
+            min-width: 16px;
             text-align: center;
         }
 
@@ -209,12 +210,12 @@
             display: flex;
             list-style: none;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         nav ul li a {
             color: var(--text-dark);
             text-decoration: none;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             padding: 4px 10px;
             border-radius: 30px;
@@ -226,7 +227,7 @@
         }
         .menu-toggle {
             display: none;
-            font-size: 24px;
+            font-size: 22px;
             color: var(--text-dark);
             cursor: pointer;
         }
@@ -411,8 +412,8 @@
             backdrop-filter: blur(4px);
             border: 1px solid var(--glass-border);
             border-radius: 50%;
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -687,12 +688,12 @@
             backdrop-filter: blur(4px);
         }
         .hero-content h1 {
-            font-size: 3.2rem;
+            font-size: 3rem;
             color: var(--text-dark);
             margin-bottom: 10px;
         }
         .hero-content p {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--accent);
             margin-bottom: 30px;
             font-family: monospace;
@@ -721,7 +722,7 @@
 
         /* ===== SECTIONS ===== */
         section {
-            padding: 80px 20px 60px;
+            padding: 60px 20px 40px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -768,6 +769,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
+            justify-items: center;
+            /* توسيط البطاقات أفقياً */
         }
         .card {
             background: var(--card-bg);
@@ -777,6 +780,11 @@
             border-radius: 20px;
             transition: all 0.3s ease;
             box-shadow: var(--glass-shadow);
+            width: 100%;
+            max-width: 360px;
+            /* عرض مناسب للهواتف */
+            text-align: center;
+            /* توسيط النص داخل البطاقة */
         }
         .card:hover {
             transform: translateY(-6px);
@@ -798,6 +806,7 @@
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 16px;
+            justify-content: center;
         }
         .skill-badge {
             background: rgba(255, 255, 255, 0.3);
@@ -996,7 +1005,7 @@
             opacity: 0.85;
         }
 
-        /* ===== LAB BUTTON ===== */
+        /* ===== LAB BUTTON (SMALLER) ===== */
         .lab-float-btn {
             position: fixed;
             bottom: 30px;
@@ -1005,22 +1014,25 @@
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             color: var(--text-dark);
-            padding: 12px 24px;
+            padding: 10px 18px;
             border-radius: 50px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             box-shadow: var(--glass-shadow);
             z-index: 9999;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             transition: all 0.3s;
         }
         .lab-float-btn:hover {
             transform: scale(1.04);
             border-color: var(--accent);
             box-shadow: 0 8px 32px rgba(108, 92, 231, 0.15);
+        }
+        .lab-float-btn i {
+            font-size: 18px;
         }
 
         /* ===== LAB MODAL ===== */
@@ -1149,20 +1161,20 @@
             color: var(--accent);
         }
 
-        /* ===== AI CHATBOT (Floating) ===== */
+        /* ===== AI CHATBOT (SMALLER) ===== */
         .ai-chatbot-toggle {
             position: fixed;
             bottom: 30px;
             right: 30px;
             background: var(--accent);
             color: #fff;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 22px;
             cursor: pointer;
             box-shadow: 0 8px 32px rgba(108, 92, 231, 0.35);
             z-index: 15000;
@@ -1177,11 +1189,11 @@
 
         .ai-chatbot-window {
             position: fixed;
-            bottom: 100px;
+            bottom: 90px;
             right: 30px;
             width: 360px;
             max-width: 90vw;
-            height: 440px;
+            height: 420px;
             background: var(--chat-bg);
             backdrop-filter: blur(24px) saturate(200%);
             border: 1px solid var(--glass-border);
@@ -1198,7 +1210,7 @@
         }
 
         .ai-chat-header {
-            padding: 14px 18px;
+            padding: 12px 18px;
             border-bottom: 1px solid var(--glass-border);
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(8px);
@@ -1208,7 +1220,7 @@
         }
         .ai-chat-header h4 {
             color: var(--text-dark);
-            font-size: 16px;
+            font-size: 15px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -1372,6 +1384,46 @@
             .hero-content h1 {
                 font-size: 2.4rem;
             }
+
+            /* جعل البطاقات في وسط الشاشة للهواتف */
+            .grid-3 {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+            .card {
+                max-width: 100%;
+                width: 100%;
+            }
+            /* تصغير الأزرار العلوية */
+            .header-follow-btn,
+            .header-users-btn,
+            .header-chat-btn,
+            .nav-video-toggle {
+                font-size: 10px;
+                padding: 2px 10px;
+            }
+            .logo {
+                font-size: 18px;
+            }
+            .lab-float-btn {
+                padding: 8px 14px;
+                font-size: 12px;
+                bottom: 20px;
+                left: 20px;
+            }
+            .lab-float-btn i {
+                font-size: 16px;
+            }
+            .ai-chatbot-toggle {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .video-wrapper {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -1391,7 +1443,7 @@
         </div>
     </div>
 
-    <!-- ===== HEADER ===== -->
+    <!-- ===== HEADER (FIXED) ===== -->
     <header>
         <div class="nav-container">
             <div class="logo-area">
@@ -1428,9 +1480,9 @@
     <!-- ===== MAIN CONTENT (ORIGINAL) ===== -->
     <div id="main-content-wrapper">
         <section id="home" class="hero">
-            <img src="IMG_20260710_104918.png" alt="Reck Avatar" class="hero-avatar" />
+            <img src="IMG_20260710_104918.png" alt="Rick Avatar" class="hero-avatar" />
             <div class="hero-content">
-                <h1>مرحباً، أنا Reck</h1>
+                <h1>مرحباً، أنا Rick</h1>
                 <p>>_ Cybersecurity Researcher & Ethical Hacker</p>
                 <a href="#contact" class="btn">اطلب فحص أمني الآن</a>
             </div>
@@ -1440,10 +1492,10 @@
             <h2 class="section-title">من أنا</h2>
             <div class="about-grid">
                 <div class="profile-img-container">
-                    <img src="IMG_20260710_104918.png" alt="Reck Profile" class="avatar-placeholder" />
+                    <img src="IMG_20260710_104918.png" alt="Rick Profile" class="avatar-placeholder" />
                 </div>
                 <div>
-                    <p style="font-size: 18px; margin-bottom: 20px;">أنا <strong>Reck</strong>، باحث متخصص في الأمن السيبراني.</p>
+                    <p style="font-size: 18px; margin-bottom: 20px;">أنا <strong>Rick</strong>، باحث متخصص في الأمن السيبراني.</p>
                     <p>مرحباً بك في بوابتي الشخصية لتتبع وتحليل البيانات وفحص الأنظمة المتقدمة.</p>
                 </div>
             </div>
@@ -1528,7 +1580,7 @@
                 <div class="profile-avatar">
                     <i class="fa-solid fa-user-secret"></i>
                 </div>
-                <div class="profile-name">Reck</div>
+                <div class="profile-name">Rick</div>
                 <div class="profile-email" onclick="copyEmail()">
                     <i class="fa-regular fa-envelope"></i> mmellouk586@gmail.com
                 </div>
@@ -1555,7 +1607,7 @@
         </div>
     </div>
 
-    <!-- ===== LAB BUTTON ===== -->
+    <!-- ===== LAB BUTTON (SMALLER) ===== -->
     <button class="lab-float-btn" id="openLabBtn"><i class="fa-solid fa-terminal"></i> <span>[ Lab ]</span></button>
 
     <!-- ===== LAB MODAL ===== -->
@@ -1570,7 +1622,7 @@
                     <div class="terminal-box" id="terminalBoxContainer">
                         <div id="termHistory" class="history-container"><span class="system-msg">Welcome to Termux-SecLab. Type 'help' to see available commands.</span></div>
                         <div class="input-line">
-                            <span class="prompt">reck@seclab:~$</span>
+                            <span class="prompt">rick@seclab:~$</span>
                             <input type="text" id="textCmd" class="term-input" autocomplete="off" autofocus />
                         </div>
                     </div>
@@ -1579,7 +1631,7 @@
         </div>
     </div>
 
-    <!-- ===== AI CHATBOT (FLOATING) ===== -->
+    <!-- ===== AI CHATBOT (SMALLER) ===== -->
     <button class="ai-chatbot-toggle" id="aiChatToggle" title="اسأل المساعد الذكي">
         <i class="fa-regular fa-comment-dots"></i>
     </button>
@@ -1591,7 +1643,7 @@
         </div>
         <div class="ai-chat-messages" id="aiChatMessages">
             <div class="ai-msg bot">
-                مرحباً! أنا المساعد الذكي لموقع Reck. اسألني عن الخدمات، المهارات، أو أي شيء يتعلق بالأمن السيبراني.
+                مرحباً! أنا المساعد الذكي لموقع Rick. اسألني عن الخدمات، المهارات، أو أي شيء يتعلق بالأمن السيبراني.
                 <span class="msg-time">الآن</span>
             </div>
         </div>
@@ -1603,7 +1655,7 @@
 
     <!-- ===== FOOTER ===== -->
     <footer>
-        <p>&copy; 2026 Reck. جميع الحقوق محفوظة</p>
+        <p>&copy; 2026 Rick. جميع الحقوق محفوظة</p>
         <a href="#privacy" class="privacy-link" onclick="alert('سياسة الخصوصية:\nنحن نحترم خصوصيتك بالكامل. جميع عمليات المحاكاة والفحص الأمني داخل هذا الموقع تجري محلياً في بيئة اختبار آمنة تماماً، ولا نقوم بجمع أو مشاركة أي بيانات حساسة تخص الزوار.')">سياسة الخصوصية</a>
     </footer>
 
@@ -1611,6 +1663,7 @@
         // ============================================================
         //  ALL ORIGINAL FUNCTIONS (RETAINED EXACTLY AS THEY WERE)
         //  (Voice, Chat, Users, Lab, Video, Cookies, Network, etc.)
+        //  مع تغيير اسم "Reck" إلى "Rick" في النصوص والرسائل الترحيبية
         // ============================================================
 
         // ---------------------- COOKIE HELPERS ----------------------
@@ -1637,15 +1690,15 @@
 
         // ---------------------- SESSION INIT ----------------------
         function initUserSession() {
-            let userId = getCookie('reck_user_id');
+            let userId = getCookie('rick_user_id');
             if (!userId) {
                 userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-                setCookie('reck_user_id', userId, 30);
-                setCookie('reck_first_visit', new Date().toISOString(), 30);
+                setCookie('rick_user_id', userId, 30);
+                setCookie('rick_first_visit', new Date().toISOString(), 30);
             }
-            setCookie('reck_last_visit', new Date().toISOString(), 30);
-            let visits = parseInt(getCookie('reck_visits') || '0') + 1;
-            setCookie('reck_visits', visits.toString(), 30);
+            setCookie('rick_last_visit', new Date().toISOString(), 30);
+            let visits = parseInt(getCookie('rick_visits') || '0') + 1;
+            setCookie('rick_visits', visits.toString(), 30);
         }
 
         // ---------------------- SECURITY SCREEN ----------------------
@@ -1655,9 +1708,9 @@
             setTimeout(() => { document.getElementById('line4').style.display = 'block'; }, 1200);
             setTimeout(() => {
                 document.getElementById('line5').style.display = 'block';
-                setCookie("reck_session_scanned", "true", 7);
+                setCookie("rick_session_scanned", "true", 7);
                 document.getElementById('liveCookieBox').style.display = 'block';
-                document.getElementById('cookieValueSpan').innerText = `reck_session_scanned=true`;
+                document.getElementById('cookieValueSpan').innerText = `rick_session_scanned=true`;
             }, 1600);
             setTimeout(() => {
                 document.getElementById('security-check').style.display = 'none';
@@ -1673,7 +1726,7 @@
                 }, 1500);
                 setTimeout(() => {
                     receiveChatMessage('👋 أهلاً! أنا هنا لمساعدتك. يمكنك التواصل معي عبر الشات أو البريد الإلكتروني.',
-                        'Reck', '📧 البريد الإلكتروني');
+                        'Rick', '📧 البريد الإلكتروني');
                 }, 3000);
                 setTimeout(() => {
                     receiveChatMessage('🔗 تم تفعيل نظام الروابط المباشرة. عند الضغط على رابط في البريد، ستظهر الرسالة تلقائياً.',
@@ -1686,7 +1739,7 @@
         let chatMessages = [];
         let isChatOpen = false;
         let notificationSound = null;
-        const CHAT_STORAGE_KEY = 'reck_chat_messages';
+        const CHAT_STORAGE_KEY = 'rick_chat_messages';
         const SITE_URL = 'https://mmellouk586-beep.github.io/Rick/';
         const TARGET_EMAIL = 'mmellouk586@gmail.com';
 
@@ -1791,7 +1844,7 @@
             const input = document.getElementById('chatInput');
             if (!input || !input.value.trim()) return;
             const text = input.value.trim();
-            const userId = getCookie('reck_user_id') || 'مستخدم';
+            const userId = getCookie('rick_user_id') || 'مستخدم';
             const msg = {
                 id: Date.now(),
                 text: text,
@@ -1874,11 +1927,11 @@
                 if (Math.random() > 0.4) return;
                 if (Math.random() > 0.7) {
                     const text = "مرحباً! هذه رسالة صوتية مني. أنا هنا لمساعدتك.";
-                    const sender = "Reck";
+                    const sender = "Rick";
                     receiveChatMessage(`📝 رسالة من ${sender}: ${text}`, sender, '📧 البريد الإلكتروني');
                 } else {
                     const reply = replies[Math.floor(Math.random() * replies.length)];
-                    receiveChatMessage(`${reply}`, 'Reck', '📧 البريد الإلكتروني');
+                    receiveChatMessage(`${reply}`, 'Rick', '📧 البريد الإلكتروني');
                 }
             }, 20000 + Math.random() * 20000);
         }
@@ -1993,7 +2046,7 @@
         }
 
         function sendFriendRequest() {
-            const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
+            const userId = getCookie('rick_user_id') || 'مستخدم غير معروف';
             const subject = encodeURIComponent(`طلب صداقة من مستخدم`);
             const link = `${SITE_URL}?type=friend&sender=${userId}`;
             const body = encodeURIComponent(
@@ -2005,7 +2058,7 @@
 
         function sendMessage() {
             const message = document.getElementById('messageText')?.value?.trim() || 'لا توجد رسالة';
-            const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
+            const userId = getCookie('rick_user_id') || 'مستخدم غير معروف';
             const subject = encodeURIComponent(`رسالة جديدة من ${userId}`);
             const link = `${SITE_URL}?type=text&content=${encodeURIComponent(message)}&sender=${userId}`;
             const body = encodeURIComponent(
@@ -2153,7 +2206,7 @@
         }
 
         function sendInteractionEmail(type, vidId, content) {
-            const userId = getCookie('reck_user_id') || 'مستخدم غير معروف';
+            const userId = getCookie('rick_user_id') || 'مستخدم غير معروف';
             const subject = encodeURIComponent(`تفاعل جديد - ${type} على فيديو`);
             const link = `${SITE_URL}?type=interaction&content=${encodeURIComponent(content)}&sender=${userId}`;
             const body = encodeURIComponent(
@@ -2233,7 +2286,7 @@
             Notification.requestPermission().then(permission => {
                 if (permission === "granted") {
                     localStorage.setItem('notifications_enabled', 'true');
-                    new Notification("Reck System Control", { body: "تم تفعيل نظام المتابعة الذكي وقناتك متصلة حالياً!" });
+                    new Notification("Rick System Control", { body: "تم تفعيل نظام المتابعة الذكي وقناتك متصلة حالياً!" });
                 }
             });
         }
@@ -2242,7 +2295,7 @@
         //  AI CHATBOT (MINI) – يعتمد على كلمات مفتاحية للأمن السيبراني
         // ============================================================
         const aiKnowledge = {
-            "من أنت": "أنا Reck، باحث في الأمن السيبراني ومتخصص في اختبار الاختراق. أقدم خدمات أمنية متكاملة.",
+            "من أنت": "أنا Rick، باحث في الأمن السيبراني ومتخصص في اختبار الاختراق. أقدم خدمات أمنية متكاملة.",
             "ما هي الخدمات": "أقدم اختبار اختراق للشبكات، فحص تطبيقات الويب، والاستجابة للحوادث الأمنية.",
             "المهارات": "أمتلك خبرة في أنظمة Linux (Kali/Parrot)، أدوات Nmap وBurp Suite، وفهم عميق لبروتوكولات الشبكات TCP/IP.",
             "كيف أتواصل": "يمكنك التواصل عبر البريد الإلكتروني mmellouk586@gmail.com أو عبر قنوات التواصل الاجتماعي الموجودة في الموقع.",
@@ -2315,7 +2368,7 @@
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             // Security Check
-            if (getCookie("reck_session_scanned") === "true") {
+            if (getCookie("rick_session_scanned") === "true") {
                 document.getElementById('security-check').style.display = 'none';
                 initUserSession();
                 loadChatMessages();
@@ -2327,7 +2380,7 @@
                 }, 1000);
                 setTimeout(() => {
                     receiveChatMessage('👋 أهلاً! أنا هنا لمساعدتك. يمكنك التواصل معي عبر الشات أو البريد الإلكتروني.',
-                        'Reck', '📧 البريد الإلكتروني');
+                        'Rick', '📧 البريد الإلكتروني');
                 }, 2500);
                 setTimeout(() => {
                     receiveChatMessage('🔗 تم تفعيل نظام الروابط المباشرة. عند الضغط على رابط في البريد، ستظهر الرسالة تلقائياً.',
@@ -2365,7 +2418,7 @@
             }
 
             function executeCommand(cmd) {
-                termHistory.innerHTML += `<div><span class="prompt">reck@seclab:~$</span> <span style="color: #1e1e2f">${cmd}</span></div>`;
+                termHistory.innerHTML += `<div><span class="prompt">rick@seclab:~$</span> <span style="color: #1e1e2f">${cmd}</span></div>`;
                 let output = '';
                 const lowerCmd = cmd.toLowerCase();
                 if (lowerCmd === 'help') {
@@ -2379,12 +2432,12 @@
                         `<span class="cmd-output success-msg">[*] Scanning target loopback...<br>[+] Host 127.0.0.1 is UP.<br>[+] Port 80/tcp OPEN (http)<br>[+] Port 443/tcp OPEN (https)<br>[+] Scan finished. No vulnerability found on current interface.</span>`;
                 } else if (lowerCmd === 'about') {
                     output =
-                        `<span class="cmd-output">File: reck_credentials.txt<br>Role: Cyber Security Researcher / Bug Bounty Hunter.<br>Specialty: Web Apps Security & Network Auditing.</span>`;
+                        `<span class="cmd-output">File: rick_credentials.txt<br>Role: Cyber Security Researcher / Bug Bounty Hunter.<br>Specialty: Web Apps Security & Network Auditing.</span>`;
                 } else if (lowerCmd === 'status') {
-                    const userId = getCookie('reck_user_id') || 'غير معروف';
-                    const visits = getCookie('reck_visits') || '0';
-                    const firstVisit = getCookie('reck_first_visit') || 'غير معروف';
-                    const lastVisit = getCookie('reck_last_visit') || 'غير معروف';
+                    const userId = getCookie('rick_user_id') || 'غير معروف';
+                    const visits = getCookie('rick_visits') || '0';
+                    const firstVisit = getCookie('rick_first_visit') || 'غير معروف';
+                    const lastVisit = getCookie('rick_last_visit') || 'غير معروف';
                     output =
                         `<span class="cmd-output success-msg">[+] User Session Info:<br>User ID: ${userId}<br>Visits: ${visits}<br>First Visit: ${firstVisit}<br>Last Visit: ${lastVisit}<br>Chat Messages: ${chatMessages.length}</span>`;
                 } else if (lowerCmd === 'chat') {
