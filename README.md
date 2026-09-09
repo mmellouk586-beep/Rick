@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
@@ -19,7 +20,7 @@
             --text-dark: #1e1e2f;
             --text-muted: #4a4a5a;
             --accent: #007bff;
-            /* أزرق */
+            --accent-purple: #8b5cf6;
             --accent-soft: #66b0ff;
             --card-bg: rgba(255, 255, 255, 0.5);
             --chat-bg: rgba(255, 255, 255, 0.6);
@@ -102,9 +103,9 @@
             color: var(--accent);
         }
 
-        /* ===== HEADER (FIXED) ===== */
+        /* ===== HEADER (STICKY WITH HIDE/SHOW ON SCROLL) ===== */
         header {
-            position: fixed;
+            position: sticky;
             top: 0;
             right: 0;
             width: 100%;
@@ -114,7 +115,18 @@
             -webkit-backdrop-filter: blur(16px) saturate(180%);
             border-bottom: 1px solid var(--glass-border);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            /* لإخفاء/إظهار سلس */
         }
+        header.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        header.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -132,9 +144,12 @@
         .logo {
             font-size: 24px;
             font-weight: 700;
-            color: var(--accent);
-            /* اسم Rick باللون الأزرق */
             letter-spacing: 1px;
+            /* تدرج أزرق - بنفسجي */
+            background: linear-gradient(135deg, #007bff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .network-speed {
@@ -516,7 +531,7 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+            background: linear-gradient(135deg, var(--accent-soft), var(--accent-purple));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1436,12 +1451,11 @@
         </div>
     </div>
 
-    <!-- ===== HEADER (FIXED) ===== -->
-    <header>
+    <!-- ===== HEADER (STICKY WITH HIDE/SHOW) ===== -->
+    <header id="mainHeader">
         <div class="nav-container">
             <div class="logo-area">
                 <div class="logo">RICK</div>
-                <!-- أصبح اسماً واحداً باللون الأزرق -->
                 <div class="network-speed" id="networkSpeed">
                     <i class="fa-solid fa-wifi"></i>
                     <span class="speed-value" id="speedValue">0</span>
@@ -1518,7 +1532,6 @@
             <div class="contact-info">
                 <div class="social-links">
                     <a href="https://www.tiktok.com/@rick_6000?_r=1&_t=ZS-97ujNamvHms" title="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                    <!-- تم تغيير البريد الإلكتروني إلى البريد المطلوب -->
                     <a href="mailto:mmellouk586@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
                 </div>
             </div>
@@ -1655,6 +1668,31 @@
     </footer>
 
     <script>
+        // ============================================================
+        //  HEADER HIDE/SHOW ON SCROLL
+        // ============================================================
+        let lastScrollY = window.scrollY;
+        const header = document.getElementById('mainHeader');
+
+        window.addEventListener('scroll', function() {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY) {
+                // تمرير لأسفل → إخفاء الهيدر
+                header.classList.remove('visible');
+                header.classList.add('hidden');
+            } else {
+                // تمرير لأعلى → إظهار الهيدر
+                header.classList.remove('hidden');
+                header.classList.add('visible');
+            }
+            // منع الاختفاء عند القمة
+            if (currentScrollY === 0) {
+                header.classList.remove('hidden');
+                header.classList.add('visible');
+            }
+            lastScrollY = currentScrollY;
+        });
+
         // ============================================================
         //  ALL ORIGINAL FUNCTIONS (RETAINED EXACTLY AS THEY WERE)
         //  (Voice, Chat, Users, Lab, Video, Cookies, Network, etc.)
